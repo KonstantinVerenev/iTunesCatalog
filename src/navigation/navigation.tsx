@@ -1,16 +1,17 @@
 import { Navigation } from 'react-native-navigation';
 
-import AlbumsScreen from './src/screens/AlbumsScreen';
-import ArtistsScreen from './src/screens/ArtistsScreen';
-import SelectedAlbumsScreen from './src/screens/SelectedAlbumScreen';
-import SelectedArtistScreen from './src/screens/SelectedArtistScreen';
+import ArtistsScreen from '../screens/ArtistsScreen';
+import AlbumsScreen from '../screens/AlbumsScreen';
+import SelectedAlbumsScreen from '../screens/SelectedAlbumScreen';
+import SelectedArtistScreen from '../screens/SelectedArtistScreen';
+import { withProvider } from '../HOCs/withProvider';
 
 export const ARTISTS_SCREEN = 'ArtistScreen';
 export const ALBUMS_SCREEN = 'AlbumsScreen';
 export const SELECTED_ARTIST_SCREEN = 'SelectedArtistScreen';
 export const SELECTED_ALBUM_SCREEN = 'SelectedAlbumScreen';
 
-Navigation.registerComponent(ARTISTS_SCREEN, () => ArtistsScreen);
+Navigation.registerComponent(ARTISTS_SCREEN, withProvider(ArtistsScreen), () => ArtistsScreen);
 Navigation.registerComponent(ALBUMS_SCREEN, () => AlbumsScreen);
 Navigation.registerComponent(SELECTED_ARTIST_SCREEN, () => SelectedArtistScreen);
 Navigation.registerComponent(SELECTED_ALBUM_SCREEN, () => SelectedAlbumsScreen);
