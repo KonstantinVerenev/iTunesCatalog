@@ -1,16 +1,22 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchInput from '../components/SearchInput';
+import { thunkGetArtists } from '../store/actions';
 import { selectArtistsData } from '../store/selectors';
 import { artistData } from '../store/types';
 
 const ArtistsScreen: NavigationFunctionComponent = (props) => {
   const artistsData = useSelector(selectArtistsData);
+  const dispatch = useDispatch();
+
+  //useEffect(() => {
+  //  dispatch(thunkGetArtists('jay-z'));
+  //}, [dispatch]);
 
   const onSubmitInput = (text: string) => {
-    console.log(text);
+    dispatch(thunkGetArtists(text));
   };
 
   const renderItem: ListRenderItem<artistData> = ({ item: { artistName, primaryGenreName } }) => {
