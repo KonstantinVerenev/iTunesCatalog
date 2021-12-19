@@ -1,19 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ListRenderItem,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchInput from '../components/SearchInput';
 import { thunkGetArtists } from '../store/actions';
-import { selectArtistsData } from '../store/selectors';
+import { selectStateData } from '../store/selectors';
 import { artistData } from '../store/types';
 
 const ArtistsScreen: NavigationFunctionComponent = (props) => {
-  const artistsData = useSelector(selectArtistsData);
+  const { artistsData, isLoading, error } = useSelector(selectStateData);
   const dispatch = useDispatch();
-
-  //useEffect(() => {
-  //  dispatch(thunkGetArtists('jay-z'));
-  //}, [dispatch]);
 
   const onSubmitInput = (text: string) => {
     dispatch(thunkGetArtists(text));
@@ -41,12 +45,49 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
     );
   };
 
+  const emptyList = () => {
+    return (
+      <View style={styles.container}>
+        <Text>Ничего не найдено</Text>
+        <Text>Введите новое имя в поле поиска</Text>
+      </View>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.searchInput}>
+          <SearchInput onSubmit={onSubmitInput} />
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.errorMessage}>
+            Ошибка: {'\n'} {error}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.searchInput}>
         <SearchInput onSubmit={onSubmitInput} />
       </View>
-      <FlatList style={styles.artistList} data={artistsData} renderItem={renderItem} />
+      <FlatList
+        style={styles.artistList}
+        data={artistsData}
+        renderItem={renderItem}
+        ListEmptyComponent={emptyList}
+      />
     </View>
   );
 };
@@ -93,6 +134,12 @@ const styles = StyleSheet.create({
   },
   arrow: {
     fontSize: 30,
+  },
+  errorMessage: {
+    padding: 20,
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'tomato',
   },
 });
 

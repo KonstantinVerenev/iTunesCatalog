@@ -11,4 +11,6 @@ export type artistData = {
 
 export type MainState = {
   artistsData: artistData[];
+  isLoading: boolean;
+  error: string | null;
 };

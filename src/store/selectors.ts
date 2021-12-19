@@ -1,3 +1,3 @@
-import { artistData, MainState } from './types';
+import { MainState } from './types';
 
-export const selectArtistsData = (state: MainState): artistData[] => state.artistsData;
+export const selectStateData = (state: MainState): MainState => state;
