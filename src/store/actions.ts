@@ -1,39 +1,50 @@
 import { ThunkAction } from 'redux-thunk';
-import { artistData, MainState } from './types';
+import { albumsDataType, artistDataType, MainState } from './types';
 
-export const FETCH_ARTISTS = 'FETCH_ARTISTS';
+export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_ARTISTS_SUCCESS = 'FETCH_ARTISTS_SUCCESS';
-export const FETCH_ARTISTS_ERROR = 'FETCH_ARTISTS_ERROR';
+export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';
+export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 
-type fetchArtistAction = {
-  type: typeof FETCH_ARTISTS;
+type fetchDataAction = {
+  type: typeof FETCH_DATA;
 };
 
 type fetchArtistSuccessAction = {
   type: typeof FETCH_ARTISTS_SUCCESS;
-  payload: artistData[];
+  payload: artistDataType[];
 };
 
-type fetchArtistErrorAction = {
-  type: typeof FETCH_ARTISTS_ERROR;
+type fetchAlbumsSuccessAction = {
+  type: typeof FETCH_ALBUMS_SUCCESS;
+  payload: albumsDataType[];
+};
+
+type fetchDataErrorAction = {
+  type: typeof FETCH_DATA_ERROR;
   payload: string;
 };
 
 export type ArtistStateAction =
-  | fetchArtistAction
+  | fetchDataAction
   | fetchArtistSuccessAction
-  | fetchArtistErrorAction;
+  | fetchDataErrorAction
+  | fetchAlbumsSuccessAction;
 
-const fetchArtist = (): fetchArtistAction => {
-  return { type: FETCH_ARTISTS };
+const fetchData = (): fetchDataAction => {
+  return { type: FETCH_DATA };
 };
 
-const fetchArtistSuccess = (payload: artistData[]): fetchArtistSuccessAction => {
+const fetchArtistSuccess = (payload: artistDataType[]): fetchArtistSuccessAction => {
   return { type: FETCH_ARTISTS_SUCCESS, payload };
 };
 
-const fetchArtistError = (payload: string): fetchArtistErrorAction => {
-  return { type: FETCH_ARTISTS_ERROR, payload };
+const fetchAlbumsSuccess = (payload: albumsDataType[]): fetchAlbumsSuccessAction => {
+  return { type: FETCH_ALBUMS_SUCCESS, payload };
+};
+
+const fetchDataError = (payload: string): fetchDataErrorAction => {
+  return { type: FETCH_DATA_ERROR, payload };
 };
 
 export const thunkGetArtists = (
@@ -41,7 +52,7 @@ export const thunkGetArtists = (
 ): ThunkAction<void, MainState, unknown, ArtistStateAction> => {
   return async (dispatch) => {
     try {
-      dispatch(fetchArtist());
+      dispatch(fetchData());
 
       const response = await fetch(
         `https://itunes.apple.com/search?term=${name}&entity=musicArtist`
@@ -51,7 +62,27 @@ export const thunkGetArtists = (
       dispatch(fetchArtistSuccess(resData.results));
     } catch (error) {
       console.log(error);
-      dispatch(fetchArtistError('Произошла ошибка при загрузке с сервера'));
+      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
+    }
+  };
+};
+
+export const thunkGetAlbums = (
+  name: string
+): ThunkAction<void, MainState, unknown, ArtistStateAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchData());
+
+      const response = await fetch(
+        `https://itunes.apple.com/search?term=${name}&attribute=albumTerm&entity=album`
+      );
+      const resData = await response.json();
+
+      dispatch(fetchAlbumsSuccess(resData.results));
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
     }
   };
 };

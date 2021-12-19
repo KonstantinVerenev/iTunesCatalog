@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,24 +10,31 @@ import {
 } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { EmptyList } from '../components/EmptyList';
+
 import SearchInput from '../components/SearchInput';
+import { SELECTED_ARTIST_SCREEN } from '../navigation/navigation';
 import { thunkGetArtists } from '../store/actions';
 import { selectStateData } from '../store/selectors';
-import { artistData } from '../store/types';
+import { artistDataType } from '../store/types';
 
 const ArtistsScreen: NavigationFunctionComponent = (props) => {
   const { artistsData, isLoading, error } = useSelector(selectStateData);
+  const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
   const onSubmitInput = (text: string) => {
+    setLastSearch(text);
     dispatch(thunkGetArtists(text));
   };
 
-  const renderItem: ListRenderItem<artistData> = ({ item: { artistName, primaryGenreName } }) => {
+  const renderItem: ListRenderItem<artistDataType> = ({
+    item: { artistName, primaryGenreName },
+  }) => {
     const onOpenArtistScreen = (): void => {
       Navigation.push(props.componentId, {
         component: {
-          name: 'SelectedArtistScreen',
+          name: SELECTED_ARTIST_SCREEN,
         },
       });
     };
@@ -42,15 +49,6 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
           <Text style={styles.arrow}>&gt;</Text>
         </View>
       </TouchableOpacity>
-    );
-  };
-
-  const emptyList = () => {
-    return (
-      <View style={styles.container}>
-        <Text>Ничего не найдено</Text>
-        <Text>Введите новое имя в поле поиска</Text>
-      </View>
     );
   };
 
@@ -82,11 +80,14 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
       <View style={styles.searchInput}>
         <SearchInput onSubmit={onSubmitInput} />
       </View>
+      {lastSearch && (
+        <Text style={styles.searchNote}>Результаты поиска по: &quot;{lastSearch}&quot;</Text>
+      )}
       <FlatList
         style={styles.artistList}
         data={artistsData}
         renderItem={renderItem}
-        ListEmptyComponent={emptyList}
+        ListEmptyComponent={EmptyList}
       />
     </View>
   );
@@ -95,7 +96,7 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
 ArtistsScreen.options = {
   topBar: {
     title: {
-      text: 'Artists',
+      text: 'Артисты',
       //color: 'white',
     },
     background: {
@@ -103,7 +104,7 @@ ArtistsScreen.options = {
     },
   },
   bottomTab: {
-    text: 'Artists',
+    text: 'Артисты',
   },
 };
 
@@ -140,6 +141,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: 'tomato',
+  },
+  searchNote: {
+    marginTop: 10,
   },
 });
 
