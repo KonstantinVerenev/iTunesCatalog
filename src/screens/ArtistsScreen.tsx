@@ -1,23 +1,40 @@
-import React from 'react';
-import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ListRenderItem,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { EmptyList } from '../components/EmptyList';
+
 import SearchInput from '../components/SearchInput';
-import { selectArtistsData } from '../store/selectors';
-import { artistData } from '../store/types';
+import { SELECTED_ARTIST_SCREEN } from '../navigation/navigation';
+import { thunkGetArtists } from '../store/actions';
+import { selectStateData } from '../store/selectors';
+import { artistDataType } from '../store/types';
 
 const ArtistsScreen: NavigationFunctionComponent = (props) => {
-  const artistsData = useSelector(selectArtistsData);
+  const { artistsData, isLoading, error } = useSelector(selectStateData);
+  const [lastSearch, setLastSearch] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const onSubmitInput = (text: string) => {
-    console.log(text);
+    setLastSearch(text);
+    dispatch(thunkGetArtists(text));
   };
 
-  const renderItem: ListRenderItem<artistData> = ({ item: { artistName, primaryGenreName } }) => {
+  const renderItem: ListRenderItem<artistDataType> = ({
+    item: { artistName, primaryGenreName },
+  }) => {
     const onOpenArtistScreen = (): void => {
       Navigation.push(props.componentId, {
         component: {
-          name: 'SelectedArtistScreen',
+          name: SELECTED_ARTIST_SCREEN,
         },
       });
     };
@@ -35,12 +52,43 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.searchInput}>
+          <SearchInput onSubmit={onSubmitInput} />
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.errorMessage}>
+            Ошибка: {'\n'} {error}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.searchInput}>
         <SearchInput onSubmit={onSubmitInput} />
       </View>
-      <FlatList style={styles.artistList} data={artistsData} renderItem={renderItem} />
+      {lastSearch && (
+        <Text style={styles.searchNote}>Результаты поиска по: &quot;{lastSearch}&quot;</Text>
+      )}
+      <FlatList
+        style={styles.artistList}
+        data={artistsData}
+        renderItem={renderItem}
+        ListEmptyComponent={EmptyList}
+      />
     </View>
   );
 };
@@ -48,7 +96,7 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
 ArtistsScreen.options = {
   topBar: {
     title: {
-      text: 'Artists',
+      text: 'Артисты',
       //color: 'white',
     },
     background: {
@@ -56,7 +104,7 @@ ArtistsScreen.options = {
     },
   },
   bottomTab: {
-    text: 'Artists',
+    text: 'Артисты',
   },
 };
 
@@ -87,6 +135,15 @@ const styles = StyleSheet.create({
   },
   arrow: {
     fontSize: 30,
+  },
+  errorMessage: {
+    padding: 20,
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'tomato',
+  },
+  searchNote: {
+    marginTop: 10,
   },
 });
 
