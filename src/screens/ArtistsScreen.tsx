@@ -18,7 +18,7 @@ import { thunkGetArtists } from '../store/actions';
 import { selectStateData } from '../store/selectors';
 import { artistDataType } from '../store/types';
 
-const ArtistsScreen: NavigationFunctionComponent = (props) => {
+const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const { artistsData, isLoading, error } = useSelector(selectStateData);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
@@ -29,12 +29,22 @@ const ArtistsScreen: NavigationFunctionComponent = (props) => {
   };
 
   const renderItem: ListRenderItem<artistDataType> = ({
-    item: { artistName, primaryGenreName },
+    item: { artistName, artistId, primaryGenreName },
   }) => {
     const onOpenArtistScreen = (): void => {
-      Navigation.push(props.componentId, {
+      Navigation.push(componentId, {
         component: {
           name: SELECTED_ARTIST_SCREEN,
+          passProps: {
+            artistId,
+          },
+          options: {
+            topBar: {
+              title: {
+                text: artistName,
+              },
+            },
+          },
         },
       });
     };

@@ -13,7 +13,11 @@ export const SELECTED_ALBUM_SCREEN = 'SelectedAlbumScreen';
 
 Navigation.registerComponent(ARTISTS_SCREEN, withProvider(ArtistsScreen), () => ArtistsScreen);
 Navigation.registerComponent(ALBUMS_SCREEN, withProvider(AlbumsScreen), () => AlbumsScreen);
-Navigation.registerComponent(SELECTED_ARTIST_SCREEN, () => SelectedArtistScreen);
+Navigation.registerComponent(
+  SELECTED_ARTIST_SCREEN,
+  withProvider(SelectedArtistScreen),
+  () => SelectedArtistScreen
+);
 Navigation.registerComponent(SELECTED_ALBUM_SCREEN, () => SelectedAlbumsScreen);
 
 export const rootNavigator = (): void => {

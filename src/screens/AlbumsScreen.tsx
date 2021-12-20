@@ -29,7 +29,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
   };
 
   const renderItem: ListRenderItem<albumsDataType> = ({ item: { collectionName, artistName } }) => {
-    const onOpenArtistScreen = (): void => {
+    const onOpenAlbumScreen = (): void => {
       Navigation.push(props.componentId, {
         component: {
           name: SELECTED_ALBUM_SCREEN,
@@ -38,7 +38,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
     };
 
     return (
-      <TouchableOpacity style={styles.artistItem} onPress={onOpenArtistScreen}>
+      <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
         <View>
           <Text>{collectionName}</Text>
           <Text>{artistName}</Text>

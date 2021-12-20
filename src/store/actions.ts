@@ -6,6 +6,8 @@ export const FETCH_ARTISTS_SUCCESS = 'FETCH_ARTISTS_SUCCESS';
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 
+const basicURL = 'https://itunes.apple.com/';
+
 type fetchDataAction = {
   type: typeof FETCH_DATA;
 };
@@ -54,9 +56,7 @@ export const thunkGetArtists = (
     try {
       dispatch(fetchData());
 
-      const response = await fetch(
-        `https://itunes.apple.com/search?term=${name}&entity=musicArtist`
-      );
+      const response = await fetch(`${basicURL}search?term=${name}&entity=musicArtist`);
       const resData = await response.json();
 
       dispatch(fetchArtistSuccess(resData.results));
@@ -75,8 +75,26 @@ export const thunkGetAlbums = (
       dispatch(fetchData());
 
       const response = await fetch(
-        `https://itunes.apple.com/search?term=${name}&attribute=albumTerm&entity=album`
+        `${basicURL}search?term=${name}&attribute=albumTerm&entity=album`
       );
+      const resData = await response.json();
+
+      dispatch(fetchAlbumsSuccess(resData.results));
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
+    }
+  };
+};
+
+export const thunkGetAlbumsById = (
+  id: number
+): ThunkAction<void, MainState, unknown, ArtistStateAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchData());
+
+      const response = await fetch(`${basicURL}lookup?id=${id}&entity=album`);
       const resData = await response.json();
 
       dispatch(fetchAlbumsSuccess(resData.results));
