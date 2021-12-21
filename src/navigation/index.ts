@@ -1,6 +1,8 @@
 import { Navigation } from 'react-native-navigation';
 
-import { ALBUMS_SCREEN, ARTISTS_SCREEN } from './screenRegister';
+import { ALBUMS_SCREEN, ARTISTS_SCREEN, registerAllScreens, screens } from './screenRegister';
+
+registerAllScreens(screens);
 
 export const rootNavigator = (): void => {
   Navigation.setRoot({

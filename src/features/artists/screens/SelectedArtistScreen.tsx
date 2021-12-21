@@ -19,7 +19,7 @@ import { albumsDataType } from '../../albums/types';
 import { thunkGetAlbumsById } from '../actions';
 import { selectError, selectIsLoading } from '../selectors/selectors';
 
-type SelectedArtistScreenProps = {
+export type SelectedArtistScreenProps = {
   componentId: string;
   artistId: number;
 };

@@ -1,8 +1,10 @@
-import { Navigation } from 'react-native-navigation';
+import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 
 import { withProvider } from '../store/withProvider';
 import ArtistsScreen from '../features/artists/screens/ArtistsScreen';
-import SelectedArtistScreen from '../features/artists/screens/SelectedArtistScreen';
+import SelectedArtistScreen, {
+  SelectedArtistScreenProps,
+} from '../features/artists/screens/SelectedArtistScreen';
 import SelectedAlbumsScreen from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
 
@@ -11,15 +13,19 @@ export const ALBUMS_SCREEN = 'AlbumsScreen';
 export const SELECTED_ARTIST_SCREEN = 'SelectedArtistScreen';
 export const SELECTED_ALBUM_SCREEN = 'SelectedAlbumScreen';
 
-Navigation.registerComponent(ARTISTS_SCREEN, withProvider(ArtistsScreen), () => ArtistsScreen);
-Navigation.registerComponent(ALBUMS_SCREEN, withProvider(AlbumsScreen), () => AlbumsScreen);
-Navigation.registerComponent(
-  SELECTED_ARTIST_SCREEN,
-  withProvider(SelectedArtistScreen),
-  () => SelectedArtistScreen
-);
-Navigation.registerComponent(
-  SELECTED_ALBUM_SCREEN,
-  withProvider(SelectedAlbumsScreen),
-  () => SelectedAlbumsScreen
-);
+type screens = {
+  [key: string]: NavigationFunctionComponent<SelectedArtistScreenProps>;
+};
+
+export const screens = {
+  [ARTISTS_SCREEN]: ArtistsScreen,
+  [ALBUMS_SCREEN]: AlbumsScreen,
+  [SELECTED_ARTIST_SCREEN]: SelectedArtistScreen,
+  [SELECTED_ALBUM_SCREEN]: SelectedAlbumsScreen,
+};
+
+export const registerAllScreens = (screens: screens): void => {
+  for (const key in screens) {
+    Navigation.registerComponent(key, withProvider(screens[key]), () => screens[key]);
+  }
+};
