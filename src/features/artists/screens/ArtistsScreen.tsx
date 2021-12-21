@@ -10,16 +10,19 @@ import {
 } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { EmptyList } from '../components/EmptyList';
 
-import SearchInput from '../components/SearchInput';
-import { SELECTED_ARTIST_SCREEN } from '../navigation/navigation';
-import { thunkGetArtists } from '../store/actions';
-import { selectStateData } from '../store/selectors';
-import { artistDataType } from '../store/types';
+import { EmptyList } from '../../../components/EmptyList';
+import SearchInput from '../../../components/SearchInput';
+import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
+
+import { thunkGetArtists } from '../actions';
+import { selectArtistsData, selectError, selectIsLoading } from '../selectors/selectors';
+import { artistDataType } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
-  const { artistsData, isLoading, error } = useSelector(selectStateData);
+  const artistsData = useSelector(selectArtistsData);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 

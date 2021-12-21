@@ -10,16 +10,19 @@ import {
 } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { EmptyList } from '../components/EmptyList';
 
-import SearchInput from '../components/SearchInput';
-import { SELECTED_ALBUM_SCREEN } from '../navigation/navigation';
-import { thunkGetAlbums } from '../store/actions';
-import { selectStateData } from '../store/selectors';
-import { albumsDataType } from '../store/types';
+import { EmptyList } from '../../../components/EmptyList';
+import SearchInput from '../../../components/SearchInput';
+import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
+
+import { thunkGetAlbums } from '../actions';
+import { selectAlbumsData, selectError, selectIsLoading } from '../selectors/selectors';
+import { albumsDataType } from '../types';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
-  const { albumsData, isLoading, error } = useSelector(selectStateData);
+  const albumsData = useSelector(selectAlbumsData);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 

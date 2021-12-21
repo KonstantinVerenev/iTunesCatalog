@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { EmptyList } from '../components/EmptyList';
-import { SELECTED_ALBUM_SCREEN } from '../navigation/navigation';
-import { thunkGetAlbumsById } from '../store/actions';
-import { selectStateData } from '../store/selectors';
-import { albumsDataType } from '../store/types';
+
+import { EmptyList } from '../../../components/EmptyList';
+import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
+
+import { selectAlbumsData } from '../../albums/selectors/selectors';
+import { albumsDataType } from '../../albums/types';
+import { thunkGetAlbumsById } from '../actions';
+import { selectError, selectIsLoading } from '../selectors/selectors';
 
 type SelectedArtistScreenProps = {
   componentId: string;
@@ -25,7 +28,10 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   componentId,
   artistId,
 }) => {
-  const { albumsData, isLoading, error } = useSelector(selectStateData);
+  //  !!! тут нужно переписать селектор на селектор из модуля артиста !!!
+  const albumsData = useSelector(selectAlbumsData);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -85,34 +91,6 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
     </View>
   );
 };
-
-//return (
-//  <View style={styles.container}>
-//    <Text>Selected Artist Id: {artistId} </Text>
-//    <Button
-//      title="Go to selected albums"
-//      onPress={() =>
-//        void Navigation.push(componentId, {
-//          component: {
-//            name: 'SelectedAlbumScreen',
-//          },
-//        })
-//      }
-//    />
-//  </View>
-//);
-
-//SelectedArtistScreen.options = {
-//  topBar: {
-//    title: {
-//      text: '"Selected" Artist Screen',
-//      //color: 'white',
-//    },
-//    background: {
-//      //color: 'tomato',
-//    },
-//  },
-//};
 
 const styles = StyleSheet.create({
   container: {
