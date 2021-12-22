@@ -16,13 +16,13 @@ import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 
 import { thunkGetAlbums } from '../actions';
-import { selectAlbumsData, selectError, selectIsLoading } from '../selectors/selectors';
+import { selectAlbumsData, selectAlbumsError, selectAlbumsIsLoading } from '../selectors/selectors';
 import { albumsDataType } from '../types';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
   const albumsData = useSelector(selectAlbumsData);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectAlbumsIsLoading);
+  const error = useSelector(selectAlbumsError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 

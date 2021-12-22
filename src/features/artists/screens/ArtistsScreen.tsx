@@ -16,13 +16,17 @@ import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 
 import { thunkGetArtists } from '../actions';
-import { selectArtistsData, selectError, selectIsLoading } from '../selectors/selectors';
-import { artistDataType } from '../types';
+import {
+  selectArtistsData,
+  selectArtistError,
+  selectArtistIsLoading,
+} from '../selectors/selectors';
+import { artistStateDataType } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtistsData);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectArtistIsLoading);
+  const error = useSelector(selectArtistError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -31,9 +35,10 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     dispatch(thunkGetArtists(text));
   };
 
-  const renderItem: ListRenderItem<artistDataType> = ({
-    item: { artistName, artistId, primaryGenreName },
-  }) => {
+  const renderItem: ListRenderItem<artistStateDataType> = ({ item }) => {
+    const artistId = parseInt(Object.keys(item)[0]);
+    const { name, artistGenre } = item[artistId];
+
     const onOpenArtistScreen = (): void => {
       Navigation.push(componentId, {
         component: {
@@ -44,7 +49,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
           options: {
             topBar: {
               title: {
-                text: artistName,
+                text: name,
               },
             },
           },
@@ -55,8 +60,8 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     return (
       <TouchableOpacity style={styles.artistItem} onPress={onOpenArtistScreen}>
         <View>
-          <Text>{artistName}</Text>
-          <Text>{primaryGenreName}</Text>
+          <Text>{name}</Text>
+          <Text>{artistGenre}</Text>
         </View>
         <View>
           <Text style={styles.arrow}>&gt;</Text>

@@ -1,10 +1,13 @@
-export type artistDataType = {
-  wrapperType: string;
-  artistType: string;
+export type artistStateDataType = {
+  [key: number]: {
+    name: string;
+    artistGenre: string;
+    albums: any | [];
+  };
+};
+
+export type artistResponceDataType = {
   artistName: string;
-  artistLinkUrl: string;
   artistId: number;
-  amgArtistId: number;
   primaryGenreName: string;
-  primaryGenreId: number;
 };

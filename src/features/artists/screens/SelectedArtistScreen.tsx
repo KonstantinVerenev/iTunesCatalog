@@ -17,7 +17,7 @@ import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 import { selectAlbumsData } from '../../albums/selectors/selectors';
 import { albumsDataType } from '../../albums/types';
 import { thunkGetAlbumsById } from '../actions';
-import { selectError, selectIsLoading } from '../selectors/selectors';
+import { selectArtistError, selectArtistIsLoading } from '../selectors/selectors';
 
 export type SelectedArtistScreenProps = {
   componentId: string;
@@ -30,8 +30,8 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
 }) => {
   //  !!! тут нужно переписать селектор на селектор из модуля артиста !!!
   const albumsData = useSelector(selectAlbumsData);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectArtistIsLoading);
+  const error = useSelector(selectArtistError);
   const dispatch = useDispatch();
 
   useEffect(() => {

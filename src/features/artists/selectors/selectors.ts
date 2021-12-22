@@ -1,7 +1,7 @@
 import { rootReducer } from '../../../store/combineReducer';
-import { artistDataType } from '../types';
+import { artistStateDataType } from '../types';
 
-export const selectArtistsData = (state: rootReducer): artistDataType[] =>
+export const selectArtistsData = (state: rootReducer): artistStateDataType[] =>
   state.artists.artistsData;
-export const selectIsLoading = (state: rootReducer): boolean => state.artists.isLoading;
-export const selectError = (state: rootReducer): string | null => state.artists.error;
+export const selectArtistIsLoading = (state: rootReducer): boolean => state.artists.isLoading;
+export const selectArtistError = (state: rootReducer): string | null => state.artists.error;
