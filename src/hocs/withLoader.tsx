@@ -2,8 +2,7 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useSelector } from 'react-redux';
-import { selectAlbumsIsLoading } from '../features/albums/selectors/selectors';
-import { selectArtistIsLoading } from '../features/artists/selectors/selectors';
+import { selectIsLoading } from '../store/selectors';
 
 const LoadingScreen: React.FC = () => {
   return (
@@ -17,10 +16,9 @@ const WithLoading = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
   return function WithLoadingComponent(props: Props) {
-    const artistIsLoading = useSelector(selectArtistIsLoading);
-    const albumsIsLoading = useSelector(selectAlbumsIsLoading);
+    const IsLoading = useSelector(selectIsLoading);
 
-    if (!artistIsLoading && !albumsIsLoading) return <Component {...props} />;
+    if (!IsLoading) return <Component {...props} />;
     return <LoadingScreen />;
   };
 };

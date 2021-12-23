@@ -1,52 +1,33 @@
-export type mainState = {
+import { GET_DATA, GET_DATA_ERROR, GET_DATA_SUCCESS, MainStateAction } from './actions';
+
+export type MainState = {
   isLoading: boolean;
   error: string | null;
 };
 
-const initialState: mainState = {
+const initialState: MainState = {
   isLoading: false,
   error: null,
 };
 
-export const aristsReducer = (state = initialState, action: ArtistStateAction): ArtistsState => {
+export const mainReducer = (state = initialState, action: MainStateAction): MainState => {
   switch (action.type) {
-    case FETCH_ARTISTS_DATA:
+    case GET_DATA:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_ARTISTS_SUCCESS: {
-      const artistData = action.payload.map((artist: artistResponceDataType) => {
-        console.log(artist);
-        const { artistId, artistName, primaryGenreName } = artist;
-        return {
-          [artistId]: {
-            name: artistName,
-            artistGenre: primaryGenreName,
-            albums: [],
-          },
-        };
-      });
-
+    case GET_DATA_SUCCESS:
       return {
         ...state,
-        artistsData: artistData,
         isLoading: false,
       };
-    }
-    case FETCH_ARTISTS_DATA_ERROR:
+    case GET_DATA_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
       };
-    //case FETCH_ARTIST_ALBUMS_SUCCESS:
-    //  return {
-    //    ...state,
-    //    isLoading: false,
-    //    // сюда добавление по новой структуре с id
-    //    //artistsData: action.payload,
-    //  };
     default:
       return state;
   }

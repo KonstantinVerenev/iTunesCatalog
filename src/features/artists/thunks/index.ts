@@ -1,40 +1,27 @@
 import { ThunkAction } from 'redux-thunk';
 import { artistAPI } from '../../../services/api';
-import { ArtistStateAction, fetchArtistSuccess, fetchData, fetchDataError } from '../actions';
+import { getData, getDataError, getDataSuccess, MainStateAction } from '../../../store/actions';
+import { ArtistStateAction, getArtistSuccess } from '../actions';
 import { ArtistsState } from '../reducers';
+
+type thunkGetArtistsAction = MainStateAction | ArtistStateAction;
 
 export const thunkGetArtists = (
   name: string
-): ThunkAction<void, ArtistsState, unknown, ArtistStateAction> => {
+): ThunkAction<void, ArtistsState, unknown, thunkGetArtistsAction> => {
   return async (dispatch) => {
     try {
-      dispatch(fetchData());
+      dispatch(getData());
 
       const response = await artistAPI.getArtistsByName(name);
       const resData = await response.json();
-
-      dispatch(fetchArtistSuccess(resData.results));
+      setTimeout(() => {
+        dispatch(getDataSuccess());
+        dispatch(getArtistSuccess(resData.results));
+      }, 2000);
     } catch (error) {
       console.log(error);
-      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
+      dispatch(getDataError('Произошла ошибка при загрузке с сервера'));
     }
   };
 };
-
-//export const thunkGetAlbumsById = (
-//  id: number
-//): ThunkAction<void, ArtistsState, unknown, ArtistStateAction> => {
-//  return async (dispatch) => {
-//    try {
-//      dispatch(fetchData());
-
-//      const response = await fetch(`${basicURL}lookup?id=${id}&entity=album`);
-//      const resData = await response.json();
-
-//      dispatch(fetchArtistAlbumsSuccess(resData.results));
-//    } catch (error) {
-//      console.log(error);
-//      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
-//    }
-//  };
-//};

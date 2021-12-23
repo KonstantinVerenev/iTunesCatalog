@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useSelector } from 'react-redux';
 
-import { selectAlbumsError } from '../features/albums/selectors/selectors';
-import { selectArtistError } from '../features/artists/selectors/selectors';
+import { selectError } from '../store/selectors';
 
 type errorScreen = {
   error: string | null;
@@ -32,15 +31,12 @@ const WithError = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
   return function WithErrorComponent(props: Props) {
-    const artistError = useSelector(selectArtistError);
-    const albumError = useSelector(selectAlbumsError);
+    const error = useSelector(selectError);
 
     return (
       <>
         <Component {...props} />
-        {(artistError || albumError) && (
-          <ErrorScreen error={artistError ? artistError : albumError} />
-        )}
+        {error && <ErrorScreen error={error} />}
       </>
     );
   };
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
     padding: 20,
     textAlign: 'center',
     fontSize: 18,
-    color: 'tomato',
+    color: 'white',
   },
 });
 
