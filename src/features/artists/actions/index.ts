@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
+import { artistAPI } from '../../../services/api';
 
 import { ArtistsState } from '../reducers';
 import { artistResponceDataType } from '../types';
@@ -7,8 +8,6 @@ export const FETCH_ARTISTS_DATA = 'FETCH_ARTISTS_DATA';
 export const FETCH_ARTISTS_SUCCESS = 'FETCH_ARTISTS_SUCCESS';
 export const FETCH_ARTISTS_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const FETCH_ARTIST_ALBUMS_SUCCESS = 'FETCH_ARTIST_ALBUMS_SUCCESS';
-
-const basicURL = 'https://itunes.apple.com/';
 
 type fetchDataAction = {
   type: typeof FETCH_ARTISTS_DATA;
@@ -57,7 +56,7 @@ export const thunkGetArtists = (
     try {
       dispatch(fetchData());
 
-      const response = await fetch(`${basicURL}search?term=${name}&entity=musicArtist`);
+      const response = await artistAPI.getArtistsByName(name);
       const resData = await response.json();
 
       dispatch(fetchArtistSuccess(resData.results));

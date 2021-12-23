@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ListRenderItem,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
+import WithError from '../../../hocs/withError';
+import WithLoading from '../../../hocs/withLoader';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 
 import { thunkGetArtists } from '../actions';
-import {
-  selectArtistsData,
-  selectArtistError,
-  selectArtistIsLoading,
-} from '../selectors/selectors';
+import { selectArtistsData } from '../selectors/selectors';
 import { artistStateDataType } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtistsData);
-  const isLoading = useSelector(selectArtistIsLoading);
-  const error = useSelector(selectArtistError);
+  //const isLoading = useSelector(selectArtistIsLoading);
+  //const error = useSelector(selectArtistError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -70,28 +60,20 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.searchInput}>
-          <SearchInput onSubmit={onSubmitInput} />
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.errorMessage}>
-            Ошибка: {'\n'} {error}
-          </Text>
-        </View>
-      </View>
-    );
-  }
+  //if (error) {
+  //  return (
+  //    <View style={styles.container}>
+  //      <View style={styles.searchInput}>
+  //        <SearchInput onSubmit={onSubmitInput} />
+  //      </View>
+  //      <View style={styles.container}>
+  //        <Text style={styles.errorMessage}>
+  //          Ошибка: {'\n'} {error}
+  //        </Text>
+  //      </View>
+  //    </View>
+  //  );
+  //}
 
   return (
     <View style={styles.container}>
@@ -109,21 +91,6 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
       />
     </View>
   );
-};
-
-ArtistsScreen.options = {
-  topBar: {
-    title: {
-      text: 'Артисты',
-      //color: 'white',
-    },
-    background: {
-      //color: 'blue',
-    },
-  },
-  bottomTab: {
-    text: 'Артисты',
-  },
 };
 
 const styles = StyleSheet.create({
@@ -154,15 +121,9 @@ const styles = StyleSheet.create({
   arrow: {
     fontSize: 30,
   },
-  errorMessage: {
-    padding: 20,
-    textAlign: 'center',
-    fontSize: 18,
-    color: 'tomato',
-  },
   searchNote: {
     marginTop: 10,
   },
 });
 
-export default ArtistsScreen;
+export default WithLoading(WithError(ArtistsScreen));

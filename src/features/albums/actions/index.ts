@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
+import { albumAPI } from '../../../services/api';
 
 import { AlbumsState } from '../reducers';
 import { albumsDataType } from '../types';
@@ -6,8 +7,6 @@ import { albumsDataType } from '../types';
 export const FETCH_ALBUMS_DATA = 'FETCH_ALBUMS_DATA';
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';
 export const FETCH_ALBUMS_DATA_ERROR = 'FETCH_ALBUMS_DATA_ERROR';
-
-const basicURL = 'https://itunes.apple.com/';
 
 type fetchDataAction = {
   type: typeof FETCH_ALBUMS_DATA;
@@ -44,9 +43,7 @@ export const thunkGetAlbums = (
     try {
       dispatch(fetchData());
 
-      const response = await fetch(
-        `${basicURL}search?term=${name}&attribute=albumTerm&entity=album`
-      );
+      const response = await albumAPI.getAlbumsByName(name);
       const resData = await response.json();
 
       dispatch(fetchAlbumsSuccess(resData.results));

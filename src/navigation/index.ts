@@ -1,8 +1,8 @@
 import { Navigation } from 'react-native-navigation';
 
-import { ALBUMS_SCREEN, ARTISTS_SCREEN, registerAllScreens, screens } from './screenRegister';
+import { ALBUMS_SCREEN, ARTISTS_SCREEN, registerAllScreens } from './screenRegister';
 
-registerAllScreens(screens);
+registerAllScreens();
 
 export const rootNavigator = (): void => {
   Navigation.setRoot({
@@ -15,6 +15,16 @@ export const rootNavigator = (): void => {
                 {
                   component: {
                     name: ARTISTS_SCREEN,
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Артисты',
+                        },
+                      },
+                      bottomTab: {
+                        text: 'Артисты',
+                      },
+                    },
                   },
                 },
               ],
@@ -31,6 +41,16 @@ export const rootNavigator = (): void => {
                 {
                   component: {
                     name: ALBUMS_SCREEN,
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Альбомы',
+                        },
+                      },
+                      bottomTab: {
+                        text: 'Альбомы',
+                      },
+                    },
                   },
                 },
               ],
@@ -49,6 +69,7 @@ export const rootNavigator = (): void => {
 
 Navigation.setDefaultOptions({
   bottomTab: {
+    fontSize: 14,
     iconColor: 'rgba(0, 0, 0, .3)',
     selectedIconColor: 'rgba(0, 0, 0, 1)',
     textColor: 'rgba(0, 0, 0, .3)',
