@@ -7,11 +7,9 @@ import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 
-import { thunkGetAlbums } from '../actions';
 import { selectAlbumsData } from '../selectors/selectors';
 import { albumsDataType } from '../types';
-import WithLoading from '../../../hocs/withLoader';
-import WithError from '../../../hocs/withError';
+import { thunkGetAlbums } from '../thunks';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
   const albumsData = useSelector(selectAlbumsData);
@@ -63,6 +61,8 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
   );
 };
 
+export default AlbumsScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -95,5 +95,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
-export default AlbumsScreen;

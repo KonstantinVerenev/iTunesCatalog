@@ -1,4 +1,4 @@
-const basicURL = 'https://2itunes.apple.com/';
+const basicURL = 'https://itunes.apple.com/';
 
 export const artistAPI = {
   getArtistsByName(name: string): Promise<Response> {

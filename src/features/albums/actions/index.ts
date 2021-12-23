@@ -1,7 +1,3 @@
-import { ThunkAction } from 'redux-thunk';
-import { albumAPI } from '../../../services/api';
-
-import { AlbumsState } from '../reducers';
 import { albumsDataType } from '../types';
 
 export const FETCH_ALBUMS_DATA = 'FETCH_ALBUMS_DATA';
@@ -24,32 +20,14 @@ type fetchDataErrorAction = {
 
 export type AlbumsStateAction = fetchDataAction | fetchDataErrorAction | fetchAlbumsSuccessAction;
 
-const fetchData = (): fetchDataAction => {
+export const fetchData = (): fetchDataAction => {
   return { type: FETCH_ALBUMS_DATA };
 };
 
-const fetchAlbumsSuccess = (payload: albumsDataType[]): fetchAlbumsSuccessAction => {
+export const fetchAlbumsSuccess = (payload: albumsDataType[]): fetchAlbumsSuccessAction => {
   return { type: FETCH_ALBUMS_SUCCESS, payload };
 };
 
-const fetchDataError = (payload: string): fetchDataErrorAction => {
+export const fetchDataError = (payload: string): fetchDataErrorAction => {
   return { type: FETCH_ALBUMS_DATA_ERROR, payload };
-};
-
-export const thunkGetAlbums = (
-  name: string
-): ThunkAction<void, AlbumsState, unknown, AlbumsStateAction> => {
-  return async (dispatch) => {
-    try {
-      dispatch(fetchData());
-
-      const response = await albumAPI.getAlbumsByName(name);
-      const resData = await response.json();
-
-      dispatch(fetchAlbumsSuccess(resData.results));
-    } catch (error) {
-      console.log(error);
-      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
-    }
-  };
 };

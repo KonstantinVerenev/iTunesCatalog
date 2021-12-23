@@ -2,7 +2,7 @@ export type artistStateDataType = {
   [key: number]: {
     name: string;
     artistGenre: string;
-    albums: any | [];
+    albums: any | []; // может быть пустой
   };
 };
 

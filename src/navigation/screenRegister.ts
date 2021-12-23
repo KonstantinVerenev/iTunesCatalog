@@ -21,9 +21,9 @@ type Screens = {
 
 export const screens: Screens = {
   [ARTISTS_SCREEN]: WithLoading(WithError(ArtistsScreen)),
-  [ALBUMS_SCREEN]: AlbumsScreen,
-  [SELECTED_ARTIST_SCREEN]: SelectedArtistScreen,
-  [SELECTED_ALBUM_SCREEN]: SelectedAlbumsScreen,
+  [ALBUMS_SCREEN]: WithLoading(WithError(AlbumsScreen)),
+  [SELECTED_ARTIST_SCREEN]: WithLoading(WithError(SelectedArtistScreen)),
+  [SELECTED_ALBUM_SCREEN]: WithLoading(WithError(SelectedAlbumsScreen)),
 };
 
 export const registerAllScreens = (): void => {

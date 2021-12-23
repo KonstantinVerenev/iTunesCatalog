@@ -31,56 +31,20 @@ type fetchDataErrorAction = {
 export type ArtistStateAction = fetchDataAction | fetchArtistSuccessAction | fetchDataErrorAction;
 //| fetchArtistAlbumsSuccessAction;
 
-const fetchData = (): fetchDataAction => {
+export const fetchData = (): fetchDataAction => {
   return { type: FETCH_ARTISTS_DATA };
 };
 
-const fetchArtistSuccess = (payload: artistResponceDataType[]): fetchArtistSuccessAction => {
+export const fetchArtistSuccess = (payload: artistResponceDataType[]): fetchArtistSuccessAction => {
   return { type: FETCH_ARTISTS_SUCCESS, payload };
 };
 
-//const fetchArtistAlbumsSuccess = (
+//export const fetchArtistAlbumsSuccess = (
 //  payload: artistAlbumsDataType[]
 //): fetchArtistAlbumsSuccessAction => {
 //  return { type: FETCH_ARTIST_ALBUMS_SUCCESS, payload };
 //};
 
-const fetchDataError = (payload: string): fetchDataErrorAction => {
+export const fetchDataError = (payload: string): fetchDataErrorAction => {
   return { type: FETCH_ARTISTS_DATA_ERROR, payload };
 };
-
-export const thunkGetArtists = (
-  name: string
-): ThunkAction<void, ArtistsState, unknown, ArtistStateAction> => {
-  return async (dispatch) => {
-    try {
-      dispatch(fetchData());
-
-      const response = await artistAPI.getArtistsByName(name);
-      const resData = await response.json();
-
-      dispatch(fetchArtistSuccess(resData.results));
-    } catch (error) {
-      console.log(error);
-      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
-    }
-  };
-};
-
-//export const thunkGetAlbumsById = (
-//  id: number
-//): ThunkAction<void, ArtistsState, unknown, ArtistStateAction> => {
-//  return async (dispatch) => {
-//    try {
-//      dispatch(fetchData());
-
-//      const response = await fetch(`${basicURL}lookup?id=${id}&entity=album`);
-//      const resData = await response.json();
-
-//      dispatch(fetchArtistAlbumsSuccess(resData.results));
-//    } catch (error) {
-//      console.log(error);
-//      dispatch(fetchDataError('Произошла ошибка при загрузке с сервера'));
-//    }
-//  };
-//};

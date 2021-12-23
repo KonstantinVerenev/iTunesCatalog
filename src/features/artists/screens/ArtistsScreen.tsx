@@ -8,15 +8,12 @@ import SearchInput from '../../../components/SearchInput';
 import WithError from '../../../hocs/withError';
 import WithLoading from '../../../hocs/withLoader';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
-
-import { thunkGetArtists } from '../actions';
 import { selectArtistsData } from '../selectors/selectors';
+import { thunkGetArtists } from '../thunks';
 import { artistStateDataType } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtistsData);
-  //const isLoading = useSelector(selectArtistIsLoading);
-  //const error = useSelector(selectArtistError);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -60,21 +57,6 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     );
   };
 
-  //if (error) {
-  //  return (
-  //    <View style={styles.container}>
-  //      <View style={styles.searchInput}>
-  //        <SearchInput onSubmit={onSubmitInput} />
-  //      </View>
-  //      <View style={styles.container}>
-  //        <Text style={styles.errorMessage}>
-  //          Ошибка: {'\n'} {error}
-  //        </Text>
-  //      </View>
-  //    </View>
-  //  );
-  //}
-
   return (
     <View style={styles.container}>
       <View style={styles.searchInput}>
@@ -92,6 +74,8 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     </View>
   );
 };
+
+export default WithLoading(WithError(ArtistsScreen));
 
 const styles = StyleSheet.create({
   container: {
@@ -125,5 +109,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
-export default WithLoading(WithError(ArtistsScreen));

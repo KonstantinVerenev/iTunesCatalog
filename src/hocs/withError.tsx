@@ -10,6 +10,10 @@ type errorScreen = {
   error: string | null;
 };
 
+const setErrorToNull = () => {
+  // тут  надо будет сетать ошибку в null
+};
+
 const ErrorScreen: React.FC<errorScreen> = ({ error }) => {
   return (
     <View style={styles.container}>
@@ -18,7 +22,7 @@ const ErrorScreen: React.FC<errorScreen> = ({ error }) => {
           Ошибка: {'\n'}
           {error}
         </Text>
-        <Button title={'Back'} />
+        <Button title={'Back'} onPress={setErrorToNull} />
       </View>
     </View>
   );
@@ -39,19 +43,20 @@ const WithError = <Props extends NavigationComponentProps>(
         )}
       </>
     );
-
-    //if (!artistError && !albumError) return <Component {...props} />;
-    //return <ErrorScreen error={artistError ? artistError : albumError} />;
   };
 };
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(123, 123, 123, 0.4)',
+    backgroundColor: 'rgba(223, 66, 52, 0.2)',
   },
   errorMessage: {
     padding: 20,
