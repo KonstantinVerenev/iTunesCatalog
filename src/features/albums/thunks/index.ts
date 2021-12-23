@@ -15,10 +15,9 @@ export const thunkGetAlbums = (
 
       const response = await albumAPI.getAlbumsByName(name);
       const resData = await response.json();
-      setTimeout(() => {
-        dispatch(getDataSuccess());
-        dispatch(getAlbumsSuccess(resData.results));
-      }, 2000);
+
+      dispatch(getDataSuccess());
+      dispatch(getAlbumsSuccess(resData.results));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке с сервера'));

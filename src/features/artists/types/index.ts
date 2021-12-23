@@ -1,8 +1,9 @@
 export type artistStateDataType = {
   [key: number]: {
-    name: string;
-    artistGenre: string;
-    albums: any | []; // может быть пустой
+    artistId: number;
+    artistName: string;
+    primaryGenreName: string;
+    albums: any; // может быть пустой
   };
 };
 

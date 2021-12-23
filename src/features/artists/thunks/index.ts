@@ -15,10 +15,9 @@ export const thunkGetArtists = (
 
       const response = await artistAPI.getArtistsByName(name);
       const resData = await response.json();
-      setTimeout(() => {
-        dispatch(getDataSuccess());
-        dispatch(getArtistSuccess(resData.results));
-      }, 2000);
+
+      dispatch(getDataSuccess());
+      dispatch(getArtistSuccess(resData.results));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке с сервера'));

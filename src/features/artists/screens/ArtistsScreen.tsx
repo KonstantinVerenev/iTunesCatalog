@@ -10,7 +10,7 @@ import WithLoading from '../../../hocs/withLoader';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 import { selectArtistsData } from '../selectors/selectors';
 import { thunkGetArtists } from '../thunks';
-import { artistStateDataType } from '../types';
+import { artistResponceDataType } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtistsData);
@@ -22,10 +22,9 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     dispatch(thunkGetArtists(text));
   };
 
-  const renderItem: ListRenderItem<artistStateDataType> = ({ item }) => {
-    const artistId = parseInt(Object.keys(item)[0]);
-    const { name, artistGenre } = item[artistId];
-
+  const renderItem: ListRenderItem<artistResponceDataType> = ({
+    item: { artistId, artistName, primaryGenreName },
+  }) => {
     const onOpenArtistScreen = (): void => {
       Navigation.push(componentId, {
         component: {
@@ -36,7 +35,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
           options: {
             topBar: {
               title: {
-                text: name,
+                text: artistName,
               },
             },
           },
@@ -47,8 +46,8 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     return (
       <TouchableOpacity style={styles.artistItem} onPress={onOpenArtistScreen}>
         <View>
-          <Text>{name}</Text>
-          <Text>{artistGenre}</Text>
+          <Text>{artistName}</Text>
+          <Text>{primaryGenreName}</Text>
         </View>
         <View>
           <Text style={styles.arrow}>&gt;</Text>
@@ -67,7 +66,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
       )}
       <FlatList
         style={styles.artistList}
-        data={artistsData}
+        data={Object.values(artistsData)}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
       />
