@@ -1,19 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetError } from '../store/actions';
 
-import { selectError } from '../store/selectors';
-
+import { selectError, selectIsLoading } from '../store/selectors';
 type errorScreen = {
   error: string | null;
 };
 
-const setErrorToNull = () => {
-  // тут  надо будет сетать ошибку в null
-};
-
 const ErrorScreen: React.FC<errorScreen> = ({ error }) => {
+  const dispatch = useDispatch();
+
+  const setErrorToNull = () => {
+    dispatch(resetError());
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -21,17 +23,28 @@ const ErrorScreen: React.FC<errorScreen> = ({ error }) => {
           Ошибка: {'\n'}
           {error}
         </Text>
-        <Button title={'Back'} onPress={setErrorToNull} />
+        <Button title={'Назад'} onPress={setErrorToNull} />
       </View>
     </View>
   );
 };
 
-const WithError = <Props extends NavigationComponentProps>(
+const LoadingScreen: React.FC = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
+};
+
+const WithErrAndLoad = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
-  return function WithErrorComponent(props: Props) {
+  return function WithErrAndLoadComponent(props: Props) {
     const error = useSelector(selectError);
+    const IsLoading = useSelector(selectIsLoading);
+
+    if (IsLoading) return <LoadingScreen />;
 
     return (
       <>
@@ -41,6 +54,8 @@ const WithError = <Props extends NavigationComponentProps>(
     );
   };
 };
+
+export default WithErrAndLoad;
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +72,8 @@ const styles = StyleSheet.create({
   errorMessage: {
     padding: 20,
     textAlign: 'center',
+    fontWeight: 'bold',
     fontSize: 18,
     color: 'white',
   },
 });
-
-export default WithError;

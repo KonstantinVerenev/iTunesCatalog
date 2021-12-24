@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
 import { ALBUMS_SCREEN, ARTISTS_SCREEN, registerAllScreens } from './screenRegister';
@@ -29,9 +30,10 @@ export const rootNavigator = (): void => {
                 },
               ],
               options: {
-                bottomTab: {
-                  icon: { uri: 'mic-outline', scale: 3 },
-                },
+                bottomTab:
+                  Platform.OS === 'ios'
+                    ? { icon: { uri: 'mic-outline', scale: 3 } }
+                    : { icon: require('../../assets/icons/mic-outline.png') },
               },
             },
           },
@@ -55,9 +57,10 @@ export const rootNavigator = (): void => {
                 },
               ],
               options: {
-                bottomTab: {
-                  icon: { uri: 'headphone-outline', scale: 3 },
-                },
+                bottomTab:
+                  Platform.OS === 'ios'
+                    ? { icon: { uri: 'headphone-outline', scale: 3 } }
+                    : { icon: require('../../assets/icons/headphone-outline.png') },
               },
             },
           },
@@ -69,7 +72,7 @@ export const rootNavigator = (): void => {
 
 Navigation.setDefaultOptions({
   bottomTab: {
-    fontSize: 14,
+    fontSize: 12,
     iconColor: 'rgba(0, 0, 0, .3)',
     selectedIconColor: 'rgba(0, 0, 0, 1)',
     textColor: 'rgba(0, 0, 0, .3)',

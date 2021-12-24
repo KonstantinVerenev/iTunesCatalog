@@ -15,8 +15,8 @@ import { EmptyList } from '../../../components/EmptyList';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 
 import { selectAlbumsData } from '../../albums/selectors/selectors';
-import { albumsDataType } from '../../albums/types';
-import { thunkGetAlbumsById } from '../actions';
+import { albumsStateDataType } from '../../albums/types';
+
 import { selectArtistError, selectArtistIsLoading } from '../selectors/selectors';
 
 export type SelectedArtistScreenProps = {
@@ -38,7 +38,9 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
     dispatch(thunkGetAlbumsById(artistId));
   }, [artistId, dispatch]);
 
-  const renderItem: ListRenderItem<albumsDataType> = ({ item: { collectionName, artistName } }) => {
+  const renderItem: ListRenderItem<albumsStateDataType> = ({
+    item: { collectionName, artistName },
+  }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(componentId, {
         component: {

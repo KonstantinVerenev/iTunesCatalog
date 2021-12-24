@@ -1,4 +1,10 @@
-import { GET_DATA, GET_DATA_ERROR, GET_DATA_SUCCESS, MainStateAction } from './actions';
+import {
+  GET_DATA,
+  GET_DATA_ERROR,
+  GET_DATA_SUCCESS,
+  MainStateAction,
+  RESET_ERROR,
+} from './actions';
 
 export type MainState = {
   isLoading: boolean;
@@ -27,6 +33,11 @@ export const mainReducer = (state = initialState, action: MainStateAction): Main
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case RESET_ERROR:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

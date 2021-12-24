@@ -8,7 +8,7 @@ import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 
 import { selectAlbumsData } from '../selectors/selectors';
-import { albumsDataType } from '../types';
+import { albumsResponseDataType } from '../types';
 import { thunkGetAlbums } from '../thunks';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
@@ -21,7 +21,9 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
     dispatch(thunkGetAlbums(text));
   };
 
-  const renderItem: ListRenderItem<albumsDataType> = ({ item: { collectionName, artistName } }) => {
+  const renderItem: ListRenderItem<albumsResponseDataType> = ({
+    item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
+  }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(props.componentId, {
         component: {
@@ -53,7 +55,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
       )}
       <FlatList
         style={styles.artistList}
-        data={albumsData}
+        data={Object.values(albumsData)}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
       />

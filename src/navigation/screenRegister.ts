@@ -7,8 +7,7 @@ import SelectedArtistScreen, {
 } from '../features/artists/screens/SelectedArtistScreen';
 import SelectedAlbumsScreen from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
-import WithLoading from '../hocs/withLoader';
-import WithError from '../hocs/withError';
+import WithErrAndLoad from '../hocs/withErrAndLoad';
 
 export const ARTISTS_SCREEN = 'ArtistScreen';
 export const ALBUMS_SCREEN = 'AlbumsScreen';
@@ -20,10 +19,10 @@ type Screens = {
 };
 
 export const screens: Screens = {
-  [ARTISTS_SCREEN]: WithLoading(WithError(ArtistsScreen)),
-  [ALBUMS_SCREEN]: WithLoading(WithError(AlbumsScreen)),
-  [SELECTED_ARTIST_SCREEN]: WithLoading(WithError(SelectedArtistScreen)),
-  [SELECTED_ALBUM_SCREEN]: WithLoading(WithError(SelectedAlbumsScreen)),
+  [ARTISTS_SCREEN]: WithErrAndLoad(ArtistsScreen),
+  [ALBUMS_SCREEN]: WithErrAndLoad(AlbumsScreen),
+  [SELECTED_ARTIST_SCREEN]: WithErrAndLoad(SelectedArtistScreen),
+  [SELECTED_ALBUM_SCREEN]: WithErrAndLoad(SelectedAlbumsScreen),
 };
 
 export const registerAllScreens = (): void => {

@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
-import WithError from '../../../hocs/withError';
-import WithLoading from '../../../hocs/withLoader';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 import { selectArtistsData } from '../selectors/selectors';
 import { thunkGetArtists } from '../thunks';
@@ -22,29 +20,31 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     dispatch(thunkGetArtists(text));
   };
 
-  const renderItem: ListRenderItem<artistResponceDataType> = ({
-    item: { artistId, artistName, primaryGenreName },
-  }) => {
-    const onOpenArtistScreen = (): void => {
-      Navigation.push(componentId, {
-        component: {
-          name: SELECTED_ARTIST_SCREEN,
-          passProps: {
-            artistId,
-          },
-          options: {
-            topBar: {
-              title: {
-                text: artistName,
-              },
+  const onOpenArtistScreen = (artistId: number, artistName: string): void => {
+    Navigation.push(componentId, {
+      component: {
+        name: SELECTED_ARTIST_SCREEN,
+        passProps: {
+          artistId,
+        },
+        options: {
+          topBar: {
+            title: {
+              text: artistName,
             },
           },
         },
-      });
-    };
+      },
+    });
+  };
+
+  const renderItem: ListRenderItem<artistResponceDataType> = ({
+    item: { artistId, artistName, primaryGenreName },
+  }) => {
+    const onPressArtist = () => onOpenArtistScreen(artistId, artistName);
 
     return (
-      <TouchableOpacity style={styles.artistItem} onPress={onOpenArtistScreen}>
+      <TouchableOpacity style={styles.artistItem} onPress={onPressArtist}>
         <View>
           <Text>{artistName}</Text>
           <Text>{primaryGenreName}</Text>
@@ -74,7 +74,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   );
 };
 
-export default WithLoading(WithError(ArtistsScreen));
+export default ArtistsScreen;
 
 const styles = StyleSheet.create({
   container: {

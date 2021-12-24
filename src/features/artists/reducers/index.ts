@@ -6,22 +6,15 @@ export type ArtistsState = {
 };
 
 const initialState: ArtistsState = {
-  artistsData: {
-    123: {
-      artistId: 123,
-      artistName: 'asd',
-      primaryGenreName: 'primaryGenreName',
-      albums: [],
-    },
-  },
+  artistsData: {},
 };
 
 export const aristsReducer = (state = initialState, action: ArtistStateAction): ArtistsState => {
   switch (action.type) {
     case GET_ARTISTS_SUCCESS: {
       const artistData = action.payload.reduce((allArtist, artist: artistResponceDataType) => {
-        console.log(artist);
         const { artistId, artistName, primaryGenreName } = artist;
+
         return {
           ...allArtist,
           [artistId]: {
