@@ -1,8 +1,8 @@
 import { AlbumsStateAction, SET_ALBUMS_SUCCESS } from '../actions';
-import { albumsStateDataType, albumsResponseDataType } from '../types';
+import { AlbumsStateData, AlbumsResponseData } from '../types';
 
 export type AlbumsState = {
-  albumsData: albumsStateDataType;
+  albumsData: AlbumsStateData;
 };
 
 const initialState: AlbumsState = {
@@ -12,7 +12,7 @@ const initialState: AlbumsState = {
 export const albumsReducer = (state = initialState, action: AlbumsStateAction): AlbumsState => {
   switch (action.type) {
     case SET_ALBUMS_SUCCESS: {
-      const albumsData = action.payload.reduce((allAlbums, album: albumsResponseDataType) => {
+      const albumsData = action.payload.reduce((allAlbums, album: AlbumsResponseData) => {
         const { collectionId, artistName, collectionName, artworkUrl100, collectionPrice } = album;
 
         return {

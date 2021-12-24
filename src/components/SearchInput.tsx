@@ -6,7 +6,7 @@ type SearchInputType = {
 };
 
 const SearchInput: React.FC<SearchInputType> = ({ onSubmit }) => {
-  const [searchString, setSearchString] = useState('initialState');
+  const [searchString, setSearchString] = useState('');
 
   const onChangeInput = (value: string): void => {
     setSearchString(value);
@@ -29,6 +29,8 @@ const SearchInput: React.FC<SearchInputType> = ({ onSubmit }) => {
     </View>
   );
 };
+
+export default SearchInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -53,5 +55,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default SearchInput;

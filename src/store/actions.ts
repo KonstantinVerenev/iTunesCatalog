@@ -20,7 +20,7 @@ type resetErrorAction = {
   type: typeof RESET_ERROR;
 };
 
-export type MainStateAction =
+export type mainStateAction =
   | getDataAction
   | getDataSuccessAction
   | getDataErrorAction

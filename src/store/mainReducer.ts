@@ -2,7 +2,7 @@ import {
   GET_DATA,
   GET_DATA_ERROR,
   GET_DATA_SUCCESS,
-  MainStateAction,
+  mainStateAction,
   RESET_ERROR,
 } from './actions';
 
@@ -16,7 +16,7 @@ const initialState: MainState = {
   error: null,
 };
 
-export const mainReducer = (state = initialState, action: MainStateAction): MainState => {
+export const mainReducer = (state = initialState, action: mainStateAction): MainState => {
   switch (action.type) {
     case GET_DATA:
       return {

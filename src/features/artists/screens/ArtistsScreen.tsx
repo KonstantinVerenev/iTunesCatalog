@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
-import { selectArtistsData } from '../selectors/selectors';
+import { selectArtistsData } from '../selectors';
 import { thunkGetArtists } from '../thunks';
-import { artistResponceDataType } from '../types';
+import { ArtistResponceData } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtistsData);
@@ -38,7 +38,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     });
   };
 
-  const renderItem: ListRenderItem<artistResponceDataType> = ({
+  const renderItem: ListRenderItem<ArtistResponceData> = ({
     item: { artistId, artistName, primaryGenreName },
   }) => {
     const onPressArtist = () => onOpenArtistScreen(artistId, artistName);

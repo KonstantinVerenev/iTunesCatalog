@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
-
-import { selectAlbumsData } from '../selectors/selectors';
-import { albumsResponseDataType } from '../types';
+import { selectAlbumsData } from '../selectors';
+import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
@@ -21,7 +20,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
     dispatch(thunkGetAlbums(text));
   };
 
-  const renderItem: ListRenderItem<albumsResponseDataType> = ({
+  const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
   }) => {
     const onOpenAlbumScreen = (): void => {

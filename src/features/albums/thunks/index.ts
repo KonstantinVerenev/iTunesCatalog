@@ -1,10 +1,11 @@
 import { ThunkAction } from 'redux-thunk';
+
 import { albumAPI } from '../../../services/api';
-import { getData, getDataError, getDataSuccess, MainStateAction } from '../../../store/actions';
+import { getData, getDataError, getDataSuccess, mainStateAction } from '../../../store/actions';
 import { AlbumsStateAction, getAlbumsSuccess } from '../actions';
 import { AlbumsState } from '../reducers';
 
-type thunkGetAlbumsAction = MainStateAction | AlbumsStateAction;
+type thunkGetAlbumsAction = mainStateAction | AlbumsStateAction;
 
 export const thunkGetAlbums = (
   name: string
@@ -20,7 +21,7 @@ export const thunkGetAlbums = (
       dispatch(getAlbumsSuccess(resData.results));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке с сервера'));
+      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
     }
   };
 };

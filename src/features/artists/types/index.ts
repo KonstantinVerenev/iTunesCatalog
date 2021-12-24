@@ -1,13 +1,13 @@
-export type artistStateDataType = {
+export type ArtistStateData = {
   [key: number]: {
     artistId: number;
     artistName: string;
     primaryGenreName: string;
-    albums: any; // может быть пустой
+    albums: any; // can be empty
   };
 };
 
-export type artistResponceDataType = {
+export type ArtistResponceData = {
   artistName: string;
   artistId: number;
   primaryGenreName: string;

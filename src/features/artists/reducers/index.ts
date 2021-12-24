@@ -1,8 +1,8 @@
 import { ArtistStateAction, GET_ARTISTS_SUCCESS } from '../actions';
-import { artistResponceDataType, artistStateDataType } from '../types';
+import { ArtistResponceData, ArtistStateData } from '../types';
 
 export type ArtistsState = {
-  artistsData: artistStateDataType;
+  artistsData: ArtistStateData;
 };
 
 const initialState: ArtistsState = {
@@ -12,7 +12,7 @@ const initialState: ArtistsState = {
 export const aristsReducer = (state = initialState, action: ArtistStateAction): ArtistsState => {
   switch (action.type) {
     case GET_ARTISTS_SUCCESS: {
-      const artistData = action.payload.reduce((allArtist, artist: artistResponceDataType) => {
+      const artistData = action.payload.reduce((allArtist, artist: ArtistResponceData) => {
         const { artistId, artistName, primaryGenreName } = artist;
 
         return {

@@ -2,14 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetError } from '../store/actions';
 
+import { resetError } from '../store/actions';
 import { selectError, selectIsLoading } from '../store/selectors';
-type errorScreen = {
+
+type ErrorModal = {
   error: string | null;
 };
 
-const ErrorScreen: React.FC<errorScreen> = ({ error }) => {
+const ErrorModal: React.FC<ErrorModal> = ({ error }) => {
   const dispatch = useDispatch();
 
   const setErrorToNull = () => {
@@ -40,7 +41,7 @@ const LoadingScreen: React.FC = () => {
 const WithErrAndLoad = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
-  return function WithErrAndLoadComponent(props: Props) {
+  return function WrappedComponent(props: Props) {
     const error = useSelector(selectError);
     const IsLoading = useSelector(selectIsLoading);
 
@@ -49,7 +50,7 @@ const WithErrAndLoad = <Props extends NavigationComponentProps>(
     return (
       <>
         <Component {...props} />
-        {error && <ErrorScreen error={error} />}
+        {error && <ErrorModal error={error} />}
       </>
     );
   };

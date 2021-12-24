@@ -5,7 +5,7 @@ export const EmptyList: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text>Ничего не найдено</Text>
-      <Text>Введите новое имя в поле поиска</Text>
+      <Text>Проверьте написание и попробуйте снова</Text>
     </View>
   );
 };

@@ -1,14 +1,14 @@
-import { albumsResponseDataType } from '../types';
+import { AlbumsResponseData } from '../types';
 
 export const SET_ALBUMS_SUCCESS = 'SET_ALBUMS_SUCCESS';
 
 type getAlbumsSuccessAction = {
   type: typeof SET_ALBUMS_SUCCESS;
-  payload: albumsResponseDataType[];
+  payload: AlbumsResponseData[];
 };
 
 export type AlbumsStateAction = getAlbumsSuccessAction;
 
-export const getAlbumsSuccess = (payload: albumsResponseDataType[]): getAlbumsSuccessAction => {
+export const getAlbumsSuccess = (payload: AlbumsResponseData[]): getAlbumsSuccessAction => {
   return { type: SET_ALBUMS_SUCCESS, payload };
 };

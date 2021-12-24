@@ -5,22 +5,15 @@ import { NavigationFunctionComponent } from 'react-native-navigation';
 const SelectedAlbumsScreen: NavigationFunctionComponent = () => {
   return (
     <View style={styles.container}>
-      <Text>Selected Albums Screen</Text>
+      <Text>Selected Album Screen</Text>
     </View>
   );
 };
 
 SelectedAlbumsScreen.options = {
   topBar: {
-    title: {
-      text: '"Selected" Album Screen',
-      //color: 'white',
-    },
-    background: {
-      //color: 'green',
-    },
     backButton: {
-      title: 'Back',
+      title: 'Назад',
     },
     rightButtons: [
       {
@@ -32,6 +25,8 @@ SelectedAlbumsScreen.options = {
   },
 };
 
+export default SelectedAlbumsScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -39,5 +34,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default SelectedAlbumsScreen;

@@ -57,10 +57,12 @@ export const rootNavigator = (): void => {
                 },
               ],
               options: {
-                bottomTab:
-                  Platform.OS === 'ios'
-                    ? { icon: { uri: 'headphone-outline', scale: 3 } }
-                    : { icon: require('../../assets/icons/headphone-outline.png') },
+                bottomTab: {
+                  icon:
+                    Platform.OS === 'ios'
+                      ? { uri: 'headphone-outline', scale: 3 }
+                      : require('../../assets/icons/headphone-outline.png'),
+                },
               },
             },
           },

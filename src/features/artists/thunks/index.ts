@@ -1,10 +1,10 @@
 import { ThunkAction } from 'redux-thunk';
 import { artistAPI } from '../../../services/api';
-import { getData, getDataError, getDataSuccess, MainStateAction } from '../../../store/actions';
+import { getData, getDataError, getDataSuccess, mainStateAction } from '../../../store/actions';
 import { ArtistStateAction, getArtistSuccess } from '../actions';
 import { ArtistsState } from '../reducers';
 
-type thunkGetArtistsAction = MainStateAction | ArtistStateAction;
+type thunkGetArtistsAction = mainStateAction | ArtistStateAction;
 
 export const thunkGetArtists = (
   name: string
@@ -20,7 +20,7 @@ export const thunkGetArtists = (
       dispatch(getArtistSuccess(resData.results));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке с сервера'));
+      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
     }
   };
 };

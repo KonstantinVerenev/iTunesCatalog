@@ -1,24 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { NavigationFunctionComponent } from 'react-native-navigation';
 
-const SelectedAlbumsScreen: NavigationFunctionComponent = () => {
+const SelectedAlbumScreen: NavigationFunctionComponent = () => {
   return (
     <View style={styles.container}>
-      <Text>Selected Albums Screen</Text>
+      <Text>Selected Album Screen</Text>
     </View>
   );
 };
 
-SelectedAlbumsScreen.options = {
+SelectedAlbumScreen.options = {
   topBar: {
     title: {
       text: '"Selected" Album Screen',
       //color: 'white',
     },
-    background: {
-      //color: 'green',
-    },
+    //background: {
+    //color: 'green',
+    //},
     backButton: {
       title: 'Back',
     },
@@ -26,11 +26,16 @@ SelectedAlbumsScreen.options = {
       {
         id: 'addToFavButton',
         text: 'add to fav',
-        icon: { uri: 'star', scale: 3 },
+        icon:
+          Platform.OS === 'ios'
+            ? { uri: 'star', scale: 3 }
+            : require('../../assets/icons/star.png'),
       },
     ],
   },
 };
+
+export default SelectedAlbumScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -39,5 +44,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default SelectedAlbumsScreen;
