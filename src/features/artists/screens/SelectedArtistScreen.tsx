@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import AlbumItem from '../../../components/AlbumItem';
 
 import { EmptyList } from '../../../components/EmptyList';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
@@ -28,7 +29,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   }, [artistAlbums, artistId, dispatch]);
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
-    item: { collectionId, collectionName, artistName },
+    item: { collectionId, collectionName, artistName, artworkUrl100, collectionPrice },
   }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(componentId, {
@@ -49,15 +50,13 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
     };
 
     return (
-      <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
-        <View>
-          <Text>{collectionName}</Text>
-          <Text>{artistName}</Text>
-        </View>
-        <View>
-          <Text style={styles.arrow}>&gt;</Text>
-        </View>
-      </TouchableOpacity>
+      <AlbumItem
+        onOpenAlbumScreen={onOpenAlbumScreen}
+        artworkUrl100={artworkUrl100}
+        collectionName={collectionName}
+        artistName={artistName}
+        collectionPrice={collectionPrice}
+      />
     );
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem, Text } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 import { selectAlbumsData } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
+import AlbumItem from '../../../components/AlbumItem';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
   const albumsData = useSelector(selectAlbumsData);
@@ -32,16 +33,36 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
     };
 
     return (
-      <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
-        <View>
-          <Text>{collectionName}</Text>
-          <Text>{artistName}</Text>
-        </View>
-        <View>
-          <Text style={styles.arrow}>&gt;</Text>
-        </View>
-      </TouchableOpacity>
+      <AlbumItem
+        onOpenAlbumScreen={onOpenAlbumScreen}
+        artworkUrl100={artworkUrl100}
+        collectionName={collectionName}
+        artistName={artistName}
+        collectionPrice={collectionPrice}
+      />
     );
+    //(
+    //  <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
+    //    <View>
+    //      <Image
+    //        style={styles.cover}
+    //        source={{
+    //          uri: artworkUrl100,
+    //        }}
+    //      />
+    //    </View>
+    //    <View style={styles.albumName}>
+    //      <Text numberOfLines={1}>{collectionName}</Text>
+    //      <Text style={styles.albumAuthor}>{artistName}</Text>
+    //    </View>
+    //    <View>
+    //      <Text>{collectionPrice} $ </Text>
+    //    </View>
+    //    <View>
+    //      <Text style={styles.arrow}>&gt;</Text>
+    //    </View>
+    //  </TouchableOpacity>
+    //);
   };
 
   return (
@@ -77,20 +98,6 @@ const styles = StyleSheet.create({
   artistList: {
     width: '100%',
     padding: 10,
-  },
-  artistItem: {
-    width: '100%',
-    height: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderRadius: 10,
-    padding: 5,
-    backgroundColor: 'lightgrey',
-  },
-  arrow: {
-    fontSize: 30,
   },
   searchNote: {
     marginTop: 10,
