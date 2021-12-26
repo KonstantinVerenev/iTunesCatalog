@@ -5,7 +5,9 @@ import ArtistsScreen from '../features/artists/screens/ArtistsScreen';
 import SelectedArtistScreen, {
   SelectedArtistScreenProps,
 } from '../features/artists/screens/SelectedArtistScreen';
-import SelectedAlbumsScreen from '../features/artists/screens/SelectedAlbumScreen';
+import SelectedAlbumsScreen, {
+  SelectedAlbumScreenProps,
+} from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
 import WithErrAndLoad from '../hocs/withErrAndLoad';
 
@@ -15,7 +17,7 @@ export const SELECTED_ARTIST_SCREEN = 'SelectedArtistScreen';
 export const SELECTED_ALBUM_SCREEN = 'SelectedAlbumScreen';
 
 type Screens = {
-  [key: string]: NavigationFunctionComponent<SelectedArtistScreenProps>;
+  [key: string]: NavigationFunctionComponent<SelectedArtistScreenProps & SelectedAlbumScreenProps>;
 };
 
 export const screens: Screens = {

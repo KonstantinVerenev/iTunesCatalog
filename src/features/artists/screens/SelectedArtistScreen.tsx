@@ -1,33 +1,92 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { NavigationFunctionComponent } from 'react-native-navigation';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
+import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { EmptyList } from '../../../components/EmptyList';
+import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
+import { selectAlbumsDataById } from '../selectors';
+import { thunkGetAlbumsById } from '../thunks';
+import { AlbumsResponseData } from '../types';
+
 export type SelectedArtistScreenProps = {
   componentId: string;
   artistId: number;
 };
 
-const SelectedArtistScreen: NavigationFunctionComponent = () => {
+const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProps> = ({
+  artistId,
+  componentId,
+}) => {
+  const dispatch = useDispatch();
+  const artistAlbums = Object.values(useSelector(selectAlbumsDataById(artistId)));
+
+  useEffect(() => {
+    if (artistAlbums.length < 1) {
+      dispatch(thunkGetAlbumsById(artistId));
+    }
+  }, [artistAlbums, artistId, dispatch]);
+
+  const renderItem: ListRenderItem<AlbumsResponseData> = ({
+    item: { collectionId, collectionName, artistName },
+  }) => {
+    const onOpenAlbumScreen = (): void => {
+      Navigation.push(componentId, {
+        component: {
+          name: SELECTED_ALBUM_SCREEN,
+          passProps: {
+            collectionId,
+          },
+          options: {
+            topBar: {
+              title: {
+                text: collectionName,
+              },
+            },
+          },
+        },
+      });
+    };
+
+    return (
+      <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
+        <View>
+          <Text>{collectionName}</Text>
+          <Text>{artistName}</Text>
+        </View>
+        <View>
+          <Text style={styles.arrow}>&gt;</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Selected Artist Screen!!</Text>
+      <FlatList
+        style={styles.artistList}
+        data={artistAlbums}
+        renderItem={renderItem}
+        ListEmptyComponent={EmptyList}
+      />
     </View>
   );
 };
 
-SelectedArtistScreen.options = {
-  topBar: {
-    backButton: {
-      title: 'Назад',
-    },
-    rightButtons: [
-      {
-        id: 'addToFavButton',
-        text: 'add to fav',
-        icon: { uri: 'star', scale: 3 },
-      },
-    ],
-  },
-};
+//SelectedArtistScreen.options = {
+//  topBar: {
+//    backButton: {
+//      title: 'Назад',
+//    },
+//    rightButtons: [
+//      {
+//        id: 'addToFavButton',
+//        text: 'add to fav',
+//        icon: { uri: 'star', scale: 3 },
+//      },
+//    ],
+//  },
+//};
 
 export default SelectedArtistScreen;
 
@@ -36,5 +95,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  artistList: {
+    width: '100%',
+    padding: 10,
+  },
+  artistItem: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    borderRadius: 10,
+    padding: 5,
+    backgroundColor: 'lightgrey',
+  },
+  arrow: {
+    fontSize: 30,
   },
 });

@@ -2,10 +2,18 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NavigationFunctionComponent } from 'react-native-navigation';
 
-const SelectedAlbumsScreen: NavigationFunctionComponent = () => {
+export type SelectedAlbumScreenProps = {
+  componentId: string;
+  collectionId: number;
+};
+
+const SelectedAlbumsScreen: NavigationFunctionComponent<SelectedAlbumScreenProps> = ({
+  componentId,
+  collectionId,
+}) => {
   return (
     <View style={styles.container}>
-      <Text>Selected Album Screen</Text>
+      <Text>collectionId: {collectionId}</Text>
     </View>
   );
 };
