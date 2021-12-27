@@ -1,4 +1,5 @@
 import { RootReducer } from '../../../store/combineReducer';
-import { AlbumsStateData } from '../types';
+import { AlbumsResponseData } from '../types';
 
-export const selectAlbumsData = (state: RootReducer): AlbumsStateData => state.albums.albumsData;
+export const selectAlbumsData = (state: RootReducer): AlbumsResponseData[] =>
+  Object.values(state.albums.albumsData);

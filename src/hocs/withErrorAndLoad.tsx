@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'react-native-modal';
 
 import { resetError } from '../store/actions';
 import { selectError, selectIsLoading } from '../store/selectors';
@@ -18,15 +19,17 @@ const ErrorModal: React.FC<ErrorModal> = ({ error }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.container}>
-        <Text style={styles.errorMessage}>
-          Ошибка: {'\n'}
-          {error}
-        </Text>
-        <Button title={'Назад'} onPress={setErrorToNull} />
+    <Modal isVisible={error ? true : false} animationIn={'zoomInUp'}>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalWindow}>
+          <Text style={styles.errorMessage}>
+            Ошибка: {'\n'}
+            {error}
+          </Text>
+          <Button title={'Назад'} onPress={setErrorToNull} />
+        </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
@@ -38,10 +41,10 @@ const LoadingScreen: React.FC = () => {
   );
 };
 
-const WithErrAndLoad = <Props extends NavigationComponentProps>(
+const WithErrorAndLoad = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
-  return function WrappedComponent(props: Props) {
+  const WrappedComponent = (props: Props) => {
     const error = useSelector(selectError);
     const IsLoading = useSelector(selectIsLoading);
 
@@ -49,32 +52,45 @@ const WithErrAndLoad = <Props extends NavigationComponentProps>(
 
     return (
       <>
+        <ErrorModal error={error} />
         <Component {...props} />
-        {error && <ErrorModal error={error} />}
       </>
     );
   };
+
+  WrappedComponent.options = Component.options;
+
+  return WrappedComponent;
 };
 
-export default WithErrAndLoad;
+export default WithErrorAndLoad;
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(223, 66, 52, 0.2)',
   },
   errorMessage: {
     padding: 20,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'white',
+    color: 'tomato',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalWindow: {
+    width: 300,
+    maxWidth: '90%',
+    height: 200,
+    maxHeight: '90%',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'tomato',
+    backgroundColor: 'white',
   },
 });

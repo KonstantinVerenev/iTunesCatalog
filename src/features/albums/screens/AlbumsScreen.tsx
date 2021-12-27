@@ -75,7 +75,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
       )}
       <FlatList
         style={styles.artistList}
-        data={Object.values(albumsData)}
+        data={albumsData}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
       />

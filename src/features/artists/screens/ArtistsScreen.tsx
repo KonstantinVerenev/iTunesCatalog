@@ -66,7 +66,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
       )}
       <FlatList
         style={styles.artistList}
-        data={Object.values(artistsData)}
+        data={artistsData}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
       />

@@ -20,7 +20,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   componentId,
 }) => {
   const dispatch = useDispatch();
-  const artistAlbums = Object.values(useSelector(selectAlbumsDataById(artistId)));
+  const artistAlbums = useSelector(selectAlbumsDataById(artistId));
 
   useEffect(() => {
     if (artistAlbums.length < 1) {
@@ -72,20 +72,13 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   );
 };
 
-//SelectedArtistScreen.options = {
-//  topBar: {
-//    backButton: {
-//      title: 'Назад',
-//    },
-//    rightButtons: [
-//      {
-//        id: 'addToFavButton',
-//        text: 'add to fav',
-//        icon: { uri: 'star', scale: 3 },
-//      },
-//    ],
-//  },
-//};
+SelectedArtistScreen.options = {
+  topBar: {
+    backButton: {
+      title: 'Назад',
+    },
+  },
+};
 
 export default SelectedArtistScreen;
 
