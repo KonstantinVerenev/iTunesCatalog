@@ -9,7 +9,7 @@ import SelectedAlbumsScreen, {
   SelectedAlbumScreenProps,
 } from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
-import WithErrorAndLoad from '../hocs/withErrorAndLoad';
+import composedHOC from '../hocs/composedHoc';
 
 export const ARTISTS_SCREEN = 'ArtistScreen';
 export const ALBUMS_SCREEN = 'AlbumsScreen';
@@ -21,10 +21,10 @@ type Screens = {
 };
 
 export const screens: Screens = {
-  [ARTISTS_SCREEN]: WithErrorAndLoad(ArtistsScreen),
-  [ALBUMS_SCREEN]: WithErrorAndLoad(AlbumsScreen),
-  [SELECTED_ARTIST_SCREEN]: WithErrorAndLoad(SelectedArtistScreen),
-  [SELECTED_ALBUM_SCREEN]: WithErrorAndLoad(SelectedAlbumsScreen),
+  [ARTISTS_SCREEN]: composedHOC(ArtistsScreen),
+  [ALBUMS_SCREEN]: composedHOC(AlbumsScreen),
+  [SELECTED_ARTIST_SCREEN]: composedHOC(SelectedArtistScreen),
+  [SELECTED_ALBUM_SCREEN]: composedHOC(SelectedAlbumsScreen),
 };
 
 export const registerAllScreens = (): void => {
