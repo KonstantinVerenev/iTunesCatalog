@@ -20,7 +20,7 @@ const WithNetInfo = <Props extends NavigationComponentProps>(
     return (
       <>
         <Component {...props} />
-        {!netInfo.isInternetReachable && <NetInfoWarning />}
+        {netInfo.isInternetReachable == false && <NetInfoWarning />}
       </>
     );
   };
