@@ -35,8 +35,8 @@ const ErrorModal: React.FC<ErrorModal> = ({ error }) => {
 
 const LoadingScreen: React.FC = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivityIndicator size="large" />
+    <View style={styles.loadingWrapper}>
+      <ActivityIndicator size={'large'} color={'black'} style={styles.loadingIndicator} />
     </View>
   );
 };
@@ -48,12 +48,11 @@ const WithErrorAndLoad = <Props extends NavigationComponentProps>(
     const error = useSelector(selectError);
     const IsLoading = useSelector(selectIsLoading);
 
-    if (IsLoading) return <LoadingScreen />;
-
     return (
       <>
         <ErrorModal error={error} />
         <Component {...props} />
+        {IsLoading && <LoadingScreen />}
       </>
     );
   };
@@ -67,6 +66,17 @@ export default WithErrorAndLoad;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingWrapper: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  loadingIndicator: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
