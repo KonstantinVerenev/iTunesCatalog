@@ -1,13 +1,43 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useRef } from 'react';
+import { Text, StyleSheet, Animated, TouchableOpacity, Alert } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 
 const NetInfoWarning: React.FC = () => {
+  const value = useRef(new Animated.Value(0)).current;
+
+  Animated.sequence([
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(value, {
+          toValue: 1,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+        Animated.timing(value, {
+          toValue: 0,
+          useNativeDriver: true,
+          duration: 800,
+        }),
+      ]),
+      { iterations: 5 }
+    ),
+    Animated.timing(value, {
+      toValue: 1,
+      useNativeDriver: true,
+      duration: 1000,
+    }),
+  ]).start();
+
   return (
-    <View style={styles.networkWarning}>
-      <Text style={styles.warningText}>Нет соединения</Text>
-    </View>
+    <Animated.View style={{ ...styles.warningContainer, opacity: value }}>
+      <TouchableOpacity
+        style={styles.warningButton}
+        onPress={() => Alert.alert('Отсутствует соединение с интернетом')}
+      >
+        <Text style={styles.warningText}>Нет соединения</Text>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
@@ -33,16 +63,19 @@ const WithNetInfo = <Props extends NavigationComponentProps>(
 export default WithNetInfo;
 
 const styles = StyleSheet.create({
-  networkWarning: {
+  warningContainer: {
     position: 'absolute',
     top: 15,
     right: 15,
+    backgroundColor: 'tomato',
+    borderRadius: 50,
+  },
+  warningButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
     height: 100,
-    backgroundColor: 'tomato',
     borderRadius: 50,
   },
   warningText: {
