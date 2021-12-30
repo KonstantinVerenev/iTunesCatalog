@@ -18,21 +18,6 @@ const SelectedAlbumsScreen: NavigationFunctionComponent<SelectedAlbumScreenProps
   );
 };
 
-SelectedAlbumsScreen.options = {
-  topBar: {
-    backButton: {
-      title: 'Назад',
-    },
-    rightButtons: [
-      {
-        id: 'addToFavButton',
-        text: 'add to fav',
-        icon: { uri: 'star', scale: 3 },
-      },
-    ],
-  },
-};
-
 export default SelectedAlbumsScreen;
 
 const styles = StyleSheet.create({

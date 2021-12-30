@@ -1,37 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-native-modal';
 
 import { resetError } from '../store/actions';
 import { selectError, selectIsLoading } from '../store/selectors';
-
-type ErrorModal = {
-  error: string | null;
-};
-
-const ErrorModal: React.FC<ErrorModal> = ({ error }) => {
-  const dispatch = useDispatch();
-
-  const setErrorToNull = () => {
-    dispatch(resetError());
-  };
-
-  return (
-    <Modal isVisible={error ? true : false} animationIn={'zoomInUp'}>
-      <View style={styles.modalContainer}>
-        <View style={styles.modalWindow}>
-          <Text style={styles.errorMessage}>
-            Ошибка: {'\n'}
-            {error}
-          </Text>
-          <Button title={'Назад'} onPress={setErrorToNull} />
-        </View>
-      </View>
-    </Modal>
-  );
-};
+import { ErrorModal } from '../components/ErrorModal';
 
 const LoadingScreen: React.FC = () => {
   return (
@@ -47,17 +21,20 @@ const WithErrorAndLoad = <Props extends NavigationComponentProps>(
   const WrappedComponent = (props: Props) => {
     const error = useSelector(selectError);
     const IsLoading = useSelector(selectIsLoading);
+    const dispatch = useDispatch();
+
+    const onCloseError = () => {
+      dispatch(resetError());
+    };
 
     return (
       <>
-        <ErrorModal error={error} />
+        <ErrorModal error={error} onCloseError={onCloseError} />
         <Component {...props} />
         {IsLoading && <LoadingScreen />}
       </>
     );
   };
-
-  WrappedComponent.options = Component.options;
 
   return WrappedComponent;
 };
@@ -74,33 +51,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
   loadingIndicator: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  errorMessage: {
-    padding: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: 'tomato',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalWindow: {
-    width: 300,
-    maxWidth: '90%',
-    height: 200,
-    maxHeight: '90%',
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: 'tomato',
-    backgroundColor: 'white',
   },
 });

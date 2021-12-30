@@ -55,8 +55,6 @@ const WithNetInfo = <Props extends NavigationComponentProps>(
     );
   };
 
-  WrappedComponent.options = Component.options;
-
   return WrappedComponent;
 };
 

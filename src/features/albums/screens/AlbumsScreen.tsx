@@ -10,6 +10,7 @@ import { selectAlbumsData } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
 import AlbumItem from '../../../components/AlbumItem';
+import { options } from '../../../navigation/options';
 
 const AlbumsScreen: NavigationFunctionComponent = (props) => {
   const albumsData = useSelector(selectAlbumsData);
@@ -22,12 +23,13 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
   };
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
-    item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
+    item: { artistName, collectionName, artworkUrl100, collectionPrice },
   }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(props.componentId, {
         component: {
           name: SELECTED_ALBUM_SCREEN,
+          options: options.SelectedAlbumScreen(collectionName),
         },
       });
     };
@@ -41,28 +43,6 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
         collectionPrice={collectionPrice}
       />
     );
-    //(
-    //  <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
-    //    <View>
-    //      <Image
-    //        style={styles.cover}
-    //        source={{
-    //          uri: artworkUrl100,
-    //        }}
-    //      />
-    //    </View>
-    //    <View style={styles.albumName}>
-    //      <Text numberOfLines={1}>{collectionName}</Text>
-    //      <Text style={styles.albumAuthor}>{artistName}</Text>
-    //    </View>
-    //    <View>
-    //      <Text>{collectionPrice} $ </Text>
-    //    </View>
-    //    <View>
-    //      <Text style={styles.arrow}>&gt;</Text>
-    //    </View>
-    //  </TouchableOpacity>
-    //);
   };
 
   return (

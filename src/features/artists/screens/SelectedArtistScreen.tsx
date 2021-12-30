@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlbumItem from '../../../components/AlbumItem';
 
 import { EmptyList } from '../../../components/EmptyList';
+import { options } from '../../../navigation/options';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 import { selectAlbumsDataById } from '../selectors';
 import { thunkGetAlbumsById } from '../thunks';
@@ -23,10 +24,8 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   const artistAlbums = useSelector(selectAlbumsDataById(artistId));
 
   useEffect(() => {
-    if (artistAlbums.length < 1) {
-      dispatch(thunkGetAlbumsById(artistId));
-    }
-  }, [artistAlbums, artistId, dispatch]);
+    dispatch(thunkGetAlbumsById(artistId));
+  }, [artistId, dispatch]);
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, collectionName, artistName, artworkUrl100, collectionPrice },
@@ -38,13 +37,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
           passProps: {
             collectionId,
           },
-          options: {
-            topBar: {
-              title: {
-                text: collectionName,
-              },
-            },
-          },
+          options: options.SelectedAlbumScreen(collectionName),
         },
       });
     };
@@ -70,14 +63,6 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
       />
     </View>
   );
-};
-
-SelectedArtistScreen.options = {
-  topBar: {
-    backButton: {
-      title: 'Назад',
-    },
-  },
 };
 
 export default SelectedArtistScreen;

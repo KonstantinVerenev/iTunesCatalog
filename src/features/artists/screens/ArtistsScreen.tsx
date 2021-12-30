@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
+import { options } from '../../../navigation/options';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 import { selectArtistsData } from '../selectors';
 import { thunkGetArtists } from '../thunks';
@@ -27,13 +28,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
         passProps: {
           artistId,
         },
-        options: {
-          topBar: {
-            title: {
-              text: artistName,
-            },
-          },
-        },
+        options: options.SelectedArtistScreen(artistName),
       },
     });
   };

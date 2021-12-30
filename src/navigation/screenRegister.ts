@@ -9,7 +9,7 @@ import SelectedAlbumsScreen, {
   SelectedAlbumScreenProps,
 } from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
-import composedHOC from '../hocs/composedHoc';
+import withAppHandlers from '../hocs/withAppHandlers';
 
 export const ARTISTS_SCREEN = 'ArtistScreen';
 export const ALBUMS_SCREEN = 'AlbumsScreen';
@@ -21,14 +21,14 @@ type Screens = {
 };
 
 export const screens: Screens = {
-  [ARTISTS_SCREEN]: composedHOC(ArtistsScreen),
-  [ALBUMS_SCREEN]: composedHOC(AlbumsScreen),
-  [SELECTED_ARTIST_SCREEN]: composedHOC(SelectedArtistScreen),
-  [SELECTED_ALBUM_SCREEN]: composedHOC(SelectedAlbumsScreen),
+  [ARTISTS_SCREEN]: withAppHandlers(ArtistsScreen),
+  [ALBUMS_SCREEN]: withAppHandlers(AlbumsScreen),
+  [SELECTED_ARTIST_SCREEN]: withAppHandlers(SelectedArtistScreen),
+  [SELECTED_ALBUM_SCREEN]: withAppHandlers(SelectedAlbumsScreen),
 };
 
 export const registerAllScreens = (): void => {
   for (const key in screens) {
-    Navigation.registerComponent(key, withProvider(screens[key]), () => screens[key]);
+    Navigation.registerComponent(key, withProvider(screens[key]));
   }
 };
