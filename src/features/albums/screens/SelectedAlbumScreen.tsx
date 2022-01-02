@@ -5,7 +5,7 @@ import { NavigationFunctionComponent } from 'react-native-navigation';
 const SelectedAlbumScreen: NavigationFunctionComponent = () => {
   return (
     <View style={styles.container}>
-      <Text>Selected Album Screen</Text>
+      <Text>Temporaly Selected Album Screen</Text>
     </View>
   );
 };
@@ -14,11 +14,7 @@ SelectedAlbumScreen.options = {
   topBar: {
     title: {
       text: '"Selected" Album Screen',
-      //color: 'white',
     },
-    //background: {
-    //color: 'green',
-    //},
     backButton: {
       title: 'Back',
     },

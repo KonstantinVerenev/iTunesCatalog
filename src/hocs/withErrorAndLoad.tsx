@@ -3,14 +3,16 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
+import colors from '../constants/colors';
+
 import { resetError } from '../store/actions';
-import { selectError, selectIsLoading } from '../store/selectors';
+import { selectErrorMessage, selectIsLoading } from '../store/selectors';
 import { ErrorModal } from '../components/ErrorModal';
 
 const LoadingScreen: React.FC = () => {
   return (
     <View style={styles.loadingWrapper}>
-      <ActivityIndicator size={'large'} color={'black'} style={styles.loadingIndicator} />
+      <ActivityIndicator size={'large'} color={colors.black} style={styles.loadingIndicator} />
     </View>
   );
 };
@@ -19,7 +21,7 @@ const WithErrorAndLoad = <Props extends NavigationComponentProps>(
   Component: NavigationFunctionComponent<Props>
 ): NavigationFunctionComponent<Props> => {
   const WrappedComponent = (props: Props) => {
-    const error = useSelector(selectError);
+    const errorMessage = useSelector(selectErrorMessage);
     const IsLoading = useSelector(selectIsLoading);
     const dispatch = useDispatch();
 
@@ -29,8 +31,8 @@ const WithErrorAndLoad = <Props extends NavigationComponentProps>(
 
     return (
       <>
-        <ErrorModal error={error} onCloseError={onCloseError} />
         <Component {...props} />
+        {errorMessage && <ErrorModal errorMessage={errorMessage} onCloseError={onCloseError} />}
         {IsLoading && <LoadingScreen />}
       </>
     );
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: colors.opacityGrey,
   },
   loadingIndicator: {
     flex: 1,

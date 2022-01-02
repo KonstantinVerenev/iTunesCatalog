@@ -12,7 +12,7 @@ const initialState: ArtistsState = {
 export const aristsReducer = (state = initialState, action: ArtistStateAction): ArtistsState => {
   switch (action.type) {
     case GET_ARTISTS_SUCCESS: {
-      const artistData = action.payload.reduce((allArtist, artist: ArtistResponceData) => {
+      const artistsData = action.payload.reduce((allArtist, artist: ArtistResponceData) => {
         const { artistId, artistName, primaryGenreName } = artist;
 
         return {
@@ -28,7 +28,7 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
 
       return {
         ...state,
-        artistsData: artistData,
+        artistsData: artistsData,
       };
     }
     case GET_ALBUMS_BY_ID_SUCCESS: {

@@ -14,7 +14,7 @@ export type AlbumStateData = {
     collectionName: string;
     artworkUrl100: string;
     collectionPrice: number;
-    tracks: AlbumStateData | Record<string, never>; // can be empty
+    tracks: any; // temporaly
   };
 };
 

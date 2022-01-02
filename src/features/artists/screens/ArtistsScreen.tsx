@@ -3,9 +3,11 @@ import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } fr
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
+import colors from '../../../constants/colors';
+
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
-import { options } from '../../../navigation/options';
+import { getArtistScreenOptions } from '../../../navigation/options';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 import { selectArtistsData } from '../selectors';
 import { thunkGetArtists } from '../thunks';
@@ -28,7 +30,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
         passProps: {
           artistId,
         },
-        options: options.SelectedArtistScreen(artistName),
+        options: getArtistScreenOptions(artistName),
       },
     });
   };
@@ -45,7 +47,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
           <Text>{primaryGenreName}</Text>
         </View>
         <View>
-          <Text style={styles.arrow}>&gt;</Text>
+          <Text style={styles.arrow}>{'>'}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -57,7 +59,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
         <SearchInput onSubmit={onSubmitInput} />
       </View>
       {lastSearch && (
-        <Text style={styles.searchNote}>Результаты поиска по: &quot;{lastSearch}&quot;</Text>
+        <Text style={styles.searchNote}>{`Результаты поиска по: "${lastSearch}"`}</Text>
       )}
       <FlatList
         style={styles.artistList}
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     padding: 5,
-    backgroundColor: 'lightgrey',
+    backgroundColor: colors.lightGrey,
   },
   arrow: {
     fontSize: 30,

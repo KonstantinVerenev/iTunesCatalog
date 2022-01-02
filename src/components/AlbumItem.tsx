@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import colors from '../constants/colors';
+
 type AlbumItemProps = {
   onOpenAlbumScreen: () => void;
   artworkUrl100: string;
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     padding: 5,
-    backgroundColor: 'lightgrey',
+    backgroundColor: colors.lightGrey,
   },
   arrow: {
     fontSize: 30,
@@ -67,6 +69,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   albumAuthor: {
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });

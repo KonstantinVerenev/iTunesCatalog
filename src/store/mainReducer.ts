@@ -8,12 +8,11 @@ import {
 
 export type MainState = {
   isLoading: boolean;
-  error: string | null;
+  errorMessage?: string;
 };
 
 const initialState: MainState = {
   isLoading: false,
-  error: null,
 };
 
 export const mainReducer = (state = initialState, action: mainStateAction): MainState => {
@@ -32,12 +31,12 @@ export const mainReducer = (state = initialState, action: mainStateAction): Main
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        errorMessage: action.payload,
       };
     case RESET_ERROR:
       return {
         ...state,
-        error: null,
+        errorMessage: undefined,
       };
     default:
       return state;

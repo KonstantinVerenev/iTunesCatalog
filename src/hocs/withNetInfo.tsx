@@ -3,6 +3,8 @@ import React, { useRef } from 'react';
 import { Text, StyleSheet, Animated, TouchableOpacity, Alert } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
 
+import colors from '../constants/colors';
+
 const NetInfoWarning: React.FC = () => {
   const value = useRef(new Animated.Value(0)).current;
 
@@ -50,7 +52,7 @@ const WithNetInfo = <Props extends NavigationComponentProps>(
     return (
       <>
         <Component {...props} />
-        {netInfo.isInternetReachable == false && <NetInfoWarning />}
+        {netInfo.isInternetReachable === false && <NetInfoWarning />}
       </>
     );
   };
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 15,
     right: 15,
-    backgroundColor: 'tomato',
+    backgroundColor: colors.red,
     borderRadius: 50,
   },
   warningButton: {
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   },
   warningText: {
     textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
+    color: colors.white,
+    fontWeight: '700',
   },
 });

@@ -2,20 +2,20 @@ import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 
+import colors from '../constants/colors';
+
 type ErrorModal = {
-  error: string | null;
+  errorMessage?: string;
   onCloseError: () => void;
 };
 
-export const ErrorModal: React.FC<ErrorModal> = ({ error, onCloseError }) => {
+export const ErrorModal: React.FC<ErrorModal> = ({ errorMessage, onCloseError }) => {
   return (
-    <Modal isVisible={error ? true : false} animationIn={'zoomInUp'}>
+    <Modal isVisible={!!errorMessage} animationIn={'zoomInUp'}>
       <View style={styles.modalContainer}>
         <View style={styles.modalWindow}>
-          <Text style={styles.errorMessage}>
-            Ошибка: {'\n'}
-            {error}
-          </Text>
+          <Text style={styles.errorMessage}>Ошибка:</Text>
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
           <Button title={'Назад'} onPress={onCloseError} />
         </View>
       </View>
@@ -24,26 +24,23 @@ export const ErrorModal: React.FC<ErrorModal> = ({ error, onCloseError }) => {
 };
 
 const styles = StyleSheet.create({
-  errorMessage: {
-    padding: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: 'tomato',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalWindow: {
-    width: 300,
-    maxWidth: '90%',
-    height: 200,
-    maxHeight: '90%',
+    paddingVertical: 30,
+    paddingHorizontal: 10,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: 'tomato',
-    backgroundColor: 'white',
+    borderColor: colors.red,
+    backgroundColor: colors.white,
+  },
+  errorMessage: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: colors.red,
   },
 });

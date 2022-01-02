@@ -10,14 +10,14 @@ import { selectAlbumsData } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
 import AlbumItem from '../../../components/AlbumItem';
-import { options } from '../../../navigation/options';
+import { getAlbumScreenOptions } from '../../../navigation/options';
 
-const AlbumsScreen: NavigationFunctionComponent = (props) => {
+const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const albumsData = useSelector(selectAlbumsData);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
-  const onSubmitInput = (text: string) => {
+  const onSubmitInput = (text: string): void => {
     setLastSearch(text);
     dispatch(thunkGetAlbums(text));
   };
@@ -26,10 +26,10 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
     item: { artistName, collectionName, artworkUrl100, collectionPrice },
   }) => {
     const onOpenAlbumScreen = (): void => {
-      Navigation.push(props.componentId, {
+      Navigation.push(componentId, {
         component: {
           name: SELECTED_ALBUM_SCREEN,
-          options: options.SelectedAlbumScreen(collectionName),
+          options: getAlbumScreenOptions(collectionName),
         },
       });
     };
@@ -51,7 +51,7 @@ const AlbumsScreen: NavigationFunctionComponent = (props) => {
         <SearchInput onSubmit={onSubmitInput} />
       </View>
       {lastSearch && (
-        <Text style={styles.searchNote}>Результаты поиска по: &quot;{lastSearch}&quot;</Text>
+        <Text style={styles.searchNote}>{`Результаты поиска по: "${lastSearch}"`}</Text>
       )}
       <FlatList
         style={styles.artistList}

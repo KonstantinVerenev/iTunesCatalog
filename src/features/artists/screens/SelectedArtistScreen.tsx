@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import AlbumItem from '../../../components/AlbumItem';
 
+import colors from '../../../constants/colors';
+
 import { EmptyList } from '../../../components/EmptyList';
-import { options } from '../../../navigation/options';
 import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
 import { selectAlbumsDataById } from '../selectors';
 import { thunkGetAlbumsById } from '../thunks';
 import { AlbumsResponseData } from '../types';
+import { getAlbumScreenOptions } from '../../../navigation/options';
 
 export type SelectedArtistScreenProps = {
   componentId: string;
@@ -37,7 +39,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
           passProps: {
             collectionId,
           },
-          options: options.SelectedAlbumScreen(collectionName),
+          options: getAlbumScreenOptions(collectionName),
         },
       });
     };
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     padding: 5,
-    backgroundColor: 'lightgrey',
+    backgroundColor: colors.lightGrey,
   },
   arrow: {
     fontSize: 30,

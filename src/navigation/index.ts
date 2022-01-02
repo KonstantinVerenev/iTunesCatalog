@@ -30,10 +30,12 @@ export const rootNavigator = (): void => {
                 },
               ],
               options: {
-                bottomTab:
-                  Platform.OS === 'ios'
-                    ? { icon: { uri: 'mic-outline', scale: 3 } }
-                    : { icon: require('../../assets/icons/mic-outline.png') },
+                bottomTab: {
+                  icon:
+                    Platform.OS === 'ios'
+                      ? { uri: 'mic-outline', scale: 3 }
+                      : require('../../assets/icons/mic-outline.png'),
+                },
               },
             },
           },

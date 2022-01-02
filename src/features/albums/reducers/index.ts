@@ -30,7 +30,7 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
 
       return {
         ...state,
-        albumsData: albumsData,
+        albumsData,
       };
     }
 

@@ -13,6 +13,7 @@ const SelectedAlbumsScreen: NavigationFunctionComponent<SelectedAlbumScreenProps
 }) => {
   return (
     <View style={styles.container}>
+      <Text>Temporaly screen!!!</Text>
       <Text>collectionId: {collectionId}</Text>
     </View>
   );
