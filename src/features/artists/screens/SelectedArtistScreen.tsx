@@ -74,11 +74,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
   },
   artistList: {
-    // refactor in flex
-    width: '100%',
     padding: 10,
   },
 });

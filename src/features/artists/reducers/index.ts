@@ -72,7 +72,15 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
       const artistId = action.payload.artistId;
       const albumId = action.payload.albumId;
       const tracksData = action.payload.tracks.reduce((allTracks, track: TrackResponseData) => {
-        const { artistId, artistName, trackName, trackId, trackPrice, trackTimeMillis } = track;
+        const {
+          artistId,
+          artistName,
+          trackName,
+          trackId,
+          trackTimeMillis,
+          artworkUrl100,
+          trackNumber,
+        } = track;
 
         return {
           ...allTracks,
@@ -81,8 +89,9 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
             trackId,
             artistName,
             trackName,
-            trackPrice,
             trackTimeMillis,
+            artworkUrl100,
+            trackNumber,
           },
         };
       }, {});

@@ -1,41 +1,49 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 import colors from '../constants/colors';
 
 type TrackItemProps = {
   artistName: string;
   trackName: string;
-  trackPrice: number;
   trackTimeMillis: number;
+  artworkUrl100: string;
+  trackNumber: number;
 };
 
 const TrackItem: React.FC<TrackItemProps> = ({
   artistName,
   trackName,
-  trackPrice,
   trackTimeMillis,
+  artworkUrl100,
+  trackNumber,
 }) => {
+  function millisToMinutesAndSeconds(millis: number): string {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = +((millis % 60000) / 1000).toFixed(0);
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  }
+
   return (
     <View style={styles.trackItem}>
-      {/*<View>
+      <View>
+        <Text> {trackNumber}. </Text>
+      </View>
+      <View>
         <Image
           style={styles.cover}
           source={{
             uri: artworkUrl100,
           }}
         />
-      </View>*/}
+      </View>
       <View style={styles.trackName}>
         <Text numberOfLines={1}>{trackName}</Text>
         <Text style={styles.trackAuthor}>{artistName}</Text>
       </View>
       <View>
-        <Text>{trackPrice} $ </Text>
+        <Text>{millisToMinutesAndSeconds(trackTimeMillis)}</Text>
       </View>
-      {/*<View>
-        <Text style={styles.arrow}>&gt;</Text>
-      </View>*/}
     </View>
   );
 };
@@ -44,24 +52,21 @@ export default TrackItem;
 
 const styles = StyleSheet.create({
   trackItem: {
-    width: '100%',
-    height: 80,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 10,
     borderRadius: 10,
-    padding: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     backgroundColor: colors.lightGrey,
   },
-  //arrow: {
-  //  fontSize: 30,
-  //},
-  //cover: {
-  //  width: 70,
-  //  height: 70,
-  //  borderRadius: 5,
-  //},
+  cover: {
+    marginLeft: 10,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+  },
   trackName: {
     flex: 1,
     paddingHorizontal: 10,

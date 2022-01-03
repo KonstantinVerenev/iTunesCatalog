@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.lightGrey,
   },
   img: {
+    alignSelf: 'center',
     width: 20,
     height: 20,
     marginHorizontal: 10,

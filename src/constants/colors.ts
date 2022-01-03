@@ -3,5 +3,5 @@ export default {
   black: '#0E1111',
   red: '#FF6347',
   white: '#FAF9F6',
-  opacityGrey: 'rgba(255,255,255,0.5)',
+  opacityGrey: 'rgba(255,255,255,0.7)',
 };

@@ -43,7 +43,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     return (
       <TouchableOpacity style={styles.artistItem} onPress={onPressArtist}>
         <View>
-          <Text>{artistName}</Text>
+          <Text style={styles.artistName}>{artistName}</Text>
           <Text>{primaryGenreName}</Text>
         </View>
         <View>
@@ -76,32 +76,31 @@ export default ArtistsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   searchInput: {
-    width: '100%',
     height: 50,
   },
   artistList: {
-    width: '100%',
-    padding: 10,
+    paddingHorizontal: 10,
   },
   artistItem: {
-    width: '100%',
-    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
     borderRadius: 10,
-    padding: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
     backgroundColor: colors.lightGrey,
+  },
+  artistName: {
+    fontWeight: '700',
   },
   arrow: {
     fontSize: 30,
   },
   searchNote: {
-    marginTop: 10,
+    marginVertical: 10,
+    textAlign: 'center',
   },
 });

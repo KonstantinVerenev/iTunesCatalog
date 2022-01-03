@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, ListRenderItem } from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { EmptyList } from '../../../components/EmptyList';
 import TrackItem from '../../../components/TrackItem';
-import { selectAlbumsDataById, selectTracksDataByIds } from '../selectors';
+import { selectTracksDataByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
 
@@ -26,13 +27,14 @@ const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> 
   }, [artistId, collectionId, dispatch]);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
-    item: { artistName, trackName, trackPrice, trackTimeMillis },
+    item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
   }) => {
     return (
       <TrackItem
+        trackNumber={trackNumber}
+        artworkUrl100={artworkUrl100}
         artistName={artistName}
         trackName={trackName}
-        trackPrice={trackPrice}
         trackTimeMillis={trackTimeMillis}
       />
     );
@@ -56,11 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
   },
   trackList: {
-    //refactor in flex
-    width: '100%',
     padding: 10,
   },
 });
