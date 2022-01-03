@@ -1,5 +1,15 @@
-import { ArtistStateAction, GET_ALBUMS_BY_ID_SUCCESS, GET_ARTISTS_SUCCESS } from '../actions';
-import { ArtistResponceData, AlbumsResponseData, ArtistStateData } from '../types';
+import {
+  ArtistStateAction,
+  GET_ALBUMS_BY_ID_SUCCESS,
+  GET_ARTISTS_SUCCESS,
+  GET_TRACKS_BY_ID_SUCCESS,
+} from '../actions';
+import {
+  ArtistResponceData,
+  AlbumsResponseData,
+  ArtistStateData,
+  TrackResponseData,
+} from '../types';
 
 export type ArtistsState = {
   artistsData: ArtistStateData;
@@ -44,7 +54,7 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
             collectionName,
             artworkUrl100,
             collectionPrice,
-            tracks: [],
+            tracks: {},
           },
         };
       }, {});
@@ -54,6 +64,43 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
         artistsData: {
           ...state.artistsData,
           [artistId]: { ...state.artistsData[artistId], albums: albumsData },
+        },
+      };
+    }
+
+    case GET_TRACKS_BY_ID_SUCCESS: {
+      const artistId = action.payload.artistId;
+      const albumId = action.payload.albumId;
+      const tracksData = action.payload.tracks.reduce((allTracks, track: TrackResponseData) => {
+        const { artistId, artistName, trackName, trackId, trackPrice, trackTimeMillis } = track;
+
+        return {
+          ...allTracks,
+          [trackId]: {
+            artistId,
+            trackId,
+            artistName,
+            trackName,
+            trackPrice,
+            trackTimeMillis,
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        artistsData: {
+          ...state.artistsData,
+          [artistId]: {
+            ...state.artistsData[artistId],
+            albums: {
+              ...state.artistsData[artistId].albums,
+              [albumId]: {
+                ...state.artistsData[artistId].albums[albumId],
+                tracks: tracksData,
+              },
+            },
+          },
         },
       };
     }

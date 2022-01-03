@@ -4,10 +4,8 @@ import { Navigation, NavigationFunctionComponent } from 'react-native-navigation
 import { useDispatch, useSelector } from 'react-redux';
 import AlbumItem from '../../../components/AlbumItem';
 
-import colors from '../../../constants/colors';
-
 import { EmptyList } from '../../../components/EmptyList';
-import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
+import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
 import { selectAlbumsDataById } from '../selectors';
 import { thunkGetAlbumsById } from '../thunks';
 import { AlbumsResponseData } from '../types';
@@ -29,24 +27,27 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
     dispatch(thunkGetAlbumsById(artistId));
   }, [artistId, dispatch]);
 
+  const onOpenAlbumScreen = (collectionId: number, collectionName: string): void => {
+    Navigation.push(componentId, {
+      component: {
+        name: ARTISTS_TRACKS_SCREEN,
+        passProps: {
+          artistId,
+          collectionId,
+        },
+        options: getAlbumScreenOptions(collectionName),
+      },
+    });
+  };
+
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, collectionName, artistName, artworkUrl100, collectionPrice },
   }) => {
-    const onOpenAlbumScreen = (): void => {
-      Navigation.push(componentId, {
-        component: {
-          name: SELECTED_ALBUM_SCREEN,
-          passProps: {
-            collectionId,
-          },
-          options: getAlbumScreenOptions(collectionName),
-        },
-      });
-    };
+    const onPressAlbum = () => onOpenAlbumScreen(collectionId, collectionName);
 
     return (
       <AlbumItem
-        onOpenAlbumScreen={onOpenAlbumScreen}
+        onOpenAlbumScreen={onPressAlbum}
         artworkUrl100={artworkUrl100}
         collectionName={collectionName}
         artistName={artistName}
@@ -76,21 +77,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   artistList: {
+    // refactor in flex
     width: '100%',
     padding: 10,
-  },
-  artistItem: {
-    width: '100%',
-    height: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderRadius: 10,
-    padding: 5,
-    backgroundColor: colors.lightGrey,
-  },
-  arrow: {
-    fontSize: 30,
   },
 });

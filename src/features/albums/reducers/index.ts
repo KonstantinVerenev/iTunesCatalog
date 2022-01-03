@@ -1,5 +1,5 @@
-import { AlbumsStateAction, SET_ALBUMS_SUCCESS } from '../actions';
-import { AlbumsStateData, AlbumsResponseData } from '../types';
+import { AlbumsStateAction, GET_ALBUM_TRACKS_BY_ID_SUCCESS, SET_ALBUMS_SUCCESS } from '../actions';
+import { AlbumsStateData, AlbumsResponseData, TrackResponseData } from '../types';
 
 export type AlbumsState = {
   albumsData: AlbumsStateData;
@@ -31,6 +31,36 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
       return {
         ...state,
         albumsData,
+      };
+    }
+
+    case GET_ALBUM_TRACKS_BY_ID_SUCCESS: {
+      const albumId = action.payload.albumId;
+      const tracksData = action.payload.tracks.reduce((allTracks, track: TrackResponseData) => {
+        const { artistId, artistName, trackName, trackId, trackPrice, trackTimeMillis } = track;
+
+        return {
+          ...allTracks,
+          [trackId]: {
+            artistId,
+            trackId,
+            artistName,
+            trackName,
+            trackPrice,
+            trackTimeMillis,
+          },
+        };
+      }, {});
+
+      return {
+        ...state,
+        albumsData: {
+          ...state.albumsData,
+          [albumId]: {
+            ...state.albumsData[albumId],
+            tracks: tracksData,
+          },
+        },
       };
     }
 
