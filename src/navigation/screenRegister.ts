@@ -7,7 +7,7 @@ import SelectedArtistScreen, {
 } from '../features/artists/screens/SelectedArtistScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
 import withAppHandlers from '../hocs/withAppHandlers';
-import ArtistTracksScreen, {
+import ArtistsTracksScreen, {
   ArtistsTracksScreenProps,
 } from '../features/artists/screens/ArtistsTracksScreen';
 import AlbumsTracksScreen, {
@@ -30,7 +30,7 @@ export const screens: Screens = {
   [ARTISTS_SCREEN]: withAppHandlers(ArtistsScreen),
   [ALBUMS_SCREEN]: withAppHandlers(AlbumsScreen),
   [SELECTED_ARTIST_SCREEN]: withAppHandlers(SelectedArtistScreen),
-  [ARTISTS_TRACKS_SCREEN]: withAppHandlers(ArtistTracksScreen),
+  [ARTISTS_TRACKS_SCREEN]: withAppHandlers(ArtistsTracksScreen),
   [ALBUMS_TRACKS_SCREEN]: withAppHandlers(AlbumsTracksScreen),
 };
 

@@ -5,16 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import TrackItem from '../../../components/TrackItem';
+import { useButtonListener } from '../../../hooks/useButtonListener';
 import { selectTracksById } from '../selectors';
 import { thunkGetAlbumTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
+
+import { FAV_BUTTON_ID } from '../../../navigation/options';
+import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
 
 export type AlbumTracksScreenProps = {
   componentId: string;
   collectionId: number;
 };
 
-const AlbumTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = ({
+const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = ({
   collectionId,
 }) => {
   const dispatch = useDispatch();
@@ -23,6 +27,12 @@ const AlbumTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = (
   useEffect(() => {
     dispatch(thunkGetAlbumTracksById(collectionId));
   }, [collectionId, dispatch]);
+
+  const addToFavoritesAlbum = () => {
+    console.log(`add to fav: ${collectionId}`);
+  };
+
+  useButtonListener(ALBUMS_TRACKS_SCREEN, FAV_BUTTON_ID, collectionId, addToFavoritesAlbum);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
     item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
@@ -50,7 +60,7 @@ const AlbumTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = (
   );
 };
 
-export default AlbumTracksScreen;
+export default AlbumsTracksScreen;
 
 const styles = StyleSheet.create({
   container: {
