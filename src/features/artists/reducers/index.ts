@@ -69,9 +69,8 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
     }
 
     case GET_TRACKS_BY_ID_SUCCESS: {
-      const artistId = action.payload.artistId;
-      const albumId = action.payload.albumId;
-      const tracksData = action.payload.tracks.reduce((allTracks, track: TrackResponseData) => {
+      const { artistId, albumId, tracks } = action.payload;
+      const tracksData = tracks.reduce((allTracks, track: TrackResponseData) => {
         const {
           artistId,
           artistName,
@@ -96,16 +95,18 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
         };
       }, {});
 
+      const artistData = state.artistsData[artistId];
+
       return {
         ...state,
         artistsData: {
           ...state.artistsData,
           [artistId]: {
-            ...state.artistsData[artistId],
+            ...artistData,
             albums: {
-              ...state.artistsData[artistId].albums,
+              ...artistData.albums,
               [albumId]: {
-                ...state.artistsData[artistId].albums[albumId],
+                ...artistData.albums[albumId],
                 tracks: tracksData,
               },
             },

@@ -6,7 +6,7 @@ import AlbumItem from '../../../components/AlbumItem';
 
 import { EmptyList } from '../../../components/EmptyList';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { selectAlbumsDataById } from '../selectors';
+import { selectAlbumsById } from '../selectors';
 import { thunkGetAlbumsById } from '../thunks';
 import { AlbumsResponseData } from '../types';
 import { getAlbumScreenOptions } from '../../../navigation/options';
@@ -21,7 +21,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
   componentId,
 }) => {
   const dispatch = useDispatch();
-  const artistAlbums = useSelector(selectAlbumsDataById(artistId));
+  const artistAlbums = useSelector(selectAlbumsById(artistId));
 
   useEffect(() => {
     dispatch(thunkGetAlbumsById(artistId));

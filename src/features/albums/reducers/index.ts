@@ -35,8 +35,8 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
     }
 
     case GET_ALBUM_TRACKS_BY_ID_SUCCESS: {
-      const albumId = action.payload.albumId;
-      const tracksData = action.payload.tracks.reduce((allTracks, track: TrackResponseData) => {
+      const { albumId, tracks } = action.payload;
+      const tracksData = tracks.reduce((allTracks, track: TrackResponseData) => {
         const {
           artistId,
           artistName,

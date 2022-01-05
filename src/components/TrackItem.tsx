@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import colors from '../constants/colors';
-import { millisToMinAndSec } from '../utils/millisToMinAndSec';
+import { formatMillisToMinAndSec } from '../utils/formatMillisToMinAndSec';
 
 type TrackItemProps = {
   artistName: string;
@@ -37,7 +37,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
         <Text style={styles.trackAuthor}>{artistName}</Text>
       </View>
       <View>
-        <Text>{millisToMinAndSec(trackTimeMillis)}</Text>
+        <Text>{formatMillisToMinAndSec(trackTimeMillis)}</Text>
       </View>
     </View>
   );

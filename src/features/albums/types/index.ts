@@ -17,6 +17,8 @@ export type TrackStateData = {
     trackName: string;
     trackPrice: number;
     trackTimeMillis: number;
+    artworkUrl100: string;
+    trackNumber: number;
   };
 };
 
@@ -34,6 +36,7 @@ export type TrackResponseData = {
   artistName: string;
   trackName: string;
   trackTimeMillis: number;
+  trackPrice: number;
   artworkUrl100: string;
   trackNumber: number;
 };

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import TrackItem from '../../../components/TrackItem';
-import { selectTracksDataByIds } from '../selectors';
+import { selectTracksByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
 
@@ -20,7 +20,7 @@ const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> 
   collectionId,
 }) => {
   const dispatch = useDispatch();
-  const albumTracks = useSelector(selectTracksDataByIds(artistId, collectionId));
+  const albumTracks = useSelector(selectTracksByIds(artistId, collectionId));
 
   useEffect(() => {
     dispatch(thunkGetTracksById(artistId, collectionId));

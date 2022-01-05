@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { selectAlbumsData } from '../selectors';
+import { selectAlbums } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
 import AlbumItem from '../../../components/AlbumItem';
 import { getAlbumScreenOptions } from '../../../navigation/options';
 
 const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
-  const albumsData = useSelector(selectAlbumsData);
+  const albumsData = useSelector(selectAlbums);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 

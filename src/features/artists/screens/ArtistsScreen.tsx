@@ -9,12 +9,12 @@ import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { getArtistScreenOptions } from '../../../navigation/options';
 import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
-import { selectArtistsData } from '../selectors';
+import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
-  const artistsData = useSelector(selectArtistsData);
+  const artistsData = useSelector(selectArtists);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
