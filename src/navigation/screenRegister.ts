@@ -5,26 +5,33 @@ import ArtistsScreen from '../features/artists/screens/ArtistsScreen';
 import SelectedArtistScreen, {
   SelectedArtistScreenProps,
 } from '../features/artists/screens/SelectedArtistScreen';
-import SelectedAlbumsScreen, {
-  SelectedAlbumScreenProps,
-} from '../features/artists/screens/SelectedAlbumScreen';
 import AlbumsScreen from '../features/albums/screens/AlbumsScreen';
 import withAppHandlers from '../hocs/withAppHandlers';
+import ArtistTracksScreen, {
+  ArtistsTracksScreenProps,
+} from '../features/artists/screens/ArtistsTracksScreen';
+import AlbumsTracksScreen, {
+  AlbumTracksScreenProps,
+} from '../features/albums/screens/AlbumsTracksScreen';
 
 export const ARTISTS_SCREEN = 'ArtistScreen';
 export const ALBUMS_SCREEN = 'AlbumsScreen';
 export const SELECTED_ARTIST_SCREEN = 'SelectedArtistScreen';
-export const SELECTED_ALBUM_SCREEN = 'SelectedAlbumScreen';
+export const ARTISTS_TRACKS_SCREEN = 'ArtistsTracksScreen';
+export const ALBUMS_TRACKS_SCREEN = 'AlbumsTracksScreen';
 
 type Screens = {
-  [key: string]: NavigationFunctionComponent<SelectedArtistScreenProps & SelectedAlbumScreenProps>;
+  [key: string]: NavigationFunctionComponent<
+    SelectedArtistScreenProps & ArtistsTracksScreenProps & AlbumTracksScreenProps
+  >;
 };
 
 export const screens: Screens = {
   [ARTISTS_SCREEN]: withAppHandlers(ArtistsScreen),
   [ALBUMS_SCREEN]: withAppHandlers(AlbumsScreen),
   [SELECTED_ARTIST_SCREEN]: withAppHandlers(SelectedArtistScreen),
-  [SELECTED_ALBUM_SCREEN]: withAppHandlers(SelectedAlbumsScreen),
+  [ARTISTS_TRACKS_SCREEN]: withAppHandlers(ArtistTracksScreen),
+  [ALBUMS_TRACKS_SCREEN]: withAppHandlers(AlbumsTracksScreen),
 };
 
 export const registerAllScreens = (): void => {

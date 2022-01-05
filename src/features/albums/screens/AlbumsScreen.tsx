@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
-import { SELECTED_ALBUM_SCREEN } from '../../../navigation/screenRegister';
-import { selectAlbumsData } from '../selectors';
+import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { selectAlbums } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
 import AlbumItem from '../../../components/AlbumItem';
 import { getAlbumScreenOptions } from '../../../navigation/options';
 
 const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
-  const albumsData = useSelector(selectAlbumsData);
+  const albumsData = useSelector(selectAlbums);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -23,12 +23,15 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
   };
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
-    item: { artistName, collectionName, artworkUrl100, collectionPrice },
+    item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
   }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(componentId, {
         component: {
-          name: SELECTED_ALBUM_SCREEN,
+          name: ALBUMS_TRACKS_SCREEN,
+          passProps: {
+            collectionId,
+          },
           options: getAlbumScreenOptions(collectionName),
         },
       });
@@ -68,18 +71,15 @@ export default AlbumsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   searchInput: {
-    width: '100%',
     height: 50,
   },
   artistList: {
-    width: '100%',
-    padding: 10,
+    paddingHorizontal: 10,
   },
   searchNote: {
-    marginTop: 10,
+    marginVertical: 10,
+    textAlign: 'center',
   },
 });

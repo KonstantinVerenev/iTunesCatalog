@@ -46,8 +46,6 @@ export default AlbumItem;
 
 const styles = StyleSheet.create({
   artistItem: {
-    width: '100%',
-    height: 80,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',

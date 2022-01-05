@@ -1,7 +1,12 @@
 import { ThunkAction } from 'redux-thunk';
 import { artistAPI } from '../../../services/api';
 import { getData, getDataError, getDataSuccess, mainStateAction } from '../../../store/actions';
-import { ArtistStateAction, getAlbumsByIdSuccess, getArtistSuccess } from '../actions';
+import {
+  ArtistStateAction,
+  getAlbumsByIdSuccess,
+  getArtistSuccess,
+  getTracksByIdSuccess,
+} from '../actions';
 import { ArtistsState } from '../reducers';
 
 type thunkGetArtistsAction = mainStateAction | ArtistStateAction;
@@ -37,6 +42,26 @@ export const thunkGetAlbumsById = (
 
       dispatch(getDataSuccess());
       dispatch(getAlbumsByIdSuccess(resData.results.slice(1), id));
+    } catch (error) {
+      console.log(error);
+      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+    }
+  };
+};
+
+export const thunkGetTracksById = (
+  artistId: number,
+  collectionId: number
+): ThunkAction<void, ArtistsState, unknown, thunkGetArtistsAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch(getData());
+
+      const response = await artistAPI.getTracksById(collectionId);
+      const resData = await response.json();
+
+      dispatch(getDataSuccess());
+      dispatch(getTracksByIdSuccess(resData.results.slice(1), artistId, collectionId));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));

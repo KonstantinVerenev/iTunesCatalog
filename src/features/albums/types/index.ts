@@ -5,7 +5,20 @@ export type AlbumsStateData = {
     collectionName: string;
     artworkUrl100: string;
     collectionPrice: number;
-    tracks: any; // temporaly
+    tracks: TrackStateData;
+  };
+};
+
+export type TrackStateData = {
+  [key: number]: {
+    trackId: number;
+    artistId: number;
+    artistName: string;
+    trackName: string;
+    trackPrice: number;
+    trackTimeMillis: number;
+    artworkUrl100: string;
+    trackNumber: number;
   };
 };
 
@@ -15,4 +28,15 @@ export type AlbumsResponseData = {
   collectionName: string;
   artworkUrl100: string;
   collectionPrice: number;
+};
+
+export type TrackResponseData = {
+  artistId: number;
+  trackId: number;
+  artistName: string;
+  trackName: string;
+  trackTimeMillis: number;
+  trackPrice: number;
+  artworkUrl100: string;
+  trackNumber: number;
 };
