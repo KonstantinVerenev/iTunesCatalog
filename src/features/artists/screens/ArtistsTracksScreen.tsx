@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EmptyList } from '../../../components/EmptyList';
 import TrackItem from '../../../components/TrackItem';
 import { useButtonListener } from '../../../hooks/useButtonListener';
-import { FAV_BUTTON_ID, inFavoritesOptions } from '../../../navigation/options';
+import {
+  FAV_BUTTON_ID,
+  inFavoritesOptions,
+  notInFavoritesOptions,
+} from '../../../navigation/options';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
 import { setAlbumToFavorites } from '../../favorites/actions';
 import { selectFavoritesAlbums } from '../../favorites/selectors';
@@ -36,6 +40,8 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
   useEffect(() => {
     if (favoritesAlbumsIds.includes(collectionId)) {
       Navigation.mergeOptions(componentId, inFavoritesOptions(ARTISTS_TRACKS_SCREEN));
+    } else {
+      Navigation.mergeOptions(componentId, notInFavoritesOptions(ARTISTS_TRACKS_SCREEN));
     }
   }, [collectionId, componentId, favoritesAlbumsIds]);
 

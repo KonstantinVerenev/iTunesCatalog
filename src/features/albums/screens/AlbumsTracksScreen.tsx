@@ -10,7 +10,11 @@ import { selectTracksById } from '../selectors';
 import { thunkGetAlbumTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
 
-import { FAV_BUTTON_ID, inFavoritesOptions } from '../../../navigation/options';
+import {
+  FAV_BUTTON_ID,
+  inFavoritesOptions,
+  notInFavoritesOptions,
+} from '../../../navigation/options';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
 import { setAlbumToFavorites } from '../../favorites/actions';
 import { selectFavoritesAlbums } from '../../favorites/selectors';
@@ -35,6 +39,8 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
   useEffect(() => {
     if (favoritesAlbumsIds.includes(collectionId)) {
       Navigation.mergeOptions(componentId, inFavoritesOptions(ALBUMS_TRACKS_SCREEN));
+    } else {
+      Navigation.mergeOptions(componentId, notInFavoritesOptions(ALBUMS_TRACKS_SCREEN));
     }
   }, [collectionId, componentId, favoritesAlbumsIds]);
 

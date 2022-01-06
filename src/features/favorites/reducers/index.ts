@@ -14,6 +14,13 @@ export const favoritesReducer = (
 ): FavoritesState => {
   switch (action.type) {
     case SET_ALBUM_TO_FAVORITES: {
+      if (state.favoritesAlbums.includes(action.payload)) {
+        return {
+          ...state,
+          favoritesAlbums: state.favoritesAlbums.filter((id) => id !== action.payload),
+        };
+      }
+
       return {
         ...state,
         favoritesAlbums: [...state.favoritesAlbums, action.payload],

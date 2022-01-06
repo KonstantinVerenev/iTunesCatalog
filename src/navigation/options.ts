@@ -51,3 +51,19 @@ export const inFavoritesOptions = (screenName: string): Options => {
     },
   };
 };
+
+export const notInFavoritesOptions = (screenName: string): Options => {
+  return {
+    topBar: {
+      rightButtons: [
+        {
+          id: `${screenName}-${FAV_BUTTON_ID}`,
+          icon:
+            Platform.OS === 'ios'
+              ? { uri: 'star', scale: 3 }
+              : require('../../assets/icons/star.png'),
+        },
+      ],
+    },
+  };
+};
