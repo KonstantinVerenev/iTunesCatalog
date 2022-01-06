@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, ListRenderItem, FlatList } from 'react-native';
-import { NavigationFunctionComponent } from 'react-native-navigation';
+import { View, StyleSheet, ListRenderItem, FlatList, Platform } from 'react-native';
+import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
@@ -10,9 +10,10 @@ import { selectTracksById } from '../selectors';
 import { thunkGetAlbumTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
 
-import { FAV_BUTTON_ID } from '../../../navigation/options';
+import { FAV_BUTTON_ID, inFavoritesOptions } from '../../../navigation/options';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
 import { setAlbumToFavorites } from '../../favorites/actions';
+import { selectFavoritesAlbums } from '../../favorites/selectors';
 
 export type AlbumTracksScreenProps = {
   componentId: string;
@@ -20,14 +21,22 @@ export type AlbumTracksScreenProps = {
 };
 
 const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = ({
+  componentId,
   collectionId,
 }) => {
   const dispatch = useDispatch();
   const albumTracks = useSelector(selectTracksById(collectionId));
+  const favoritesAlbumsIds = useSelector(selectFavoritesAlbums);
 
   useEffect(() => {
     dispatch(thunkGetAlbumTracksById(collectionId));
   }, [collectionId, dispatch]);
+
+  useEffect(() => {
+    if (favoritesAlbumsIds.includes(collectionId)) {
+      Navigation.mergeOptions(componentId, inFavoritesOptions(ALBUMS_TRACKS_SCREEN));
+    }
+  }, [collectionId, componentId, favoritesAlbumsIds]);
 
   const addToFavoritesAlbum = () => {
     dispatch(setAlbumToFavorites(collectionId));

@@ -35,3 +35,19 @@ export const getAlbumScreenOptions = (screenName: string, collectionName: string
     },
   };
 };
+
+export const inFavoritesOptions = (screenName: string): Options => {
+  return {
+    topBar: {
+      rightButtons: [
+        {
+          id: `${screenName}-${FAV_BUTTON_ID}`,
+          icon:
+            Platform.OS === 'ios'
+              ? { uri: 'filled-star', scale: 3 }
+              : require('../../assets/icons/filled-star.png'),
+        },
+      ],
+    },
+  };
+};
