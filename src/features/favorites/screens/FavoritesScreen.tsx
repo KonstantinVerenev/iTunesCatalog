@@ -12,8 +12,6 @@ const FavoritesScreen: NavigationFunctionComponent = () => {
   const favoritesAlbumsIds = useSelector(selectFavoritesAlbums);
   const [favoritesAlbums, setFavoritesAlbums] = useState<AlbumsResponseData[]>();
 
-  console.log(favoritesAlbums);
-
   useEffect(() => {
     const getAlbumsByIds = async () => {
       const response = await favoritesAPI.getAlbumsByIds(favoritesAlbumsIds);
@@ -53,6 +51,6 @@ export default FavoritesScreen;
 
 const styles = StyleSheet.create({
   albumList: {
-    paddingHorizontal: 10,
+    padding: 10,
   },
 });

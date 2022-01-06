@@ -5,7 +5,7 @@ export type FavoritesState = {
 };
 
 const initialState: FavoritesState = {
-  favoritesAlbums: [1463409338, 1598186067],
+  favoritesAlbums: [],
 };
 
 export const favoritesReducer = (

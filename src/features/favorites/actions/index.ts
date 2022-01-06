@@ -7,7 +7,7 @@ type setAlbumToFavorites = {
 
 export type FavoritesStateAction = setAlbumToFavorites;
 
-export const getAlbumsSuccess = (payload: number): setAlbumToFavorites => ({
+export const setAlbumToFavorites = (payload: number): setAlbumToFavorites => ({
   type: SET_ALBUM_TO_FAVORITES,
   payload,
 });

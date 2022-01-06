@@ -12,6 +12,7 @@ import { TrackResponseData } from '../types';
 
 import { FAV_BUTTON_ID } from '../../../navigation/options';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { setAlbumToFavorites } from '../../favorites/actions';
 
 export type AlbumTracksScreenProps = {
   componentId: string;
@@ -29,7 +30,7 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
   }, [collectionId, dispatch]);
 
   const addToFavoritesAlbum = () => {
-    console.log(`add to fav: ${collectionId}`);
+    dispatch(setAlbumToFavorites(collectionId));
   };
 
   useButtonListener(ALBUMS_TRACKS_SCREEN, FAV_BUTTON_ID, collectionId, addToFavoritesAlbum);

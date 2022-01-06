@@ -8,6 +8,7 @@ import TrackItem from '../../../components/TrackItem';
 import { useButtonListener } from '../../../hooks/useButtonListener';
 import { FAV_BUTTON_ID } from '../../../navigation/options';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { setAlbumToFavorites } from '../../favorites/actions';
 import { selectTracksByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
@@ -30,7 +31,7 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
   }, [artistId, collectionId, dispatch]);
 
   const addToFavoritesAlbum = () => {
-    console.log(`add to fav: ${collectionId}`);
+    dispatch(setAlbumToFavorites(collectionId));
   };
 
   useButtonListener(ARTISTS_TRACKS_SCREEN, FAV_BUTTON_ID, collectionId, addToFavoritesAlbum);
