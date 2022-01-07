@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, ListRenderItem, FlatList, Platform } from 'react-native';
+import { View, StyleSheet, ListRenderItem, FlatList } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,15 +9,14 @@ import { useButtonListener } from '../../../hooks/useButtonListener';
 import { selectTracksById } from '../selectors';
 import { thunkGetAlbumTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
-
 import {
   FAV_BUTTON_ID,
-  inFavoritesOptions,
-  notInFavoritesOptions,
+  filledStarOptions,
+  nonFilledStarOptions,
 } from '../../../navigation/options';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { setAlbumToFavorites } from '../../favorites/actions';
-import { selectFavoritesAlbums } from '../../favorites/selectors';
+import { inverseFavoriteStatus } from '../../favorites/actions';
+import { selectFavoriteAlbums } from '../../favorites/selectors';
 
 export type AlbumTracksScreenProps = {
   componentId: string;
@@ -30,25 +29,25 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
 }) => {
   const dispatch = useDispatch();
   const albumTracks = useSelector(selectTracksById(collectionId));
-  const favoritesAlbumsIds = useSelector(selectFavoritesAlbums);
+  const favoritesAlbumsIds = useSelector(selectFavoriteAlbums);
 
   useEffect(() => {
     dispatch(thunkGetAlbumTracksById(collectionId));
   }, [collectionId, dispatch]);
 
   useEffect(() => {
-    if (favoritesAlbumsIds.includes(collectionId)) {
-      Navigation.mergeOptions(componentId, inFavoritesOptions(ALBUMS_TRACKS_SCREEN));
-    } else {
-      Navigation.mergeOptions(componentId, notInFavoritesOptions(ALBUMS_TRACKS_SCREEN));
-    }
+    const options = favoritesAlbumsIds.includes(collectionId)
+      ? filledStarOptions(ALBUMS_TRACKS_SCREEN)
+      : nonFilledStarOptions(ALBUMS_TRACKS_SCREEN);
+
+    Navigation.mergeOptions(componentId, options);
   }, [collectionId, componentId, favoritesAlbumsIds]);
 
-  const addToFavoritesAlbum = () => {
-    dispatch(setAlbumToFavorites(collectionId));
+  const onPressFavorite = () => {
+    dispatch(inverseFavoriteStatus(collectionId));
   };
 
-  useButtonListener(ALBUMS_TRACKS_SCREEN, FAV_BUTTON_ID, collectionId, addToFavoritesAlbum);
+  useButtonListener(`${ALBUMS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
     item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },

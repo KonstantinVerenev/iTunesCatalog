@@ -36,7 +36,7 @@ export const getAlbumScreenOptions = (screenName: string, collectionName: string
   };
 };
 
-export const inFavoritesOptions = (screenName: string): Options => {
+export const filledStarOptions = (screenName: string): Options => {
   return {
     topBar: {
       rightButtons: [
@@ -52,7 +52,7 @@ export const inFavoritesOptions = (screenName: string): Options => {
   };
 };
 
-export const notInFavoritesOptions = (screenName: string): Options => {
+export const nonFilledStarOptions = (screenName: string): Options => {
   return {
     topBar: {
       rightButtons: [

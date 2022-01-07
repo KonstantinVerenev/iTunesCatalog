@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItem, StyleSheet } from 'react-native';
 import { NavigationFunctionComponent } from 'react-native-navigation';
 import { useSelector } from 'react-redux';
+
 import AlbumItem from '../../../components/AlbumItem';
 import { EmptyList } from '../../../components/EmptyList';
 import { favoritesAPI } from '../../../services/api';
-import { selectFavoritesAlbums } from '../selectors';
+import { selectFavoriteAlbums } from '../selectors';
 import { AlbumsResponseData } from '../types';
 
 const FavoritesScreen: NavigationFunctionComponent = () => {
-  const favoritesAlbumsIds = useSelector(selectFavoritesAlbums);
+  const favoritesAlbumsIds = useSelector(selectFavoriteAlbums);
   const [favoritesAlbums, setFavoritesAlbums] = useState<AlbumsResponseData[]>();
 
   useEffect(() => {
@@ -24,11 +25,11 @@ const FavoritesScreen: NavigationFunctionComponent = () => {
   }, [favoritesAlbumsIds]);
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
-    item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
+    item: { artistName, collectionName, artworkUrl100, collectionPrice },
   }) => {
     return (
       <AlbumItem
-        onOpenAlbumScreen={() => console.log('open tracks')}
+        onOpenAlbumScreen={() => console.log('temporaly on press')}
         artworkUrl100={artworkUrl100}
         collectionName={collectionName}
         artistName={artistName}

@@ -1,13 +1,13 @@
-export const SET_ALBUM_TO_FAVORITES = 'SET_ALBUM_TO_FAVORITES';
+export const INVERSE_FAVORITE_STATUS = 'INVERSE_FAVORITE_STATUS';
 
-type setAlbumToFavorites = {
-  type: typeof SET_ALBUM_TO_FAVORITES;
+type inverseFavoriteStatus = {
+  type: typeof INVERSE_FAVORITE_STATUS;
   payload: number;
 };
 
-export type FavoritesStateAction = setAlbumToFavorites;
+export type FavoritesStateAction = inverseFavoriteStatus;
 
-export const setAlbumToFavorites = (payload: number): setAlbumToFavorites => ({
-  type: SET_ALBUM_TO_FAVORITES,
+export const inverseFavoriteStatus = (payload: number): inverseFavoriteStatus => ({
+  type: INVERSE_FAVORITE_STATUS,
   payload,
 });

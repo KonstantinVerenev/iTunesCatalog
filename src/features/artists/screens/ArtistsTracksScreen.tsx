@@ -8,12 +8,12 @@ import TrackItem from '../../../components/TrackItem';
 import { useButtonListener } from '../../../hooks/useButtonListener';
 import {
   FAV_BUTTON_ID,
-  inFavoritesOptions,
-  notInFavoritesOptions,
+  filledStarOptions,
+  nonFilledStarOptions,
 } from '../../../navigation/options';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { setAlbumToFavorites } from '../../favorites/actions';
-import { selectFavoritesAlbums } from '../../favorites/selectors';
+import { inverseFavoriteStatus } from '../../favorites/actions';
+import { selectFavoriteAlbums } from '../../favorites/selectors';
 import { selectTracksByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
@@ -31,25 +31,25 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
 }) => {
   const dispatch = useDispatch();
   const albumTracks = useSelector(selectTracksByIds(artistId, collectionId));
-  const favoritesAlbumsIds = useSelector(selectFavoritesAlbums);
+  const favoritesAlbumsIds = useSelector(selectFavoriteAlbums);
 
   useEffect(() => {
     dispatch(thunkGetTracksById(artistId, collectionId));
   }, [artistId, collectionId, dispatch]);
 
   useEffect(() => {
-    if (favoritesAlbumsIds.includes(collectionId)) {
-      Navigation.mergeOptions(componentId, inFavoritesOptions(ARTISTS_TRACKS_SCREEN));
-    } else {
-      Navigation.mergeOptions(componentId, notInFavoritesOptions(ARTISTS_TRACKS_SCREEN));
-    }
+    const options = favoritesAlbumsIds.includes(collectionId)
+      ? filledStarOptions(ARTISTS_TRACKS_SCREEN)
+      : nonFilledStarOptions(ARTISTS_TRACKS_SCREEN);
+
+    Navigation.mergeOptions(componentId, options);
   }, [collectionId, componentId, favoritesAlbumsIds]);
 
-  const addToFavoritesAlbum = () => {
-    dispatch(setAlbumToFavorites(collectionId));
+  const onPressFavorite = () => {
+    dispatch(inverseFavoriteStatus(collectionId));
   };
 
-  useButtonListener(ARTISTS_TRACKS_SCREEN, FAV_BUTTON_ID, collectionId, addToFavoritesAlbum);
+  useButtonListener(`${ARTISTS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
     item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },

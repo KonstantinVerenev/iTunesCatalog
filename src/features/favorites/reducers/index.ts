@@ -1,4 +1,4 @@
-import { FavoritesStateAction, SET_ALBUM_TO_FAVORITES } from '../actions';
+import { FavoritesStateAction, INVERSE_FAVORITE_STATUS } from '../actions';
 
 export type FavoritesState = {
   favoritesAlbums: number[];
@@ -13,7 +13,7 @@ export const favoritesReducer = (
   action: FavoritesStateAction
 ): FavoritesState => {
   switch (action.type) {
-    case SET_ALBUM_TO_FAVORITES: {
+    case INVERSE_FAVORITE_STATUS: {
       if (state.favoritesAlbums.includes(action.payload)) {
         return {
           ...state,

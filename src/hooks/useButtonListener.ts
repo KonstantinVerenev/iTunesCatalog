@@ -1,16 +1,11 @@
 import { useEffect } from 'react';
 import { Navigation } from 'react-native-navigation';
 
-export const useButtonListener = (
-  screenName: string,
-  id: string,
-  collectionId: number,
-  onPress: () => void
-): void => {
+export const useButtonListener = (buttonId: string, onPress: () => void): void => {
   useEffect(() => {
     const subscriber = Navigation.events().registerNavigationButtonPressedListener(
-      ({ buttonId }) => {
-        if (buttonId === `${screenName}-${id}`) {
+      ({ buttonId: id }) => {
+        if (id === buttonId) {
           onPress();
         }
       }
@@ -19,5 +14,5 @@ export const useButtonListener = (
     return () => {
       subscriber.remove();
     };
-  }, [collectionId, id, onPress, screenName]);
+  }, [buttonId, onPress]);
 };
