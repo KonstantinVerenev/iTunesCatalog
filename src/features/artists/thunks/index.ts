@@ -19,10 +19,10 @@ export const thunkGetArtists = (
       dispatch(getData());
 
       const response = await artistAPI.getArtistsByName(name);
-      const resData = await response.json();
+      const data = await response.data;
 
       dispatch(getDataSuccess());
-      dispatch(getArtistSuccess(resData.results));
+      dispatch(getArtistSuccess(data.results));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
@@ -38,10 +38,10 @@ export const thunkGetAlbumsById = (
       dispatch(getData());
 
       const response = await artistAPI.getArtistAlbumById(id);
-      const resData = await response.json();
+      const data = await response.data;
 
       dispatch(getDataSuccess());
-      dispatch(getAlbumsByIdSuccess(resData.results.slice(1), id));
+      dispatch(getAlbumsByIdSuccess(data.results.slice(1), id));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
@@ -58,10 +58,10 @@ export const thunkGetTracksById = (
       dispatch(getData());
 
       const response = await artistAPI.getTracksById(collectionId);
-      const resData = await response.json();
+      const data = await response.data;
 
       dispatch(getDataSuccess());
-      dispatch(getTracksByIdSuccess(resData.results.slice(1), artistId, collectionId));
+      dispatch(getTracksByIdSuccess(data.results.slice(1), artistId, collectionId));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
