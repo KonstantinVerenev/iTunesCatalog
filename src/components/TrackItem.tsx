@@ -1,5 +1,14 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  Image,
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  UIManager,
+  View,
+} from 'react-native';
 
 import colors from '../constants/colors';
 import { formatMillisToMinAndSec } from '../utils/formatMillisToMinAndSec';
@@ -12,6 +21,12 @@ type TrackItemProps = {
   trackNumber: number;
 };
 
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+
 const TrackItem: React.FC<TrackItemProps> = ({
   artistName,
   trackName,
@@ -19,27 +34,42 @@ const TrackItem: React.FC<TrackItemProps> = ({
   artworkUrl100,
   trackNumber,
 }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const onOpenMoreInfo = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpanded(!expanded);
+  };
+
   return (
-    <View style={styles.trackItem}>
-      <View>
-        <Text> {trackNumber}. </Text>
+    <TouchableOpacity style={styles.trackItem} onPress={onOpenMoreInfo}>
+      <View style={styles.trackMainInfo}>
+        <View>
+          <Text> {trackNumber}. </Text>
+        </View>
+        <View>
+          <Image
+            style={styles.cover}
+            source={{
+              uri: artworkUrl100,
+            }}
+          />
+        </View>
+        <View style={styles.trackName}>
+          <Text numberOfLines={1}>{trackName}</Text>
+          <Text style={styles.trackAuthor}>{artistName}</Text>
+        </View>
+        <View>
+          <Text>{formatMillisToMinAndSec(trackTimeMillis)}</Text>
+        </View>
       </View>
-      <View>
-        <Image
-          style={styles.cover}
-          source={{
-            uri: artworkUrl100,
-          }}
-        />
-      </View>
-      <View style={styles.trackName}>
-        <Text numberOfLines={1}>{trackName}</Text>
-        <Text style={styles.trackAuthor}>{artistName}</Text>
-      </View>
-      <View>
-        <Text>{formatMillisToMinAndSec(trackTimeMillis)}</Text>
-      </View>
-    </View>
+      {expanded && (
+        <View style={styles.trackMoreInfo}>
+          <Text>Тут дополнительная информация</Text>
+          <Text>Еще дополнительная информация</Text>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 };
 
@@ -47,14 +77,20 @@ export default TrackItem;
 
 const styles = StyleSheet.create({
   trackItem: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     marginBottom: 10,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: colors.lightGrey,
+    overflow: 'hidden',
+  },
+  trackMainInfo: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  trackMoreInfo: {
+    marginTop: 20,
   },
   cover: {
     marginLeft: 10,
