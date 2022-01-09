@@ -19,6 +19,9 @@ type TrackItemProps = {
   trackTimeMillis: number;
   artworkUrl100: string;
   trackNumber: number;
+  releaseDate: string;
+  country: string;
+  primaryGenreName: string;
 };
 
 if (Platform.OS === 'android') {
@@ -33,8 +36,12 @@ const TrackItem: React.FC<TrackItemProps> = ({
   trackTimeMillis,
   artworkUrl100,
   trackNumber,
+  releaseDate,
+  country,
+  primaryGenreName,
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const fotmattedDate = releaseDate.slice(0, -10);
 
   const onOpenMoreInfo = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -65,8 +72,9 @@ const TrackItem: React.FC<TrackItemProps> = ({
       </View>
       {expanded && (
         <View style={styles.trackMoreInfo}>
-          <Text>Тут дополнительная информация</Text>
-          <Text>Еще дополнительная информация</Text>
+          <Text>Дата релиза: {fotmattedDate}</Text>
+          <Text>Страна: {country}</Text>
+          <Text>Жанр: {primaryGenreName}</Text>
         </View>
       )}
     </TouchableOpacity>

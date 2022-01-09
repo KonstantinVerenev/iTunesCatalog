@@ -79,6 +79,9 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
           trackTimeMillis,
           artworkUrl100,
           trackNumber,
+          releaseDate,
+          country,
+          primaryGenreName,
         } = track;
 
         return {
@@ -91,6 +94,9 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
             trackTimeMillis,
             artworkUrl100,
             trackNumber,
+            releaseDate,
+            country,
+            primaryGenreName,
           },
         };
       }, {});

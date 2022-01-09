@@ -25,7 +25,16 @@ const AlbumTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = (
   }, [collectionId, dispatch]);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
-    item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
+    item: {
+      artistName,
+      trackName,
+      trackTimeMillis,
+      artworkUrl100,
+      trackNumber,
+      releaseDate,
+      country,
+      primaryGenreName,
+    },
   }) => {
     return (
       <TrackItem
@@ -34,6 +43,9 @@ const AlbumTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = (
         trackTimeMillis={trackTimeMillis}
         artworkUrl100={artworkUrl100}
         trackNumber={trackNumber}
+        releaseDate={releaseDate}
+        country={country}
+        primaryGenreName={primaryGenreName}
       />
     );
   };

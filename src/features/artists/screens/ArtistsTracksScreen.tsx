@@ -27,7 +27,16 @@ const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> 
   }, [artistId, collectionId, dispatch]);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
-    item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
+    item: {
+      artistName,
+      trackName,
+      trackTimeMillis,
+      artworkUrl100,
+      trackNumber,
+      releaseDate,
+      country,
+      primaryGenreName,
+    },
   }) => {
     return (
       <TrackItem
@@ -36,6 +45,9 @@ const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> 
         artistName={artistName}
         trackName={trackName}
         trackTimeMillis={trackTimeMillis}
+        releaseDate={releaseDate}
+        country={country}
+        primaryGenreName={primaryGenreName}
       />
     );
   };
