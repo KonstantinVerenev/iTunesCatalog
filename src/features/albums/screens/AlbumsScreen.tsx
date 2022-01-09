@@ -24,6 +24,7 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },
+    index,
   }) => {
     const onOpenAlbumScreen = (): void => {
       Navigation.push(componentId, {
@@ -44,6 +45,7 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
         collectionName={collectionName}
         artistName={artistName}
         collectionPrice={collectionPrice}
+        index={index}
       />
     );
   };

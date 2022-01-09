@@ -42,6 +42,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, collectionName, artistName, artworkUrl100, collectionPrice },
+    index,
   }) => {
     const onPressAlbum = () => onOpenAlbumScreen(collectionId, collectionName);
 
@@ -52,6 +53,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
         collectionName={collectionName}
         artistName={artistName}
         collectionPrice={collectionPrice}
+        index={index}
       />
     );
   };

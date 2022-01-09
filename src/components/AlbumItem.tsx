@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import colors from '../constants/colors';
 
@@ -9,6 +9,7 @@ type AlbumItemProps = {
   collectionName: string;
   artistName: string;
   collectionPrice: number;
+  index: number;
 };
 
 const AlbumItem: React.FC<AlbumItemProps> = ({
@@ -17,27 +18,41 @@ const AlbumItem: React.FC<AlbumItemProps> = ({
   collectionName,
   artistName,
   collectionPrice,
+  index,
 }) => {
+  const value = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    value.setValue(-400);
+    Animated.timing(value, {
+      toValue: 0,
+      useNativeDriver: true,
+      duration: 600 + index * 80,
+    }).start();
+  }, [collectionName, index, value]);
+
   return (
-    <TouchableOpacity style={styles.artistItem} onPress={onOpenAlbumScreen}>
-      <View>
-        <Image
-          style={styles.cover}
-          source={{
-            uri: artworkUrl100,
-          }}
-        />
-      </View>
-      <View style={styles.albumName}>
-        <Text numberOfLines={1}>{collectionName}</Text>
-        <Text style={styles.albumAuthor}>{artistName}</Text>
-      </View>
-      <View>
-        <Text>{collectionPrice} $ </Text>
-      </View>
-      <View>
-        <Text style={styles.arrow}>&gt;</Text>
-      </View>
+    <TouchableOpacity onPress={onOpenAlbumScreen}>
+      <Animated.View style={{ ...styles.artistItem, transform: [{ translateX: value }] }}>
+        <View>
+          <Image
+            style={styles.cover}
+            source={{
+              uri: artworkUrl100,
+            }}
+          />
+        </View>
+        <View style={styles.albumName}>
+          <Text numberOfLines={1}>{collectionName}</Text>
+          <Text style={styles.albumAuthor}>{artistName}</Text>
+        </View>
+        <View>
+          <Text>{collectionPrice} $ </Text>
+        </View>
+        <View>
+          <Text style={styles.arrow}>&gt;</Text>
+        </View>
+      </Animated.View>
     </TouchableOpacity>
   );
 };
