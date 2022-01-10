@@ -1,13 +1,13 @@
-export const INVERSE_FAVORITE_STATUS = 'INVERSE_FAVORITE_STATUS';
+export const UPDATE_FAVORITE_ALBUMS = 'UPDATE_FAVORITE_ALBUMS';
 
 type inverseFavoriteStatus = {
-  type: typeof INVERSE_FAVORITE_STATUS;
+  type: typeof UPDATE_FAVORITE_ALBUMS;
   payload: number;
 };
 
 export type FavoritesStateAction = inverseFavoriteStatus;
 
 export const inverseFavoriteStatus = (payload: number): inverseFavoriteStatus => ({
-  type: INVERSE_FAVORITE_STATUS,
+  type: UPDATE_FAVORITE_ALBUMS,
   payload,
 });
