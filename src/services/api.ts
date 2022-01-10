@@ -1,26 +1,40 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import {
+  AlbumsResponseData,
+  ArtistResponceData,
+  TrackResponseData,
+} from '../features/artists/types';
+import {
+  AlbumsResponseData as AlbumsResponseRecord,
+  TrackResponseData as TrackResponseRecord,
+} from '../features/albums/types';
 
 const instance = axios.create({
   baseURL: 'https://itunes.apple.com',
 });
 
 export const artistAPI = {
-  getArtistsByName(name: string): Promise<AxiosResponse> {
-    return instance.get(`/search?term=${name}&entity=musicArtist`);
+  async getArtistsByName(name: string): Promise<ArtistResponceData[]> {
+    const response = await instance.get(`/search?term=${name}&entity=musicArtist`);
+    return response.data.results;
   },
-  getArtistAlbumById(id: number): Promise<AxiosResponse> {
-    return instance.get(`/lookup?id=${id}&entity=album`);
+  async getArtistAlbumsById(id: number): Promise<AlbumsResponseData[]> {
+    const response = await instance.get(`/lookup?id=${id}&entity=album`);
+    return response.data.results.slice(1);
   },
-  getTracksById(id: number): Promise<AxiosResponse> {
-    return instance.get(`/lookup?id=${id}&entity=song`);
+  async getTracksById(id: number): Promise<TrackResponseData[]> {
+    const response = await instance.get(`/lookup?id=${id}&entity=song`);
+    return response.data.results.slice(1);
   },
 };
 
 export const albumAPI = {
-  getAlbumsByName(name: string): Promise<AxiosResponse> {
-    return instance.get(`/search?term=${name}&attribute=albumTerm&entity=album`);
+  async getAlbumsByName(name: string): Promise<AlbumsResponseRecord[]> {
+    const response = await instance.get(`/search?term=${name}&attribute=albumTerm&entity=album`);
+    return response.data.results;
   },
-  getTracksById(id: number): Promise<AxiosResponse> {
-    return instance.get(`/lookup?id=${id}&entity=song`);
+  async getTracksById(id: number): Promise<TrackResponseRecord[]> {
+    const response = await instance.get(`/lookup?id=${id}&entity=song`);
+    return response.data.results.slice(1);
   },
 };

@@ -14,11 +14,10 @@ export const thunkGetAlbums = (
     try {
       dispatch(getData());
 
-      const response = await albumAPI.getAlbumsByName(name);
-      const data = await response.data;
+      const albums = await albumAPI.getAlbumsByName(name);
 
       dispatch(getDataSuccess());
-      dispatch(getAlbumsSuccess(data.results));
+      dispatch(getAlbumsSuccess(albums));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
@@ -33,11 +32,10 @@ export const thunkGetAlbumTracksById = (
     try {
       dispatch(getData());
 
-      const response = await albumAPI.getTracksById(collectionId);
-      const data = await response.data;
+      const tracks = await albumAPI.getTracksById(collectionId);
 
       dispatch(getDataSuccess());
-      dispatch(getTracksByIdSuccess(data.results.slice(1), collectionId));
+      dispatch(getTracksByIdSuccess(tracks, collectionId));
     } catch (error) {
       console.log(error);
       dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
