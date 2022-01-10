@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Image,
-  LayoutAnimation,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  UIManager,
-  View,
-} from 'react-native';
+import { Image, LayoutAnimation, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import colors from '../constants/colors';
 import { formatMillisToMinAndSec } from '../utils/formatMillisToMinAndSec';
@@ -23,12 +14,6 @@ type TrackItemProps = {
   country: string;
   primaryGenreName: string;
 };
-
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
 
 const TrackItem: React.FC<TrackItemProps> = ({
   artistName,
