@@ -50,7 +50,16 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
   useButtonListener(`${ALBUMS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
-    item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
+    item: {
+      artistName,
+      trackName,
+      trackTimeMillis,
+      artworkUrl100,
+      trackNumber,
+      releaseDate,
+      country,
+      primaryGenreName,
+    },
   }) => {
     return (
       <TrackItem
@@ -59,6 +68,9 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
         trackTimeMillis={trackTimeMillis}
         artworkUrl100={artworkUrl100}
         trackNumber={trackNumber}
+        releaseDate={releaseDate}
+        country={country}
+        primaryGenreName={primaryGenreName}
       />
     );
   };

@@ -45,6 +45,9 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
           trackTimeMillis,
           artworkUrl100,
           trackNumber,
+          releaseDate,
+          country,
+          primaryGenreName,
         } = track;
 
         return {
@@ -57,6 +60,9 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
             trackTimeMillis,
             artworkUrl100,
             trackNumber,
+            releaseDate,
+            country,
+            primaryGenreName,
           },
         };
       }, {});
