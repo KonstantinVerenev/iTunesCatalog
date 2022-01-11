@@ -46,9 +46,7 @@ const AlbumItem: React.FC<AlbumItemProps> = ({
           <Text numberOfLines={1}>{collectionName}</Text>
           <Text style={styles.albumAuthor}>{artistName}</Text>
         </View>
-        <View>
-          <Text>{collectionPrice} $ </Text>
-        </View>
+        <Text>{collectionPrice} $ </Text>
         <View>
           <Text style={styles.arrow}>&gt;</Text>
         </View>
