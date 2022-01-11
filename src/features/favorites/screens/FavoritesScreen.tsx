@@ -15,10 +15,9 @@ const FavoritesScreen: NavigationFunctionComponent = () => {
 
   useEffect(() => {
     const getAlbumsByIds = async () => {
-      const response = await favoritesAPI.getAlbumsByIds(favoritesAlbumsIds);
-      const resData = await response.json();
+      const albums = await favoritesAPI.getAlbumsByIds(favoritesAlbumsIds);
 
-      setFavoritesAlbums(resData.results);
+      setFavoritesAlbums(albums);
     };
 
     getAlbumsByIds();

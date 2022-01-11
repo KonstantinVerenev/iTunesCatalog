@@ -8,6 +8,7 @@ import {
   AlbumsResponseData as AlbumsResponseRecord,
   TrackResponseData as TrackResponseRecord,
 } from '../features/albums/types';
+import { AlbumsResponseData as FavoriteAlbumsData } from '../features/favorites/types';
 
 type iTunesResponse<Items> = {
   results: Items;
@@ -54,7 +55,10 @@ export const albumAPI = {
 };
 
 export const favoritesAPI = {
-  getAlbumsByIds(ids: number[]): Promise<Response> {
-    return fetch(`${basicURL}lookup?id=${ids.join()}&entity=album`);
+  async getAlbumsByIds(ids: number[]): Promise<FavoriteAlbumsData[]> {
+    const response = await instance.get<iTunesResponse<FavoriteAlbumsData[]>>(
+      `/lookup?id=${ids.join()}&entity=album`
+    );
+    return response.data.results;
   },
 };
