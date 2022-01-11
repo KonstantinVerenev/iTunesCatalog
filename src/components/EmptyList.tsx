@@ -4,8 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export const EmptyList: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Ничего не найдено</Text>
-      <Text>Проверьте написание и попробуйте снова</Text>
+      <Text style={styles.emptyText}>Ничего не найдено</Text>
     </View>
   );
 };
@@ -15,6 +14,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 5,
+    paddingVertical: 15,
+  },
+  emptyText: {
+    fontSize: 18,
   },
 });

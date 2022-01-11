@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
-import { NavigationFunctionComponent } from 'react-native-navigation';
+import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import TrackItem from '../../../components/TrackItem';
+import { useButtonListener } from '../../../hooks/useButtonListener';
+import {
+  FAV_BUTTON_ID,
+  filledStarOptions,
+  nonFilledStarOptions,
+} from '../../../navigation/options';
+import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { updateFavoriteAlbums } from '../../favorites/actions';
+import { selectFavoriteAlbums } from '../../favorites/selectors';
 import { selectTracksByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
 import { TrackResponseData } from '../types';
@@ -15,16 +24,32 @@ export type ArtistsTracksScreenProps = {
   collectionId: number;
 };
 
-const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> = ({
+const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> = ({
+  componentId,
   artistId,
   collectionId,
 }) => {
   const dispatch = useDispatch();
   const albumTracks = useSelector(selectTracksByIds(artistId, collectionId));
+  const favoritesAlbumsIds = useSelector(selectFavoriteAlbums);
 
   useEffect(() => {
     dispatch(thunkGetTracksById(artistId, collectionId));
   }, [artistId, collectionId, dispatch]);
+
+  useEffect(() => {
+    const options = favoritesAlbumsIds.includes(collectionId)
+      ? filledStarOptions(ARTISTS_TRACKS_SCREEN)
+      : nonFilledStarOptions(ARTISTS_TRACKS_SCREEN);
+
+    Navigation.mergeOptions(componentId, options);
+  }, [collectionId, componentId, favoritesAlbumsIds]);
+
+  const onPressFavorite = () => {
+    dispatch(updateFavoriteAlbums(collectionId));
+  };
+
+  useButtonListener(`${ARTISTS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);
 
   const renderItem: ListRenderItem<TrackResponseData> = ({
     item: { artistName, trackName, trackTimeMillis, artworkUrl100, trackNumber },
@@ -52,7 +77,7 @@ const ArtistTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps> 
   );
 };
 
-export default ArtistTracksScreen;
+export default ArtistsTracksScreen;
 
 const styles = StyleSheet.create({
   container: {

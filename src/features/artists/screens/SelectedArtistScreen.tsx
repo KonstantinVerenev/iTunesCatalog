@@ -35,7 +35,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
           artistId,
           collectionId,
         },
-        options: getAlbumScreenOptions(collectionName),
+        options: getAlbumScreenOptions(ARTISTS_TRACKS_SCREEN, collectionName),
       },
     });
   };

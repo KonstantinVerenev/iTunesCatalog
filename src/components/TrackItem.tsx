@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import colors from '../constants/colors';
@@ -19,6 +19,8 @@ const TrackItem: React.FC<TrackItemProps> = ({
   artworkUrl100,
   trackNumber,
 }) => {
+  const formattedTime = useMemo(() => formatMillisToMinAndSec(trackTimeMillis), [trackTimeMillis]);
+
   return (
     <View style={styles.trackItem}>
       <View>
@@ -37,7 +39,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
         <Text style={styles.trackAuthor}>{artistName}</Text>
       </View>
       <View>
-        <Text>{formatMillisToMinAndSec(trackTimeMillis)}</Text>
+        <Text>{formattedTime}</Text>
       </View>
     </View>
   );
