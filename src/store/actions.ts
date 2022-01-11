@@ -1,6 +1,6 @@
 export const GET_DATA = 'GET_DATA';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
-export const GET_DATA_ERROR = 'FETCH_ALBUMS_DATA_ERROR';
+export const GET_DATA_ERROR = 'GET_DATA_ERROR';
 export const RESET_ERROR = 'RESET_ERROR';
 
 type getData = {
