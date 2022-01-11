@@ -20,3 +20,9 @@ export const albumAPI = {
     return fetch(`${basicURL}lookup?id=${id}&entity=song`);
   },
 };
+
+export const favoritesAPI = {
+  getAlbumsByIds(ids: number[]): Promise<Response> {
+    return fetch(`${basicURL}lookup?id=${ids.join()}&entity=album`);
+  },
+};

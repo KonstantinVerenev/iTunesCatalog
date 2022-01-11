@@ -1,7 +1,12 @@
 import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
-import { ALBUMS_SCREEN, ARTISTS_SCREEN, registerAllScreens } from './screenRegister';
+import {
+  ALBUMS_SCREEN,
+  ARTISTS_SCREEN,
+  FAVORITES_SCREEN,
+  registerAllScreens,
+} from './screenRegister';
 
 registerAllScreens();
 
@@ -64,6 +69,35 @@ export const rootNavigator = (): void => {
                     Platform.OS === 'ios'
                       ? { uri: 'headphone-outline', scale: 3 }
                       : require('../../assets/icons/headphone-outline.png'),
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: FAVORITES_SCREEN,
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Избранное',
+                        },
+                      },
+                      bottomTab: {
+                        text: 'Избранное',
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  icon:
+                    Platform.OS === 'ios'
+                      ? { uri: 'star', scale: 3 }
+                      : require('../../assets/icons/star.png'),
                 },
               },
             },

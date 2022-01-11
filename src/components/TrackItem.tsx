@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Image, LayoutAnimation, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import colors from '../constants/colors';
@@ -26,6 +26,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
   primaryGenreName,
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const formattedTime = useMemo(() => formatMillisToMinAndSec(trackTimeMillis), [trackTimeMillis]);
   const fotmattedDate = releaseDate.slice(0, -10);
 
   const onOpenMoreInfo = () => {
@@ -52,7 +53,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
           <Text style={styles.trackAuthor}>{artistName}</Text>
         </View>
         <View>
-          <Text>{formatMillisToMinAndSec(trackTimeMillis)}</Text>
+          <Text>{formattedTime}</Text>
         </View>
       </View>
       {expanded && (

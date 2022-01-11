@@ -32,7 +32,7 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
           passProps: {
             collectionId,
           },
-          options: getAlbumScreenOptions(collectionName),
+          options: getAlbumScreenOptions(ALBUMS_TRACKS_SCREEN, collectionName),
         },
       });
     };
