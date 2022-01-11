@@ -15,7 +15,7 @@ import {
   nonFilledStarOptions,
 } from '../../../navigation/options';
 import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { inverseFavoriteStatus } from '../../favorites/actions';
+import { updateFavoriteAlbums } from '../../favorites/actions';
 import { selectFavoriteAlbums } from '../../favorites/selectors';
 
 export type AlbumTracksScreenProps = {
@@ -44,7 +44,7 @@ const AlbumsTracksScreen: NavigationFunctionComponent<AlbumTracksScreenProps> = 
   }, [collectionId, componentId, favoritesAlbumsIds]);
 
   const onPressFavorite = () => {
-    dispatch(inverseFavoriteStatus(collectionId));
+    dispatch(updateFavoriteAlbums(collectionId));
   };
 
   useButtonListener(`${ALBUMS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);

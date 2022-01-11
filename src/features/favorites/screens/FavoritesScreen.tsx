@@ -29,7 +29,7 @@ const FavoritesScreen: NavigationFunctionComponent = () => {
   }) => {
     return (
       <AlbumItem
-        onOpenAlbumScreen={() => console.log('temporaly on press')}
+        onOpenAlbumScreen={() => {}}
         artworkUrl100={artworkUrl100}
         collectionName={collectionName}
         artistName={artistName}

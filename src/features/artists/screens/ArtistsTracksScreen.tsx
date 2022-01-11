@@ -12,7 +12,7 @@ import {
   nonFilledStarOptions,
 } from '../../../navigation/options';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
-import { inverseFavoriteStatus } from '../../favorites/actions';
+import { updateFavoriteAlbums } from '../../favorites/actions';
 import { selectFavoriteAlbums } from '../../favorites/selectors';
 import { selectTracksByIds } from '../selectors';
 import { thunkGetTracksById } from '../thunks';
@@ -46,7 +46,7 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
   }, [collectionId, componentId, favoritesAlbumsIds]);
 
   const onPressFavorite = () => {
-    dispatch(inverseFavoriteStatus(collectionId));
+    dispatch(updateFavoriteAlbums(collectionId));
   };
 
   useButtonListener(`${ARTISTS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);

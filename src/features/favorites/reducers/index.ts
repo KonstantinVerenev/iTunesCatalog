@@ -14,16 +14,16 @@ export const favoritesReducer = (
 ): FavoritesState => {
   switch (action.type) {
     case UPDATE_FAVORITE_ALBUMS: {
-      if (state.favoritesAlbums.includes(action.payload)) {
+      if (state.favoritesAlbums.includes(action.collectionId)) {
         return {
           ...state,
-          favoritesAlbums: state.favoritesAlbums.filter((id) => id !== action.payload),
+          favoritesAlbums: state.favoritesAlbums.filter((id) => id !== action.collectionId),
         };
       }
 
       return {
         ...state,
-        favoritesAlbums: [...state.favoritesAlbums, action.payload],
+        favoritesAlbums: [...state.favoritesAlbums, action.collectionId],
       };
     }
 
