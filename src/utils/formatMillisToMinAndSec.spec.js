@@ -1,4 +1,4 @@
-import { formatMillisToMinAndSec } from '../src/utils/formatMillisToMinAndSec';
+import { formatMillisToMinAndSec } from './formatMillisToMinAndSec';
 
 describe('format millis to min and sec', () => {
   it('should return correct format time', () => {

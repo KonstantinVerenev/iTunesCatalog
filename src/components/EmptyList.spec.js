@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
-import { EmptyList } from '../src/components/EmptyList';
+import { EmptyList } from './EmptyList';
 
 describe('EmptyList', () => {
   it('should render EmptyList as expected', () => {

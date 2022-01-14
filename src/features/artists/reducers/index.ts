@@ -15,7 +15,7 @@ export type ArtistsState = {
   artistsData: ArtistStateData;
 };
 
-const initialState: ArtistsState = {
+export const initialState: ArtistsState = {
   artistsData: {},
 };
 

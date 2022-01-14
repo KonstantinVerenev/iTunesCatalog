@@ -28,6 +28,9 @@ export type TrackStateData = {
     trackTimeMillis: number;
     artworkUrl100: string;
     trackNumber: number;
+    releaseDate: string;
+    country: string;
+    primaryGenreName: string;
   };
 };
 
