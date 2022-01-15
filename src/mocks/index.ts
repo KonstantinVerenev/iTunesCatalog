@@ -1,33 +1,32 @@
-export const artistIdMock1 = 111222;
-export const artistIdMock2 = 333444;
-export const collectionIdMock1 = 555666;
-export const collectionIdMock2 = 777888;
-export const trackIdMock1 = 999000;
-export const trackIdMock2 = 111999;
+import {
+  ArtistResponceData,
+  AlbumsResponseData,
+  TrackResponseData,
+} from '../features/artists/types';
 
-export const artistsMock = [
+export const artistsMock: ArtistResponceData[] = [
   {
     artistName: 'name',
-    artistId: artistIdMock1,
+    artistId: 111222,
     primaryGenreName: 'genreName',
   },
   {
     artistName: 'name2',
-    artistId: artistIdMock2,
+    artistId: 333444,
     primaryGenreName: 'genreName',
   },
 ];
 
-export const albumsMock = [
+export const albumsMock: AlbumsResponseData[] = [
   {
-    collectionId: collectionIdMock1,
+    collectionId: 555666,
     artistName: 'name',
     collectionName: 'albumName',
     artworkUrl100: 'url',
     collectionPrice: 9.9,
   },
   {
-    collectionId: collectionIdMock2,
+    collectionId: 777888,
     artistName: 'name2',
     collectionName: 'albumName',
     artworkUrl100: 'url',
@@ -35,10 +34,10 @@ export const albumsMock = [
   },
 ];
 
-export const tracksMock = [
+export const tracksMock: TrackResponseData[] = [
   {
     artistId: 1,
-    trackId: trackIdMock1,
+    trackId: 999000,
     artistName: 'name',
     trackName: 'trackName',
     trackTimeMillis: 2500,
@@ -50,7 +49,7 @@ export const tracksMock = [
   },
   {
     artistId: 2,
-    trackId: trackIdMock2,
+    trackId: 111999,
     artistName: 'name2',
     trackName: 'trackName2',
     trackTimeMillis: 5000,

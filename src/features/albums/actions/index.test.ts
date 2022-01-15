@@ -3,8 +3,10 @@ import {
   getTracksByIdSuccess,
   SET_ALBUMS_SUCCESS,
   GET_ALBUM_TRACKS_BY_ID_SUCCESS,
-} from '../actions/index';
-import { albumsMock, tracksMock, collectionIdMock1 } from '../../../mocks/index';
+} from './index';
+import { albumsMock, tracksMock } from '../../../mocks/index';
+
+const collectionId = albumsMock[0].collectionId;
 
 describe('albums actions', () => {
   it('should return getAlbumsSuccess action', () => {
@@ -21,10 +23,10 @@ describe('albums actions', () => {
       type: GET_ALBUM_TRACKS_BY_ID_SUCCESS,
       payload: {
         tracks: tracksMock,
-        albumId: collectionIdMock1,
+        albumId: collectionId,
       },
     };
 
-    expect(getTracksByIdSuccess(tracksMock, collectionIdMock1)).toEqual(expectedAction);
+    expect(getTracksByIdSuccess(tracksMock, collectionId)).toEqual(expectedAction);
   });
 });

@@ -5,14 +5,11 @@ import {
   GET_ARTISTS_SUCCESS,
   GET_ALBUMS_BY_ID_SUCCESS,
   GET_TRACKS_BY_ID_SUCCESS,
-} from '../actions/index';
-import {
-  artistIdMock1,
-  collectionIdMock1,
-  artistsMock,
-  albumsMock,
-  tracksMock,
-} from '../../../mocks/index';
+} from './index';
+import { artistsMock, albumsMock, tracksMock } from '../../../mocks/index';
+
+const artistId = artistsMock[0].artistId;
+const collectionId = albumsMock[0].collectionId;
 
 describe('artists actions', () => {
   it('should return getArtist action', () => {
@@ -28,26 +25,24 @@ describe('artists actions', () => {
     const expectedAction = {
       type: GET_ALBUMS_BY_ID_SUCCESS,
       payload: {
-        id: artistIdMock1,
+        id: artistId,
         albums: albumsMock,
       },
     };
 
-    expect(getAlbumsByIdSuccess(albumsMock, artistIdMock1)).toEqual(expectedAction);
+    expect(getAlbumsByIdSuccess(albumsMock, artistId)).toEqual(expectedAction);
   });
 
   it('should return getTracksById action', () => {
     const expectedAction = {
       type: GET_TRACKS_BY_ID_SUCCESS,
       payload: {
-        artistId: artistIdMock1,
-        albumId: collectionIdMock1,
+        artistId: artistId,
+        albumId: collectionId,
         tracks: tracksMock,
       },
     };
 
-    expect(getTracksByIdSuccess(tracksMock, artistIdMock1, collectionIdMock1)).toEqual(
-      expectedAction
-    );
+    expect(getTracksByIdSuccess(tracksMock, artistId, collectionId)).toEqual(expectedAction);
   });
 });

@@ -39,7 +39,6 @@ export type TrackResponseData = {
   artistName: string;
   trackName: string;
   trackTimeMillis: number;
-  trackPrice: number;
   artworkUrl100: string;
   trackNumber: number;
   releaseDate: string;
