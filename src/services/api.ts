@@ -9,14 +9,11 @@ import {
   TrackResponseData as TrackResponseRecord,
 } from '../features/albums/types';
 import { AlbumsResponseData as FavoriteAlbumsData } from '../features/favorites/types';
+import { instance } from './instance';
 
 type iTunesResponse<Items> = {
   results: Items;
 };
-
-const instance = axios.create({
-  baseURL: 'https://itunes.apple.com',
-});
 
 export const artistAPI = {
   async getArtistsByName(name: string): Promise<ArtistResponceData[]> {
