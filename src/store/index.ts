@@ -4,10 +4,14 @@ import thunk from 'redux-thunk';
 import Reactotron from '../../reactotronConfig';
 import { AlbumsStateAction } from '../features/albums/actions';
 import { ArtistStateAction } from '../features/artists/actions';
+import { FavoritesStateAction } from '../features/favorites/actions';
 import { mainStateAction } from './actions';
 import rootReducer, { RootReducer } from './combineReducer';
 
-let store: Store<RootReducer, mainStateAction | ArtistStateAction | AlbumsStateAction>;
+let store: Store<
+  RootReducer,
+  mainStateAction | ArtistStateAction | AlbumsStateAction | FavoritesStateAction
+>;
 
 if (!__DEV__) {
   store = createStore(rootReducer, applyMiddleware(thunk));

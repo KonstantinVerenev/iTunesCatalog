@@ -4,7 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 export const EmptyList: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.emptyText}>Ничего не найдено</Text>
+      <Text style={styles.emptyText} testID="empty-message">
+        Ничего не найдено
+      </Text>
     </View>
   );
 };

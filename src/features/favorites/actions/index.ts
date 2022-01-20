@@ -1,13 +1,13 @@
 export const UPDATE_FAVORITE_ALBUMS = 'UPDATE_FAVORITE_ALBUMS';
 
-type inverseFavoriteStatus = {
+type updateFavoriteAlbums = {
   type: typeof UPDATE_FAVORITE_ALBUMS;
   collectionId: number;
 };
 
-export type FavoritesStateAction = inverseFavoriteStatus;
+export type FavoritesStateAction = updateFavoriteAlbums;
 
-export const updateFavoriteAlbums = (collectionId: number): inverseFavoriteStatus => ({
+export const updateFavoriteAlbums = (collectionId: number): updateFavoriteAlbums => ({
   type: UPDATE_FAVORITE_ALBUMS,
   collectionId,
 });

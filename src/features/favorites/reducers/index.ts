@@ -4,7 +4,7 @@ export type FavoritesState = {
   favoritesAlbums: number[];
 };
 
-const initialState: FavoritesState = {
+export const initialState: FavoritesState = {
   favoritesAlbums: [],
 };
 

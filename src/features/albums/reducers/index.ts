@@ -5,7 +5,7 @@ export type AlbumsState = {
   albumsData: AlbumsStateData;
 };
 
-const initialState: AlbumsState = {
+export const initialState: AlbumsState = {
   albumsData: {},
 };
 
@@ -23,7 +23,7 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
             collectionName,
             artworkUrl100,
             collectionPrice,
-            tracks: [],
+            tracks: {},
           },
         };
       }, {});

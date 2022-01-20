@@ -29,7 +29,9 @@
     "@types/react-native": "^0.66.4",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/parser": "^3.10.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "babel-jest": "^26.6.3",
+    "enzyme": "^3.11.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -40,7 +42,8 @@
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
     "prettier": "2.5.1",
-    "react-test-renderer": "17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
     "reactotron-react-native": "^5.0.1",
     "reactotron-redux": "^3.1.3",
     "typescript": "^4.5.4"
@@ -50,6 +53,10 @@
   },
   "jest": {
     "preset": "react-native",
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTest.js"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
