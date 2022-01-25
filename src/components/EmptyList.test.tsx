@@ -1,10 +1,11 @@
 import React from 'react';
 import renderer, { ReactTestRendererJSON } from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { EmptyList } from './EmptyList';
 
 describe('EmptyList', () => {
+  // many its as samples of rendering
   it('should render EmptyList as expected', () => {
     const EmptyListTree = renderer.create(<EmptyList />).toJSON();
 
