@@ -3,6 +3,14 @@ import {
   AlbumsResponseData,
   TrackResponseData,
 } from '../features/artists/types';
+import { RootReducer } from '../store/combineReducer';
+
+export const rootState: RootReducer = {
+  main: { isLoading: false },
+  albums: { albumsData: {} },
+  artists: { artistsData: {} },
+  favorites: { favoritesAlbums: [] },
+};
 
 export const artistsMock: ArtistResponceData[] = [
   {

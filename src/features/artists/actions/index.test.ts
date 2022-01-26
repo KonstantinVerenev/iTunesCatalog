@@ -9,7 +9,6 @@ import {
 import { artistsMock, albumsMock, tracksMock } from '../../../mocks/index';
 
 const artistId = artistsMock[0].artistId;
-const collectionId = albumsMock[0].collectionId;
 
 describe('artists actions', () => {
   it('should return getArtist action', () => {
@@ -34,6 +33,8 @@ describe('artists actions', () => {
   });
 
   it('should return getTracksById action', () => {
+    const collectionId = albumsMock[0].collectionId;
+
     const expectedAction = {
       type: GET_TRACKS_BY_ID_SUCCESS,
       payload: {
