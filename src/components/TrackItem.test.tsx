@@ -6,19 +6,18 @@ import { tracksMock } from '../mocks';
 import { LayoutAnimation } from 'react-native';
 import { formatMillisToMinAndSec } from '../utils/formatMillisToMinAndSec';
 
-const {
-  artistName,
-  trackName,
-  trackTimeMillis,
-  artworkUrl100,
-  trackNumber,
-  releaseDate,
-  country,
-  primaryGenreName,
-} = tracksMock[0];
-
 describe('SearchInput', () => {
   it('should set track info from props and open info when press', () => {
+    const {
+      artistName,
+      trackName,
+      trackTimeMillis,
+      artworkUrl100,
+      trackNumber,
+      releaseDate,
+      country,
+      primaryGenreName,
+    } = tracksMock[0];
     const onPressMock = jest.spyOn(LayoutAnimation, 'configureNext');
 
     const wrapper = shallow(

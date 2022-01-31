@@ -6,7 +6,6 @@ import { ErrorModal } from './ErrorModal';
 describe('ErrorModal', () => {
   it('modal should be visible with correct message and call correct onPress', () => {
     const testMessage = 'test message';
-
     const onPressMock = jest.fn();
 
     const wrapper = shallow(<ErrorModal errorMessage={testMessage} onCloseError={onPressMock} />);

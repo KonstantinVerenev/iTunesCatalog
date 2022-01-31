@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlbumItem from '../../../components/AlbumItem';
 
 import { EmptyList } from '../../../components/EmptyList';
-import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/constants';
 import { selectAlbumsById } from '../selectors';
 import { thunkGetAlbumsById } from '../thunks';
 import { AlbumsResponseData } from '../types';

@@ -4,12 +4,11 @@ import * as NetInfoModule from '@react-native-community/netinfo';
 
 import withAppHandlers from './withAppHandlers';
 import * as AppSelectorsModule from '../store/selectors';
+import { mockNetInfo } from '../../setupTest';
 
 describe('withAppHandlers', () => {
   it('should add handlers', () => {
-    jest.spyOn(NetInfoModule, 'useNetInfo').mockReturnValue({
-      isInternetReachable: false,
-    } as NetInfoModule.NetInfoNoConnectionState);
+    mockNetInfo.mockReturnValue({ isInternetReachable: false });
 
     jest.spyOn(AppSelectorsModule, 'selectErrorMessage').mockReturnValue('error');
     jest.spyOn(AppSelectorsModule, 'selectIsLoading').mockReturnValue(true);

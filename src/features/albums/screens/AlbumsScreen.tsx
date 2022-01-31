@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
-import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/constants';
 import { selectAlbums } from '../selectors';
 import { AlbumsResponseData } from '../types';
 import { thunkGetAlbums } from '../thunks';
@@ -53,10 +53,13 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchInput}>
-        <SearchInput onSubmit={onSubmitInput} />
+        <SearchInput onSubmit={onSubmitInput} testID="search-input" />
       </View>
       {lastSearch && (
-        <Text style={styles.searchNote}>{`Результаты поиска по: "${lastSearch}"`}</Text>
+        <Text
+          style={styles.searchNote}
+          testID="last-search"
+        >{`Результаты поиска по: "${lastSearch}"`}</Text>
       )}
       <FlatList
         style={styles.artistList}
