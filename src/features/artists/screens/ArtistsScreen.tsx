@@ -12,17 +12,19 @@ import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
 import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
+import { useInitialURL } from '../../../hooks/useInitialURL';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
+  useInitialURL();
+
   const onSubmitInput = (text: string) => {
     setLastSearch(text);
     dispatch(thunkGetArtists(text));
   };
-
   const onOpenArtistScreen = (artistId: number, artistName: string): void => {
     Navigation.push(componentId, {
       component: {
