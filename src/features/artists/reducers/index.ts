@@ -82,6 +82,7 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
           releaseDate,
           country,
           primaryGenreName,
+          collectionViewUrl,
         } = track;
 
         return {
@@ -97,6 +98,7 @@ export const aristsReducer = (state = initialState, action: ArtistStateAction): 
             releaseDate,
             country,
             primaryGenreName,
+            collectionViewUrl,
           },
         };
       }, {});

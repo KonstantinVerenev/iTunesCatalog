@@ -30,9 +30,15 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>TraineeITunesCatalog</string>
+			
 			</array>
 		</dict>
 	</array>
+  <key>LSApplicationQueriesSchemes</key>
+	<array>
+  	<string>itms-apps</string>
+    <string>musics</string>
+  </array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

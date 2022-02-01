@@ -44,4 +44,5 @@ export type TrackResponseData = {
   releaseDate: string;
   country: string;
   primaryGenreName: string;
+  collectionViewUrl: string;
 };
