@@ -4,7 +4,7 @@ import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import colors from '../constants/colors';
 
 type AlbumItemProps = {
-  onOpenAlbumScreen: () => void;
+  onOpenAlbumScreen?: () => void;
   artworkUrl100: string;
   collectionName: string;
   artistName: string;

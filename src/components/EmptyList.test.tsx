@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import { EmptyList } from './EmptyList';
 
 describe('EmptyList', () => {
-  // many its as samples of rendering
+  // samples of rendering (please ignore unnecessary it's)
   it('should render EmptyList as expected', () => {
     const EmptyListTree = renderer.create(<EmptyList />).toJSON();
 
@@ -17,6 +17,7 @@ describe('EmptyList', () => {
 
     expect(tree?.children?.length).toBe(1);
   });
+
   it('should EmptyList contains right text', () => {
     const wrapper = shallow(<EmptyList />);
 

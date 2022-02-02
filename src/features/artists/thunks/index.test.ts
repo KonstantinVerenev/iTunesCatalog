@@ -45,8 +45,8 @@ describe('thunkGetArtists', () => {
 
 describe('thunkGetAlbumsById', () => {
   it('with mocked dispatch', async () => {
-    instanceMock.get.mockReturnValue(Promise.resolve({ data: { results: [{}, ...albumsMock] } }));
     // first element in array is artist info, not album. so api service cuts it off
+    instanceMock.get.mockReturnValue(Promise.resolve({ data: { results: [{}, ...albumsMock] } }));
 
     const dispatch = jest.fn();
 
