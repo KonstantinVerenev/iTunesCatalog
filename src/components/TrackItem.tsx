@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import {
-  Alert,
   Button,
   Image,
   LayoutAnimation,
@@ -50,21 +49,19 @@ const TrackItem: React.FC<TrackItemProps> = ({
   const onPressItunes = async () => {
     const itunesAppLink = 'itms-apps://';
 
-    if (Platform.OS === 'ios') {
-      const appSupported = await Linking.canOpenURL(itunesAppLink);
+    try {
+      if (Platform.OS === 'ios') {
+        const appSupported = await Linking.canOpenURL(itunesAppLink);
 
-      if (appSupported) {
-        await Linking.openURL(itunesAppLink);
-        return;
+        if (appSupported) {
+          await Linking.openURL(itunesAppLink);
+          return;
+        }
       }
-    }
 
-    const webSupported = await Linking.canOpenURL(collectionViewUrl);
-
-    if (webSupported) {
       await Linking.openURL(collectionViewUrl);
-    } else {
-      Alert.alert(`Error: Can't open iTunes link`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
