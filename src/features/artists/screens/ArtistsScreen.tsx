@@ -18,6 +18,8 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
+  // here Geolocation.getCurrentPosition with useEffect
+
   const onSubmitInput = (text: string) => {
     setLastSearch(text);
     dispatch(thunkGetArtists(text));

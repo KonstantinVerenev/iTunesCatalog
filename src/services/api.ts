@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as RNLocalize from 'react-native-localize';
 
 import {
   AlbumsResponseData,
@@ -20,15 +19,32 @@ const instance = axios.create({
   baseURL: 'https://itunes.apple.com',
 });
 
-const country = RNLocalize.getCountry() ? RNLocalize.getCountry() : 'US';
+// ---- Geolocation method ----
+let country = 'us';
 
-console.log(`current country:  ${country}`);
+import Geolocation from '@react-native-community/geolocation';
+import { decodeCoords } from '../utils/decodeCoords';
+
+Geolocation.getCurrentPosition(
+  async (pos) => {
+    country = await decodeCoords(pos.coords.latitude, pos.coords.longitude);
+  },
+  // dispatch here
+  (error) => console.log(error),
+  {
+    enableHighAccuracy: true,
+    timeout: 2000,
+    maximumAge: 3600000,
+  }
+);
+// ---- ---- ---- move to start screen
 
 export const artistAPI = {
   async getArtistsByName(name: string): Promise<ArtistResponceData[]> {
     const response = await instance.get<iTunesResponse<ArtistResponceData[]>>(
       `/search?term=${name}&entity=musicArtist&country=${country}`
     );
+    console.log(country);
     return response.data.results;
   },
   async getArtistAlbumsById(id: number): Promise<AlbumsResponseData[]> {

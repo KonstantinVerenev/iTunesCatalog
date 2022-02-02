@@ -9,10 +9,12 @@ import {
 export type MainState = {
   isLoading: boolean;
   errorMessage?: string;
+  currentCountry: string;
 };
 
 const initialState: MainState = {
   isLoading: false,
+  currentCountry: 'us',
 };
 
 export const mainReducer = (state = initialState, action: mainStateAction): MainState => {
