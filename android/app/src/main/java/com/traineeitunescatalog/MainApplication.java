@@ -3,6 +3,7 @@ package com.traineeitunescatalog;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -27,6 +28,7 @@ public class MainApplication extends NavigationApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new SplashScreenReactPackage());
           return packages;
         }
 
