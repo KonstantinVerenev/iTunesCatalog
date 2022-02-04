@@ -11,11 +11,13 @@ type ErrorModal = {
 
 export const ErrorModal: React.FC<ErrorModal> = ({ errorMessage, onCloseError }) => {
   return (
-    <Modal isVisible={!!errorMessage} animationIn={'zoomInUp'}>
+    <Modal isVisible={!!errorMessage} animationIn={'zoomInUp'} testID="error-modal">
       <View style={styles.modalContainer}>
         <View style={styles.modalWindow}>
           <Text style={styles.errorMessage}>Ошибка:</Text>
-          <Text style={styles.errorMessage}>{errorMessage}</Text>
+          <Text style={styles.errorMessage} testID="error-message">
+            {errorMessage}
+          </Text>
           <Button title={'Назад'} onPress={onCloseError} />
         </View>
       </View>

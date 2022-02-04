@@ -14,13 +14,14 @@ import AlbumsTracksScreen, {
   AlbumTracksScreenProps,
 } from '../features/albums/screens/AlbumsTracksScreen';
 import FavoritesScreen from '../features/favorites/screens/FavoritesScreen';
-
-export const ARTISTS_SCREEN = 'ArtistScreen';
-export const ALBUMS_SCREEN = 'AlbumsScreen';
-export const FAVORITES_SCREEN = 'FavoritesScreen';
-export const SELECTED_ARTIST_SCREEN = 'SelectedArtistScreen';
-export const ARTISTS_TRACKS_SCREEN = 'ArtistsTracksScreen';
-export const ALBUMS_TRACKS_SCREEN = 'AlbumsTracksScreen';
+import {
+  ALBUMS_SCREEN,
+  ALBUMS_TRACKS_SCREEN,
+  ARTISTS_SCREEN,
+  ARTISTS_TRACKS_SCREEN,
+  FAVORITES_SCREEN,
+  SELECTED_ARTIST_SCREEN,
+} from './constants';
 
 type Screens = {
   [key: string]: NavigationFunctionComponent<

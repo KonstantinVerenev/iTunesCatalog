@@ -4,7 +4,7 @@ import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import colors from '../constants/colors';
 
 type AlbumItemProps = {
-  onOpenAlbumScreen: () => void;
+  onOpenAlbumScreen?: () => void;
   artworkUrl100: string;
   collectionName: string;
   artistName: string;
@@ -33,7 +33,10 @@ const AlbumItem: React.FC<AlbumItemProps> = ({
 
   return (
     <TouchableOpacity onPress={onOpenAlbumScreen}>
-      <Animated.View style={{ ...styles.artistItem, transform: [{ translateX: value }] }}>
+      <Animated.View
+        style={{ ...styles.artistItem, transform: [{ translateX: value }] }}
+        testID={'animated-view'}
+      >
         <View>
           <Image
             style={styles.cover}
@@ -43,10 +46,14 @@ const AlbumItem: React.FC<AlbumItemProps> = ({
           />
         </View>
         <View style={styles.albumName}>
-          <Text numberOfLines={1}>{collectionName}</Text>
-          <Text style={styles.albumAuthor}>{artistName}</Text>
+          <Text numberOfLines={1} testID={'collection-name'}>
+            {collectionName}
+          </Text>
+          <Text style={styles.albumAuthor} testID={'artist-name'}>
+            {artistName}
+          </Text>
         </View>
-        <Text>{collectionPrice} $ </Text>
+        <Text testID={'price'}>{collectionPrice} $ </Text>
         <View>
           <Text style={styles.arrow}>&gt;</Text>
         </View>

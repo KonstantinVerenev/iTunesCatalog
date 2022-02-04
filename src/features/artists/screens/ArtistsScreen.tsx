@@ -8,7 +8,7 @@ import colors from '../../../constants/colors';
 import { EmptyList } from '../../../components/EmptyList';
 import SearchInput from '../../../components/SearchInput';
 import { getArtistScreenOptions } from '../../../navigation/options';
-import { SELECTED_ARTIST_SCREEN } from '../../../navigation/screenRegister';
+import { SELECTED_ARTIST_SCREEN } from '../../../navigation/constants';
 import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';

@@ -14,7 +14,7 @@ import {
   filledStarOptions,
   nonFilledStarOptions,
 } from '../../../navigation/options';
-import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/screenRegister';
+import { ALBUMS_TRACKS_SCREEN } from '../../../navigation/constants';
 import { updateFavoriteAlbums } from '../../favorites/actions';
 import { selectFavoriteAlbums } from '../../favorites/selectors';
 

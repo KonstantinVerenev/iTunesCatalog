@@ -69,7 +69,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
     <TouchableOpacity style={styles.trackItem} onPress={onOpenMoreInfo}>
       <View style={styles.trackMainInfo}>
         <View>
-          <Text> {trackNumber}. </Text>
+          <Text testID="track-number"> {trackNumber}. </Text>
         </View>
         <View>
           <Image
@@ -80,15 +80,19 @@ const TrackItem: React.FC<TrackItemProps> = ({
           />
         </View>
         <View style={styles.trackName}>
-          <Text numberOfLines={1}>{trackName}</Text>
-          <Text style={styles.trackAuthor}>{artistName}</Text>
+          <Text numberOfLines={1} testID="track-name">
+            {trackName}
+          </Text>
+          <Text style={styles.trackAuthor} testID="artist-name">
+            {artistName}
+          </Text>
         </View>
         <View>
-          <Text>{formattedTime}</Text>
+          <Text testID="track-time">{formattedTime}</Text>
         </View>
       </View>
       {expanded && (
-        <View style={styles.trackMoreInfo}>
+        <View style={styles.trackMoreInfo} testID="add-info">
           <View>
             <Text>Дата релиза: {fotmattedDate}</Text>
             <Text>Страна: {country}</Text>
