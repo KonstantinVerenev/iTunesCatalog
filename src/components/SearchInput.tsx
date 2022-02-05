@@ -5,9 +5,10 @@ import colors from '../constants/colors';
 
 type SearchInputType = {
   onSubmit: (text: string) => void;
+  testID?: string;
 };
 
-const SearchInput: React.FC<SearchInputType> = ({ onSubmit }) => {
+const SearchInput: React.FC<SearchInputType> = ({ onSubmit, testID }) => {
   const [searchString, setSearchString] = useState('');
 
   const onSubmitInput = (): void => {
@@ -28,6 +29,7 @@ const SearchInput: React.FC<SearchInputType> = ({ onSubmit }) => {
         onChangeText={setSearchString}
         returnKeyType={'search'}
         onSubmitEditing={onSubmitInput}
+        testID={testID}
       />
     </View>
   );

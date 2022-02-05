@@ -1,12 +1,8 @@
 import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
-import {
-  ALBUMS_SCREEN,
-  ARTISTS_SCREEN,
-  FAVORITES_SCREEN,
-  registerAllScreens,
-} from './screenRegister';
+import { registerAllScreens } from './screenRegister';
+import { ALBUMS_SCREEN, ARTISTS_SCREEN, FAVORITES_SCREEN } from './constants';
 
 registerAllScreens();
 

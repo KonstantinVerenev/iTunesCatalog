@@ -4,11 +4,7 @@ import { artistsMock, albumsMock, tracksMock } from '../../../mocks/index';
 import { ArtistStateAction } from '../actions/index';
 
 const artistId = artistsMock[0].artistId;
-const artistId2 = artistsMock[1].artistId;
 const collectionId = albumsMock[0].collectionId;
-const collectionId2 = albumsMock[1].collectionId;
-const trackId = tracksMock[0].trackId;
-const trackId2 = tracksMock[1].trackId;
 
 describe('artists reducer', () => {
   it('should return the initial state', () => {
@@ -17,6 +13,8 @@ describe('artists reducer', () => {
   });
 
   it('should set artists to state', () => {
+    const artistId2 = artistsMock[1].artistId;
+
     const expectedState = {
       artistsData: {
         [artistId]: { ...artistsMock[0], albums: {} },
@@ -28,6 +26,8 @@ describe('artists reducer', () => {
   });
 
   it('should set albums by id', () => {
+    const collectionId2 = albumsMock[1].collectionId;
+
     const notEmptyState = {
       artistsData: { [artistId]: { ...artistsMock[0], albums: {} } },
     };
@@ -52,6 +52,9 @@ describe('artists reducer', () => {
   });
 
   it('should set tracks by ids', () => {
+    const trackId = tracksMock[0].trackId;
+    const trackId2 = tracksMock[1].trackId;
+
     const notEmptyState = {
       artistsData: {
         [artistId]: {

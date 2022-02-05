@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {
   AlbumsResponseData,
   ArtistResponceData,
@@ -11,14 +9,11 @@ import {
 } from '../features/albums/types';
 import { AlbumsResponseData as FavoriteAlbumsData } from '../features/favorites/types';
 import { store } from '../store';
+import { instance } from './instance';
 
 type iTunesResponse<Items> = {
   results: Items;
 };
-
-const instance = axios.create({
-  baseURL: 'https://itunes.apple.com',
-});
 
 instance.interceptors.request.use(
   function (config) {
@@ -33,7 +28,6 @@ instance.interceptors.request.use(
 
 export const artistAPI = {
   async getArtistsByName(name: string): Promise<ArtistResponceData[]> {
-    console.log(store.getState().main.currentCountry);
     const response = await instance.get<iTunesResponse<ArtistResponceData[]>>(
       `/search?term=${name}&entity=musicArtist`
     );

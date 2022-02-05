@@ -4,7 +4,6 @@ import { albumsMock } from '../../../mocks/index';
 import { FavoritesStateAction } from '../actions/index';
 
 const collectionId = albumsMock[0].collectionId;
-const collectionId2 = albumsMock[1].collectionId;
 const nonEmptyState = { favoritesAlbums: [collectionId] };
 
 describe('favorites reducer', () => {
@@ -14,6 +13,8 @@ describe('favorites reducer', () => {
   });
 
   it('should add favorite album id to state', () => {
+    const collectionId2 = albumsMock[1].collectionId;
+
     expect(favoritesReducer(initialState, updateFavoriteAlbums(collectionId))).toEqual({
       favoritesAlbums: [collectionId],
     });

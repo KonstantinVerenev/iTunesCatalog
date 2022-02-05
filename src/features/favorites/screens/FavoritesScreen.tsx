@@ -28,11 +28,11 @@ const FavoritesScreen: NavigationFunctionComponent = () => {
   }) => {
     return (
       <AlbumItem
-        onOpenAlbumScreen={() => {}}
         artworkUrl100={artworkUrl100}
         collectionName={collectionName}
         artistName={artistName}
         collectionPrice={collectionPrice}
+        index={0}
       />
     );
   };
