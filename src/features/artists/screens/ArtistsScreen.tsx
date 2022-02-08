@@ -14,7 +14,7 @@ import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
 import { decodeCoords } from '../../../utils/decodeCoords';
-import { setCountry } from '../../../store/actions';
+import { setCurrentCountry } from '../../../store/actions';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
@@ -25,8 +25,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     Geolocation.getCurrentPosition(
       async (pos) => {
         const country = await decodeCoords(pos.coords.latitude, pos.coords.longitude);
-        console.log(country);
-        dispatch(setCountry(country));
+        dispatch(setCurrentCountry(country));
       },
       (error) => console.log(error),
       {

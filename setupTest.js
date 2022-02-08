@@ -12,6 +12,9 @@ Enzyme.configure({ adapter: new Adapter() });
 export const configureMockStore = configureStore([thunk]);
 export const mockStore = configureMockStore({});
 
+// ------ interceptors mock ------
+jest.mock('./src/services/interceptors', () => ({ setupInterceptors: jest.fn() }));
+
 // ------ react-redux mock ------
 //export const mockDispatch = jest.fn();
 
@@ -42,8 +45,3 @@ jest.mock('react-native-navigation', () => ({
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/Animated/Easing');
 jest.mock('react-native/Libraries/Animated/animations/TimingAnimation');
-
-// ------ Async Storage mock ------
-//import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
-
-//jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);

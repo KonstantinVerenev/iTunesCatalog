@@ -21,12 +21,17 @@ type resetError = {
   type: typeof RESET_ERROR;
 };
 
-type setCountry = {
+type setCurrentCountry = {
   type: typeof SET_COUNTRY;
   payload: string;
 };
 
-export type mainStateAction = getData | getDataSuccess | getDataError | resetError | setCountry;
+export type mainStateAction =
+  | getData
+  | getDataSuccess
+  | getDataError
+  | resetError
+  | setCurrentCountry;
 
 export const getData = (): getData => {
   return { type: GET_DATA };
@@ -44,6 +49,6 @@ export const resetError = (): resetError => {
   return { type: RESET_ERROR };
 };
 
-export const setCountry = (payload: string): setCountry => {
+export const setCurrentCountry = (payload: string): setCurrentCountry => {
   return { type: SET_COUNTRY, payload };
 };

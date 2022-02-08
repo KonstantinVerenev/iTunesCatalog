@@ -8,23 +8,11 @@ import {
   TrackResponseData as TrackResponseRecord,
 } from '../features/albums/types';
 import { AlbumsResponseData as FavoriteAlbumsData } from '../features/favorites/types';
-import { store } from '../store';
 import { instance } from './instance';
 
 type iTunesResponse<Items> = {
   results: Items;
 };
-
-instance.interceptors.request.use(
-  function (config) {
-    const country = store.getState().main.currentCountry;
-    config.params = { ...config.params, country };
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
 
 export const artistAPI = {
   async getArtistsByName(name: string): Promise<ArtistResponceData[]> {
