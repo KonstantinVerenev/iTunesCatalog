@@ -61,6 +61,7 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
       releaseDate,
       country,
       primaryGenreName,
+      collectionViewUrl,
     },
   }) => {
     return (
@@ -73,6 +74,7 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
         releaseDate={releaseDate}
         country={country}
         primaryGenreName={primaryGenreName}
+        collectionViewUrl={collectionViewUrl}
       />
     );
   };

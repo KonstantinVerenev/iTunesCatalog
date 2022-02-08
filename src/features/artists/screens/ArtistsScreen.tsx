@@ -13,6 +13,7 @@ import { SELECTED_ARTIST_SCREEN } from '../../../navigation/constants';
 import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
+import { useInitialURL } from '../../../hooks/useInitialURL';
 import { decodeCoords } from '../../../utils/decodeCoords';
 import { setCurrentCountry } from '../../../store/actions';
 
@@ -20,6 +21,8 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
+
+  useInitialURL();
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -40,7 +43,6 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     setLastSearch(text);
     dispatch(thunkGetArtists(text));
   };
-
   const onOpenArtistScreen = (artistId: number, artistName: string): void => {
     Navigation.push(componentId, {
       component: {

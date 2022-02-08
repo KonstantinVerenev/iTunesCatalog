@@ -1,5 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Image, LayoutAnimation, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Button,
+  Image,
+  LayoutAnimation,
+  Linking,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import colors from '../constants/colors';
 import { formatMillisToMinAndSec } from '../utils/formatMillisToMinAndSec';
@@ -13,6 +23,7 @@ type TrackItemProps = {
   releaseDate: string;
   country: string;
   primaryGenreName: string;
+  collectionViewUrl: string;
 };
 
 const TrackItem: React.FC<TrackItemProps> = ({
@@ -24,6 +35,7 @@ const TrackItem: React.FC<TrackItemProps> = ({
   releaseDate,
   country,
   primaryGenreName,
+  collectionViewUrl,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const formattedTime = useMemo(() => formatMillisToMinAndSec(trackTimeMillis), [trackTimeMillis]);
@@ -32,6 +44,25 @@ const TrackItem: React.FC<TrackItemProps> = ({
   const onOpenMoreInfo = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(!expanded);
+  };
+
+  const onPressItunes = async () => {
+    const itunesAppLink = 'itms-apps://';
+
+    try {
+      if (Platform.OS === 'ios') {
+        const appSupported = await Linking.canOpenURL(itunesAppLink);
+
+        if (appSupported) {
+          await Linking.openURL(itunesAppLink);
+          return;
+        }
+      }
+
+      await Linking.openURL(collectionViewUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -62,9 +93,14 @@ const TrackItem: React.FC<TrackItemProps> = ({
       </View>
       {expanded && (
         <View style={styles.trackMoreInfo} testID="add-info">
-          <Text>Дата релиза: {fotmattedDate}</Text>
-          <Text>Страна: {country}</Text>
-          <Text>Жанр: {primaryGenreName}</Text>
+          <View>
+            <Text>Дата релиза: {fotmattedDate}</Text>
+            <Text>Страна: {country}</Text>
+            <Text>Жанр: {primaryGenreName}</Text>
+          </View>
+          <View>
+            <Button title="go to iTunes" onPress={onPressItunes} />
+          </View>
         </View>
       )}
     </TouchableOpacity>
@@ -89,6 +125,9 @@ const styles = StyleSheet.create({
   },
   trackMoreInfo: {
     marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   cover: {
     marginLeft: 10,

@@ -48,6 +48,7 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
           releaseDate,
           country,
           primaryGenreName,
+          collectionViewUrl,
         } = track;
 
         return {
@@ -63,6 +64,7 @@ export const albumsReducer = (state = initialState, action: AlbumsStateAction): 
             releaseDate,
             country,
             primaryGenreName,
+            collectionViewUrl,
           },
         };
       }, {});
