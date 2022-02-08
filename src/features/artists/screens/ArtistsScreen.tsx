@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import Geolocation from '@react-native-community/geolocation';
 
 import colors from '../../../constants/colors';
 
@@ -13,6 +14,8 @@ import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
 import { useInitialURL } from '../../../hooks/useInitialURL';
+import { decodeCoords } from '../../../utils/decodeCoords';
+import { setCurrentCountry } from '../../../store/actions';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
@@ -20,6 +23,21 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const dispatch = useDispatch();
 
   useInitialURL();
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      async (pos) => {
+        const country = await decodeCoords(pos.coords.latitude, pos.coords.longitude);
+        dispatch(setCurrentCountry(country));
+      },
+      (error) => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 2000,
+        maximumAge: 3600000,
+      }
+    );
+  }, []);
 
   const onSubmitInput = (text: string) => {
     setLastSearch(text);
