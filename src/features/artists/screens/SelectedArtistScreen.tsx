@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import AlbumItem from '../../../components/AlbumItem';
 
+import AlbumItem from '../../../components/AlbumItem';
 import { EmptyList } from '../../../components/EmptyList';
 import { ARTISTS_TRACKS_SCREEN } from '../../../navigation/constants';
 import { selectAlbumsById } from '../selectors';

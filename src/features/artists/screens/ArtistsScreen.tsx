@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } fr
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
+import Geolocation from '@react-native-community/geolocation';
 
 import colors from '../../../constants/colors';
 
@@ -13,6 +14,9 @@ import { SELECTED_ARTIST_SCREEN } from '../../../navigation/constants';
 import { selectArtists } from '../selectors';
 import { thunkGetArtists } from '../thunks';
 import { ArtistResponceData } from '../types';
+import { useInitialURL } from '../../../hooks/useInitialURL';
+import { decodeCoords } from '../../../utils/decodeCoords';
+import { setCurrentCountry } from '../../../store/actions';
 
 const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
@@ -23,11 +27,27 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     SplashScreen.hide();
   }, []);
 
+  useInitialURL();
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      async (pos) => {
+        const country = await decodeCoords(pos.coords.latitude, pos.coords.longitude);
+        dispatch(setCurrentCountry(country));
+      },
+      (error) => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 2000,
+        maximumAge: 3600000,
+      }
+    );
+  }, []);
+
   const onSubmitInput = (text: string) => {
     setLastSearch(text);
     dispatch(thunkGetArtists(text));
   };
-
   const onOpenArtistScreen = (artistId: number, artistName: string): void => {
     Navigation.push(componentId, {
       component: {

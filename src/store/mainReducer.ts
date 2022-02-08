@@ -1,18 +1,21 @@
 import {
+  mainStateAction,
   GET_DATA,
   GET_DATA_ERROR,
   GET_DATA_SUCCESS,
-  mainStateAction,
   RESET_ERROR,
+  SET_COUNTRY,
 } from './actions';
 
 export type MainState = {
   isLoading: boolean;
   errorMessage?: string;
+  currentCountry: string;
 };
 
 const initialState: MainState = {
   isLoading: false,
+  currentCountry: 'us',
 };
 
 export const mainReducer = (state = initialState, action: mainStateAction): MainState => {
@@ -37,6 +40,11 @@ export const mainReducer = (state = initialState, action: mainStateAction): Main
       return {
         ...state,
         errorMessage: undefined,
+      };
+    case SET_COUNTRY:
+      return {
+        ...state,
+        currentCountry: action.payload,
       };
     default:
       return state;
