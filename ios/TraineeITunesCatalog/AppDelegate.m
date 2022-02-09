@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
-
 #import <ReactNativeNavigation/ReactNativeNavigation.h>
+#import "RNSplashScreen.h" 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
@@ -33,9 +33,11 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
   
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+
   [ReactNativeNavigation bootstrapWithBridge:bridge];
   
-  
+  [RNSplashScreen show];
+
   return YES;
 }
 

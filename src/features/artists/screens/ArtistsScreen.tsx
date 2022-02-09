@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 import Geolocation from '@react-native-community/geolocation';
 
 import colors from '../../../constants/colors';
@@ -21,6 +22,10 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const artistsData = useSelector(selectArtists);
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   useInitialURL();
 
