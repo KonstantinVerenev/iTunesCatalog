@@ -21,6 +21,6 @@ describe('EmptyList', () => {
   it('should EmptyList contains right text', () => {
     const wrapper = shallow(<EmptyList />);
 
-    expect(wrapper.find({ testID: 'empty-message' }).contains('Ничего не найдено')).toBeTruthy();
+    expect(wrapper.find({ testID: 'empty-message' }).contains('No results found')).toBeTruthy();
   });
 });

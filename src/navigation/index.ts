@@ -20,11 +20,11 @@ export const rootNavigator = (): void => {
                     options: {
                       topBar: {
                         title: {
-                          text: 'Артисты',
+                          text: 'Artists',
                         },
                       },
                       bottomTab: {
-                        text: 'Артисты',
+                        text: 'Artists',
                       },
                     },
                   },
@@ -49,11 +49,11 @@ export const rootNavigator = (): void => {
                     options: {
                       topBar: {
                         title: {
-                          text: 'Альбомы',
+                          text: 'Albums',
                         },
                       },
                       bottomTab: {
-                        text: 'Альбомы',
+                        text: 'Albums',
                       },
                     },
                   },
@@ -78,11 +78,11 @@ export const rootNavigator = (): void => {
                     options: {
                       topBar: {
                         title: {
-                          text: 'Избранное',
+                          text: 'Favorites',
                         },
                       },
                       bottomTab: {
-                        text: 'Избранное',
+                        text: 'Favorites',
                       },
                     },
                   },

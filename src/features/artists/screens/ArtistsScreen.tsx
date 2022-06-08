@@ -84,7 +84,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
         <SearchInput onSubmit={onSubmitInput} />
       </View>
       {!!lastSearch && (
-        <Text style={styles.searchNote}>{`Результаты поиска по: "${lastSearch}"`}</Text>
+        <Text style={styles.searchNote}>{`Search results for: "${lastSearch}"`}</Text>
       )}
       <FlatList
         style={styles.artistList}

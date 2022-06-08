@@ -5,7 +5,7 @@ export const EmptyList: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.emptyText} testID="empty-message">
-        Ничего не найдено
+        No results found
       </Text>
     </View>
   );

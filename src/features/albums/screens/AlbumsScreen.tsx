@@ -59,7 +59,7 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
         <Text
           style={styles.searchNote}
           testID="last-search"
-        >{`Результаты поиска по: "${lastSearch}"`}</Text>
+        >{`Search results for: "${lastSearch}"`}</Text>
       )}
       <FlatList
         style={styles.artistList}

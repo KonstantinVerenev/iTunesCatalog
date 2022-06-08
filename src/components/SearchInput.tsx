@@ -25,7 +25,7 @@ const SearchInput: React.FC<SearchInputType> = ({ onSubmit, testID }) => {
       />
       <TextInput
         style={styles.inputField}
-        placeholder={'Поиск'}
+        placeholder={'Search'}
         onChangeText={setSearchString}
         returnKeyType={'search'}
         onSubmitEditing={onSubmitInput}

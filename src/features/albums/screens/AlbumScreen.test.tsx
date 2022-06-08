@@ -30,7 +30,7 @@ describe('AlbumsScreen', () => {
 
     expect(wrapper.find({ testID: 'last-search' })).toHaveLength(1);
     expect(wrapper.find({ testID: 'last-search' }).prop('children')).toEqual(
-      `Результаты поиска по: "${searchValue}"`
+      `Search results for: "${searchValue}"`
     );
   });
 
