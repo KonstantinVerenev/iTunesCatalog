@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   Button,
   Image,
@@ -41,10 +41,10 @@ const TrackItem: React.FC<TrackItemProps> = ({
   const formattedTime = useMemo(() => formatMillisToMinAndSec(trackTimeMillis), [trackTimeMillis]);
   const fotmattedDate = releaseDate.slice(0, -10);
 
-  const onOpenMoreInfo = () => {
+  const onOpenMoreInfo = useCallback(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(!expanded);
-  };
+  }, [expanded]);
 
   const onPressItunes = async () => {
     const itunesAppLink = 'itms-apps://';

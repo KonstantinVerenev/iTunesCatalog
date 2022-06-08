@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,9 +45,9 @@ const ArtistsTracksScreen: NavigationFunctionComponent<ArtistsTracksScreenProps>
     Navigation.mergeOptions(componentId, options);
   }, [collectionId, componentId, favoritesAlbumsIds]);
 
-  const onPressFavorite = () => {
+  const onPressFavorite = useCallback(() => {
     dispatch(updateFavoriteAlbums(collectionId));
-  };
+  }, []);
 
   useButtonListener(`${ARTISTS_TRACKS_SCREEN}-${FAV_BUTTON_ID}`, onPressFavorite);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, Text } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +17,10 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
   const [lastSearch, setLastSearch] = useState<string | null>(null);
   const dispatch = useDispatch();
 
-  const onSubmitInput = (text: string): void => {
+  const onSubmitInput = useCallback((text: string): void => {
     setLastSearch(text);
     dispatch(thunkGetAlbums(text));
-  };
+  }, []);
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, artistName, collectionName, artworkUrl100, collectionPrice },

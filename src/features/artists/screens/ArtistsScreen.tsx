@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, Text, TouchableOpacity } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,11 +44,12 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
     );
   }, []);
 
-  const onSubmitInput = (text: string) => {
+  const onSubmitInput = useCallback((text: string) => {
     setLastSearch(text);
     dispatch(thunkGetArtists(text));
-  };
-  const onOpenArtistScreen = (artistId: number, artistName: string): void => {
+  }, []);
+
+  const onOpenArtistScreen = useCallback((artistId: number, artistName: string): void => {
     Navigation.push(componentId, {
       component: {
         name: SELECTED_ARTIST_SCREEN,
@@ -58,7 +59,7 @@ const ArtistsScreen: NavigationFunctionComponent = ({ componentId }) => {
         options: getArtistScreenOptions(artistName),
       },
     });
-  };
+  }, []);
 
   const renderItem: ListRenderItem<ArtistResponceData> = ({
     item: { artistId, artistName, primaryGenreName },

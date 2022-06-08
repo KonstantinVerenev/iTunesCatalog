@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Navigation, NavigationFunctionComponent } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +27,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
     dispatch(thunkGetAlbumsById(artistId));
   }, [artistId, dispatch]);
 
-  const onOpenAlbumScreen = (collectionId: number, collectionName: string): void => {
+  const onOpenAlbumScreen = useCallback((collectionId: number, collectionName: string): void => {
     Navigation.push(componentId, {
       component: {
         name: ARTISTS_TRACKS_SCREEN,
@@ -38,7 +38,7 @@ const SelectedArtistScreen: NavigationFunctionComponent<SelectedArtistScreenProp
         options: getAlbumScreenOptions(ARTISTS_TRACKS_SCREEN, collectionName),
       },
     });
-  };
+  }, []);
 
   const renderItem: ListRenderItem<AlbumsResponseData> = ({
     item: { collectionId, collectionName, artistName, artworkUrl100, collectionPrice },
