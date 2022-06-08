@@ -55,7 +55,7 @@ const AlbumsScreen: NavigationFunctionComponent = ({ componentId }) => {
       <View style={styles.searchInput}>
         <SearchInput onSubmit={onSubmitInput} testID="search-input" />
       </View>
-      {lastSearch && (
+      {!!lastSearch && (
         <Text
           style={styles.searchNote}
           testID="last-search"

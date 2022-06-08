@@ -1,4 +1,4 @@
-package com.traineeitunescatalog;
+package com.itunescatalog;
 
 import android.os.Bundle;
 import org.devio.rn.splashscreen.SplashScreen;

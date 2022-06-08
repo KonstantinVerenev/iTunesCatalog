@@ -10,7 +10,7 @@ export const getArtistScreenOptions = (artistName: string): Options => {
         text: artistName,
       },
       backButton: {
-        title: 'Назад',
+        title: 'Back',
       },
     },
   };

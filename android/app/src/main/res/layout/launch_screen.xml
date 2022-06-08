@@ -32,7 +32,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="657dp"
         android:fontFamily="sans-serif"
-        android:text="trainee app"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="20sp" />
 </RelativeLayout>

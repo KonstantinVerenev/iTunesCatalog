@@ -18,7 +18,7 @@ export const ErrorModal: React.FC<ErrorModal> = ({ errorMessage, onCloseError })
           <Text style={styles.errorMessage} testID="error-message">
             {errorMessage}
           </Text>
-          <Button title={'Назад'} onPress={onCloseError} />
+          <Button title={'Back'} onPress={onCloseError} />
         </View>
       </View>
     </Modal>
