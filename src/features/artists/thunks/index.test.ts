@@ -38,7 +38,7 @@ describe('thunkGetArtists', () => {
     expect(dispatch).toHaveBeenNthCalledWith(1, getData());
     expect(dispatch).toHaveBeenNthCalledWith(
       2,
-      getDataError('Произошла ошибка при загрузке данных с сервера')
+      getDataError('An error occurred while downloading data from the server')
     );
   });
 });
@@ -71,7 +71,7 @@ describe('thunkGetAlbumsById', () => {
     expect(dispatch).toHaveBeenNthCalledWith(1, getData());
     expect(dispatch).toHaveBeenNthCalledWith(
       2,
-      getDataError('Произошла ошибка при загрузке данных с сервера')
+      getDataError('An error occurred while downloading data from the server')
     );
   });
 });
@@ -106,7 +106,7 @@ describe('thunkGetTracksById', () => {
     expect(dispatch).toHaveBeenNthCalledWith(1, getData());
     expect(dispatch).toHaveBeenNthCalledWith(
       2,
-      getDataError('Произошла ошибка при загрузке данных с сервера')
+      getDataError('An error occurred while downloading data from the server')
     );
   });
 });

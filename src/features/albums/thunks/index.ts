@@ -20,7 +20,7 @@ export const thunkGetAlbums = (
       dispatch(getAlbumsSuccess(albums));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+      dispatch(getDataError('An error occurred while downloading data from the server'));
     }
   };
 };
@@ -38,7 +38,7 @@ export const thunkGetAlbumTracksById = (
       dispatch(getTracksByIdSuccess(tracks, collectionId));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+      dispatch(getDataError('An error occurred while downloading data from the server'));
     }
   };
 };

@@ -1,7 +1,7 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useRef } from 'react';
 import { Text, StyleSheet, Animated, TouchableOpacity, Alert } from 'react-native';
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import colors from '../constants/colors';
 
@@ -31,12 +31,11 @@ const NetInfoWarning: React.FC = () => {
     }),
   ]).start();
 
+  const onWarningPress = () => Alert.alert('Отсутствует соединение с интернетом');
+
   return (
     <Animated.View style={{ ...styles.warningContainer, opacity: value }}>
-      <TouchableOpacity
-        style={styles.warningButton}
-        onPress={() => Alert.alert('Отсутствует соединение с интернетом')}
-      >
+      <TouchableOpacity style={styles.warningButton} onPress={onWarningPress}>
         <Text style={styles.warningText}>Нет соединения</Text>
       </TouchableOpacity>
     </Animated.View>

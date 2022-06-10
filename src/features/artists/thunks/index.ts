@@ -24,7 +24,7 @@ export const thunkGetArtists = (
       dispatch(getArtistSuccess(artists));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+      dispatch(getDataError('An error occurred while downloading data from the server'));
     }
   };
 };
@@ -42,7 +42,7 @@ export const thunkGetAlbumsById = (
       dispatch(getAlbumsByIdSuccess(albums, id));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+      dispatch(getDataError('An error occurred while downloading data from the server'));
     }
   };
 };
@@ -61,7 +61,7 @@ export const thunkGetTracksById = (
       dispatch(getTracksByIdSuccess(tracks, artistId, collectionId));
     } catch (error) {
       console.log(error);
-      dispatch(getDataError('Произошла ошибка при загрузке данных с сервера'));
+      dispatch(getDataError('An error occurred while downloading data from the server'));
     }
   };
 };

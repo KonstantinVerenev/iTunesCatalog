@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: colors.opacityGrey,
+    backgroundColor: colors.grey07,
   },
   loadingIndicator: {
     flex: 1,

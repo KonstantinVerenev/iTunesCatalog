@@ -14,7 +14,7 @@ export const ErrorModal: React.FC<ErrorModal> = ({ errorMessage, onCloseError })
     <Modal isVisible={!!errorMessage} animationIn={'zoomInUp'} testID="error-modal">
       <View style={styles.modalContainer}>
         <View style={styles.modalWindow}>
-          <Text style={styles.errorMessage}>Ошибка:</Text>
+          <Text style={styles.errorMessage}>Error:</Text>
           <Text style={styles.errorMessage} testID="error-message">
             {errorMessage}
           </Text>

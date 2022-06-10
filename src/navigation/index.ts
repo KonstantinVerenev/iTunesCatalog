@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
+import colors from '../constants/colors';
 import { registerAllScreens } from './screenRegister';
 import { ALBUMS_SCREEN, ARTISTS_SCREEN, FAVORITES_SCREEN } from './constants';
 
@@ -107,9 +108,9 @@ export const rootNavigator = (): void => {
 Navigation.setDefaultOptions({
   bottomTab: {
     fontSize: 12,
-    iconColor: 'rgba(0, 0, 0, .3)',
-    selectedIconColor: 'rgba(0, 0, 0, 1)',
-    textColor: 'rgba(0, 0, 0, .3)',
-    selectedTextColor: 'rgba(0, 0, 0, 1)',
+    iconColor: colors.black03,
+    selectedIconColor: colors.black,
+    textColor: colors.black03,
+    selectedTextColor: colors.black,
   },
 });
